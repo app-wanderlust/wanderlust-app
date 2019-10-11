@@ -1,4 +1,4 @@
-package br.ufrpe.wanderlustapp.infra;
+package br.ufrpe.wanderlustapp.infra.persistencia;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
