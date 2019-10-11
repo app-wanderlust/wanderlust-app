@@ -1,9 +1,12 @@
 package br.ufrpe.wanderlustapp.usuario.dominio;
 
+import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
+
 public class Usuario {
     private long id;
     private String email;
     private String senha;
+    private Pessoa pessoa;
 
     public long getId() {
         return id;
@@ -27,5 +30,13 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 }
