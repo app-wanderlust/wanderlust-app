@@ -10,7 +10,7 @@ import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 public class Pessoa {
     private long id;
     private String nome;
-    private Date nascimento;
+    private String nascimento;
     private Usuario usuario;
     private ArrayList<Pais> paises;
     private ArrayList<Conversa> conversas;
@@ -39,11 +39,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public Date getNascimento() {
-        return nascimento;
+    public String getNascimento() {
+        return "nascimento";
     }
 
-    public void setNascimento(Date nascimento) {
+    public void setNascimento(String nascimento) {
         this.nascimento = nascimento;
     }
 
