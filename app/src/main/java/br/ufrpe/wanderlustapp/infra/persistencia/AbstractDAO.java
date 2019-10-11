@@ -2,7 +2,6 @@ package br.ufrpe.wanderlustapp.infra.persistencia;
 
 import java.io.Closeable;
 import java.io.IOException;
-
 import br.ufrpe.wanderlustapp.infra.WanderlustRunTimeException;
 
 public class AbstractDAO {
