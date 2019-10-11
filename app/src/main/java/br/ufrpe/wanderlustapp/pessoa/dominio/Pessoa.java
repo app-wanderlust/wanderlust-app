@@ -1,7 +1,9 @@
 package br.ufrpe.wanderlustapp.pessoa.dominio;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import br.ufrpe.wanderlustapp.conversa.dominio.Conversa;
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 
@@ -10,14 +12,15 @@ public class Pessoa {
     private String nome;
     private Date nascimento;
     private Usuario usuario;
-    private Pais pais;
+    private ArrayList<Pais> paises;
+    private ArrayList<Conversa> conversas;
 
-    public Pais getPais() {
-        return pais;
+    public ArrayList<Pais> getPaises() {
+        return paises;
     }
 
-    public void setPais(Pais pais) {
-        this.pais = pais;
+    public void setPaises(ArrayList<Pais> paises) {
+        this.paises = paises;
     }
 
     public long getId() {
@@ -50,5 +53,13 @@ public class Pessoa {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public ArrayList<Conversa> getConversas() {
+        return conversas;
+    }
+
+    public void setConversas(ArrayList<Conversa> conversas) {
+        this.conversas = conversas;
     }
 }

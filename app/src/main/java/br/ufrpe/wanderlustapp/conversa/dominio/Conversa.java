@@ -1,5 +1,6 @@
 package br.ufrpe.wanderlustapp.conversa.dominio;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
@@ -8,7 +9,7 @@ public class Conversa {
     private long id;
     private String texto;
     private Date data;
-    private Pais pais;
+    private ArrayList<Pais> paises;
 
     public long getId() {
         return id;
@@ -34,11 +35,11 @@ public class Conversa {
         this.data = data;
     }
 
-    public Pais getPais() {
-        return pais;
+    public ArrayList<Pais> getPaises() {
+        return paises;
     }
 
-    public void setPais(Pais pais) {
-        this.pais = pais;
+    public void setPaises(ArrayList<Pais> paises) {
+        this.paises = paises;
     }
 }
