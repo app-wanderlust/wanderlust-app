@@ -6,26 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".usuario.gui.LoginActivity">
 
-    <EditText
-        android:id="@+id/campoEmailId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="243dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ico"
+
+        app:layout_constraintBottom_toTopOf="@id/campoEmailId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.62" />
+
+
+    <EditText
+        android:id="@+id/campoEmailId"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="40dp"
+        android:background="@color/colorPrimary"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:paddingLeft="10dp"
+        android:ems="10"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.38" />
 
     <EditText
         android:id="@+id/campoSenhaId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="40dp"
+        android:layout_height="40dp"
         android:layout_marginTop="47dp"
+        android:background="@color/colorPrimary"
+        android:textColorHint="#fff"
+        android:textColor="#fff"
+        android:paddingLeft="10dp"
         android:ems="10"
         android:hint="Senha"
         android:inputType="textPassword"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/campoEmailId" />
@@ -33,10 +59,30 @@
     <Button
         android:id="@+id/botaoLoginId"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="68dp"
-        android:text="Login"
+        android:background="@color/colorAccent"
+        android:textColor="#fff"
+        android:text="Entrar"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/campoSenhaId" />
+
+
+    <TextView
+        android:id="@+id/textoCadastroId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Não tem uma conta? Cadastre-se!"
+        android:textSize="16dp"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/botaoLoginId"
+        app:layout_constraintVertical_bias="0.22000003" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
