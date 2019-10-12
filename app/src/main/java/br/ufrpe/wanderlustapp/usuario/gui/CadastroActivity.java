@@ -36,6 +36,9 @@ public class CadastroActivity extends AppCompatActivity {
         etSenha = findViewById(R.id.campoSenhaCadastroId);
         etConfirmarSenha = findViewById(R.id.campoConfirmarSenhaCadastroId);
         etNascimento = findViewById(R.id.campoDataNascimentoCadastroId);
+        etNascimento.addTextChangedListener(new MaskWatcher("##/##/####"));
+
+
         btnCadastrar = findViewById(R.id.botaoCadastrarId);
 
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
