@@ -35,6 +35,5 @@ public class UsuarioServices {
 
         long idUsuario = usuarioDAO.cadastrar(usuario);
         usuario.setId(idUsuario);
-
     }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import br.ufrpe.wanderlustapp.R;
+import br.ufrpe.wanderlustapp.usuario.negocio.UsuarioServices;
 
 public class LoginActivity extends AppCompatActivity {
     private TextView TxCadastro;
@@ -19,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText EtSenha;
     private String email;
     private String senha;
+    private final UsuarioServices usuarioServices = new UsuarioServices(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +36,33 @@ public class LoginActivity extends AppCompatActivity {
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this,"Clicou no botão login", Toast.LENGTH_SHORT).show();
+                if(validaCampos()){
+                    try {
+                        usuarioServices.login(EtEmail.getText().toString(), EtSenha.getText().toString());
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    } catch (Exception e) {
+                        Toast.makeText(LoginActivity.this,"email e/ou senha invalidos.", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(LoginActivity.this, "Preencha os campos",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
         TxCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this,"Clicou no botão cadastro", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this,"Clicou no botão cadastro", Toast.LENGTH_SHORT).show();
                 Intent registerIntent = new Intent(LoginActivity.this, CadastroActivity.class);
                 startActivity(registerIntent);
             }
         });
 
 
+    }
+
+    private boolean validaCampos() {
+        return EtEmail.getText().length() != 0 && EtSenha.getText().length() != 0;
     }
 }
