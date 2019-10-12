@@ -41,10 +41,10 @@ public class LoginActivity extends AppCompatActivity {
                         usuarioServices.login(EtEmail.getText().toString(), EtSenha.getText().toString());
                         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     } catch (Exception e) {
-                        Toast.makeText(LoginActivity.this,"email e/ou senha invalidos.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this,"E-mail e/ou senha inválidos.", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(LoginActivity.this, "Preencha os campos",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Preencha os campos corretamente",Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -53,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         TxCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(LoginActivity.this,"Clicou no botão cadastro", Toast.LENGTH_SHORT).show();
                 Intent registerIntent = new Intent(LoginActivity.this, CadastroActivity.class);
                 startActivity(registerIntent);
             }

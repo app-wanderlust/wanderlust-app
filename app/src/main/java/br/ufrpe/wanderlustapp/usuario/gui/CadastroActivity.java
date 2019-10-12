@@ -63,12 +63,12 @@ public class CadastroActivity extends AppCompatActivity {
             try{
                 usuarioServices.cadastrar(usuario);
                 startActivity(new Intent(CadastroActivity.this, LoginActivity.class));
-                Toast.makeText(this, "Cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
             }catch (Exception e){
-                Toast.makeText(this, "Este login ja existe!", Toast.LENGTH_LONG).show();
+                Toast.makeText(CadastroActivity.this, "Esse e-mail já foi cadastrado", Toast.LENGTH_LONG).show();
             }
         }else {
-            Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastroActivity.this, "Preencha os campos corretamente",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -97,7 +97,7 @@ public class CadastroActivity extends AppCompatActivity {
         return etNome.getText().toString().length() != 0 &&
                 etSenha.getText().toString().length() != 0 &&
                 etConfirmarSenha.getText().length() != 0 &&
-                etNascimento.getText().toString().length() !=0 &&
+                etNascimento.getText().toString().length() != 0 &&
                 etEmail.getText().toString().length() != 0;
     }
 }

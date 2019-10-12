@@ -22,9 +22,9 @@
     <EditText
         android:id="@+id/campoEmailId"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginHorizontal="40dp"
-        android:background="@color/colorPrimary"
+        android:background="#63539E"
         android:textColor="#fff"
         android:textColorHint="#fff"
         android:paddingLeft="10dp"
@@ -42,9 +42,9 @@
         android:id="@+id/campoSenhaId"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="40dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginTop="47dp"
-        android:background="@color/colorPrimary"
+        android:background="#63539E"
         android:textColorHint="#fff"
         android:textColor="#fff"
         android:paddingLeft="10dp"
@@ -59,9 +59,9 @@
     <Button
         android:id="@+id/botaoLoginId"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginTop="68dp"
-        android:background="@color/colorAccent"
+        android:background="#a56191"
         android:textColor="#fff"
         android:text="Entrar"
 
@@ -75,6 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Não tem uma conta? Cadastre-se!"
+        android:textColor="#63539E"
         android:textSize="16dp"
         android:textStyle="bold"
 
