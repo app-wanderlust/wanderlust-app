@@ -12,12 +12,12 @@ import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
 public class PessoaDAO extends AbstractDAO {
     private SQLiteDatabase db;
     private DBHelper helper;
-//    private Context context;
-//
-//    public PessoaDAO(Context context){
-//        this.context = context;
-//        helper = new DBHelper(context);
-//    }
+    private Context context;
+
+    public PessoaDAO(Context context){
+        this.context = context;
+        helper = new DBHelper(context);
+    }
 
     public Pessoa getPessoa(long id) {
         Pessoa result = null;
