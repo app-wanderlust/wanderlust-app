@@ -8,60 +8,126 @@
 
     <EditText
         android:id="@+id/campoNomeCadastroId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="106dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="40dp"
+        android:background="@color/colorPrimary"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Nome"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16000003" />
 
     <EditText
         android:id="@+id/campoEmailCadastroId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="40dp"
+        android:background="@color/colorPrimary"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:ems="10"
+        android:hint="E-mail"
         android:inputType="textEmailAddress"
-        android:hint="Email"
+
+        app:layout_constraintBottom_toTopOf="@id/campoSenhaCadastroId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campoNomeCadastroId" />
+        app:layout_constraintTop_toBottomOf="@+id/campoNomeCadastroId"
+        app:layout_constraintVertical_bias="0.39" />
 
     <EditText
         android:id="@+id/campoSenhaCadastroId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_marginHorizontal="40dp"
+        android:background="@color/colorPrimary"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:ems="10"
         android:inputType="textPassword"
         android:hint="Senha"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campoEmailCadastroId" />
+        app:layout_constraintTop_toBottomOf="@+id/campoEmailCadastroId"
+        app:layout_constraintBottom_toTopOf="@id/campoConfirmarSenhaCadastroId"/>
+
+    />
 
     <EditText
-        android:id="@+id/campoDataCadastroId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:id="@+id/campoConfirmarSenhaCadastroId"
+        android:layout_marginHorizontal="40dp"
+        android:background="@color/colorPrimary"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:ems="10"
+        android:inputType="textPassword"
+        android:hint="Confirmar senha"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/campoSenhaCadastroId"
+        app:layout_constraintBottom_toTopOf="@id/campoDataNascimentoCadastroId"/>
+
+    <EditText
+        android:id="@+id/campoDataNascimentoCadastroId"
+        android:layout_marginHorizontal="40dp"
+        android:background="@color/colorPrimary"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:hint="Data de nascimento"
         android:inputType="date"
-        android:hint="dd/mm/aaaa"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campoSenhaCadastroId" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55" />
 
     <Button
         android:id="@+id/botaoCadastrarId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="140dp"
+        android:background="@color/colorAccent"
         android:text="Cadastrar"
+        android:textColor="#fff"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campoDataCadastroId" />
+        app:layout_constraintTop_toBottomOf="@+id/campoDataNascimentoCadastroId"
+        app:layout_constraintVertical_bias="0.26999998" />
+
+    <TextView
+        android:id="@+id/textoVoltarId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Já tenho uma conta"
+        android:textSize="16dp"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/botaoCadastrarId"
+        app:layout_constraintVertical_bias="0.22000003" />
 </androidx.constraintlayout.widget.ConstraintLayout>
