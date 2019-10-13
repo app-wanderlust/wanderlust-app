@@ -68,19 +68,18 @@ public class CadastroActivity extends AppCompatActivity {
                 startActivity(new Intent(CadastroActivity.this, LoginActivity.class));
                 Toast.makeText(this, "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
             }catch (Exception e){
-                Toast.makeText(CadastroActivity.this, "Esse e-mail já foi cadastrado", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Esse login já existe", Toast.LENGTH_LONG).show();
             }
         }else {
-            Toast.makeText(CadastroActivity.this, "Preencha os campos corretamente",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_LONG).show();
         }
     }
 
     private void senhasIguais() {
         if (!etSenha.getText().toString().equals(etConfirmarSenha.getText().toString())){
-            Toast.makeText(this, "As senhas são diferentes", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "As senhas devem ser iguais", Toast.LENGTH_LONG).show();
         }
     }
-
     private Usuario createUsuario(){
         Usuario usuario = new Usuario();
         usuario.setPessoa(createPessoa());
