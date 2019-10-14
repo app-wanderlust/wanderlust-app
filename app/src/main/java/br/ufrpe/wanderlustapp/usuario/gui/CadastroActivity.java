@@ -1,7 +1,6 @@
 package br.ufrpe.wanderlustapp.usuario.gui;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
@@ -37,16 +35,12 @@ public class CadastroActivity extends AppCompatActivity {
         etConfirmarSenha = findViewById(R.id.campoConfirmarSenhaCadastroId);
         etNascimento = findViewById(R.id.campoDataNascimentoCadastroId);
         etNascimento.addTextChangedListener(new MaskWatcher("##/##/####"));
-
-
-        btnCadastrar = findViewById(R.id.botaoCadastrarId);
+        Button btnCadastrar = findViewById(R.id.botaoCadastrarId);
 
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validaCampos()){
-                    cadastrar();
-                }
+                tentaCadastro();
             }
         });
 
@@ -60,19 +54,23 @@ public class CadastroActivity extends AppCompatActivity {
 
     }
 
-    private void cadastrar() {
+    private void tentaCadastro(){
         if (validaCampos()){
             Usuario usuario = createUsuario();
             try{
-                usuarioServices.cadastrar(usuario);
-                startActivity(new Intent(CadastroActivity.this, LoginActivity.class));
-                Toast.makeText(this, "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
+                cadastrar(usuario);
             }catch (Exception e){
-                Toast.makeText(this, "Esse login já existe", Toast.LENGTH_LONG).show();
+                Toast.makeText(CadastroActivity.this, "Esse login já existe", Toast.LENGTH_LONG).show();
             }
         }else {
-            Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastroActivity.this, "Por favor, preencha todos os campos", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void cadastrar(Usuario usuario) throws Exception {
+        usuarioServices.cadastrar(usuario);
+        startActivity(new Intent(CadastroActivity.this, LoginActivity.class));
+        Toast.makeText(CadastroActivity.this, "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
     }
 
     private void senhasIguais() {
@@ -80,6 +78,7 @@ public class CadastroActivity extends AppCompatActivity {
             Toast.makeText(this, "As senhas devem ser iguais", Toast.LENGTH_LONG).show();
         }
     }
+
     private Usuario createUsuario(){
         Usuario usuario = new Usuario();
         usuario.setPessoa(createPessoa());
@@ -102,4 +101,5 @@ public class CadastroActivity extends AppCompatActivity {
                 etNascimento.getText().toString().length() != 0 &&
                 etEmail.getText().toString().length() != 0;
     }
+
 }
