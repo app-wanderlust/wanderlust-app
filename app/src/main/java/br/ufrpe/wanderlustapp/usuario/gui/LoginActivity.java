@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -18,8 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView TxCadastro;
     private EditText EtEmail;
     private EditText EtSenha;
-    private String email;
-    private String senha;
     private Toast toast = null;
     private final UsuarioServices usuarioServices = new UsuarioServices(this);
 
@@ -72,6 +72,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean validaCampos() {
-        return EtEmail.getText().length() != 0 && EtSenha.getText().length() != 0;
+        boolean resultado = false;
+        String email = EtEmail.getText().toString();
+        if (isEmail(email)){
+            resultado = true;
+        }else{
+            EtEmail.setError("Email inválido");
+            EtEmail.requestFocus();
+        }
+        return resultado && EtSenha.getText().length() != 0;
+    }
+    private boolean isEmail(String email){
+        boolean resultado = (!isCampoVazio(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        return resultado;
+    }
+    private boolean isCampoVazio(String valor) {
+        boolean resultado = (TextUtils.isEmpty(valor) || valor.trim().isEmpty());
+        return resultado;
     }
 }

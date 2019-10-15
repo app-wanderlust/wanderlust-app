@@ -75,13 +75,11 @@ public class CadastroActivity extends AppCompatActivity {
         }
         }
 
-    private boolean senhasIguais(String senha, String confimarsenha,String nome,String email,String nascimento) {
+    private boolean senhasIguais(String senha, String confimarsenha) {
         boolean resultado = (etSenha.getText().toString().equals(etConfirmarSenha.getText().toString()));
         if(isCampoVazio(senha) & isCampoVazio(confimarsenha)){
             resultado = false;
-        }else
-            if (isCampoVazio(nome) |  isCampoVazio(email) | isCampoVazio(nascimento))
-                resultado = false;
+        }
         return resultado;
     }
 
@@ -151,12 +149,15 @@ public class CadastroActivity extends AppCompatActivity {
             etEmail.setError("Email inválido ");
             etEmail.requestFocus();
         }
-        if (senhasIguais(senha,confimarsenha,nome,email,nascimento)){
+        if (senhasIguais(senha,confimarsenha)){
             resultado = true;
         }else{
             resultado = false;
             etSenha.setError("Senhas Diferentes");
             etSenha.requestFocus();
+        }
+        if (isCampoVazio(nome) |  (isCampoVazio(email)) | (isCampoVazio(nascimento)) | (isCampoVazio(senha)) | (isCampoVazio(confimarsenha))){
+            resultado = false;
         }
         return resultado;
     }
