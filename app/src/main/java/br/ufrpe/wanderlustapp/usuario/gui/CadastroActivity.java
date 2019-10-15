@@ -75,10 +75,13 @@ public class CadastroActivity extends AppCompatActivity {
         }
         }
 
-    private boolean senhasIguais() {
+    private boolean senhasIguais(String senha, String confimarsenha) {
         boolean resultado = (etSenha.getText().toString().equals(etConfirmarSenha.getText().toString()));
-        return resultado;
+        if(isCampoVazio(senha) && isCampoVazio(confimarsenha)){
+            resultado = false;
         }
+        return resultado;
+    }
 
     private Usuario createUsuario() {
         Usuario usuario = new Usuario();
@@ -146,7 +149,7 @@ public class CadastroActivity extends AppCompatActivity {
             etEmail.setError("Email inválido ");
             etEmail.requestFocus();
         }
-        if (senhasIguais()){
+        if (senhasIguais(senha,confimarsenha)){
             resultado = true;
         }else{
             resultado = false;
