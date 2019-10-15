@@ -77,9 +77,6 @@ public class CadastroActivity extends AppCompatActivity {
 
     private boolean senhasIguais(String senha, String confimarsenha) {
         boolean resultado = (etSenha.getText().toString().equals(etConfirmarSenha.getText().toString()));
-        if(isCampoVazio(senha) & isCampoVazio(confimarsenha)){
-            resultado = false;
-        }
         return resultado;
     }
 
@@ -99,7 +96,13 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     private boolean validarCampos() {
-        boolean resultado;
+        boolean resultado = false;
+        boolean nome1 = false;
+        boolean senha1 = false;
+        boolean confirmarsenha1= false;
+        boolean email1 = false;
+        boolean nascimento1 = false;
+        boolean senhasiguais1 = false;
         String nome = etNome.getText().toString();
         String senha = etSenha.getText().toString();
         String confimarsenha = etConfirmarSenha.getText().toString();
@@ -107,57 +110,54 @@ public class CadastroActivity extends AppCompatActivity {
         String nascimento = etNascimento.getText().toString();
 
         if (!isCampoVazio(nome)){
-            resultado = true;
+            nome1 = true;
         }else{
-            resultado = false;
             etNome.setError("Informe o nome");
             etNome.requestFocus();
         }
 
         if (!isCampoVazio(senha)){
-            resultado = true;
+            senha1 = true;
         }else{
-            resultado = false;
             etSenha.setError("Informe uma senha");
             etSenha.requestFocus();
         }
         if (!isCampoVazio(confimarsenha)){
-            resultado = true;
+            confirmarsenha1 = true;
         }else{
-            resultado = false;
             etConfirmarSenha.setError("Por favor, confirme a senha");
             etConfirmarSenha.requestFocus();
         }
         if (!isCampoVazio(email)){
-            resultado = true;
+            email1 = true;
         }else{
-            resultado = false;
             etEmail.setError("E-mail deve estar preenchido");
             etEmail.requestFocus();
         }
          if (!isCampoVazio(nascimento)){
-            resultado = true;
+            nascimento1 = true;
         }else{
-            resultado = false;
             etNascimento.setError("Informe a data de nascimento");
             etNascimento.requestFocus();
         }
         if (isEmail(email)){
-            resultado = true;
+            email1 = true;
         }else{
-            resultado = false;
+            email1 = false;
             etEmail.setError("Este e-mail é inválido");
             etEmail.requestFocus();
         }
         if (senhasIguais(senha,confimarsenha)){
-            resultado = true;
+            senhasiguais1 = true;
         }else{
-            resultado = false;
             etSenha.setError("As senhas devem ser iguais");
             etSenha.requestFocus();
         }
         if (isCampoVazio(nome) |  (isCampoVazio(email)) | (isCampoVazio(nascimento)) | (isCampoVazio(senha)) | (isCampoVazio(confimarsenha))){
             resultado = false;
+        }
+        if (nome1 & senha1 & confirmarsenha1 & email1 & nascimento1 & senhasiguais1){
+            resultado = true;
         }
         return resultado;
     }

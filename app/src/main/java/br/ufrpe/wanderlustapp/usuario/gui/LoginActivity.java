@@ -74,11 +74,15 @@ public class LoginActivity extends AppCompatActivity {
     private boolean validaCampos() {
         boolean resultado = false;
         String email = EtEmail.getText().toString();
+        String senha = EtSenha.getText().toString();
         if (isEmail(email)){
             resultado = true;
         }else{
             EtEmail.setError("Email inválido");
             EtEmail.requestFocus();
+        }
+        if (isCampoVazio(senha)){
+            EtSenha.setError("Informe uma senha");
         }
         return resultado && EtSenha.getText().length() != 0;
     }
