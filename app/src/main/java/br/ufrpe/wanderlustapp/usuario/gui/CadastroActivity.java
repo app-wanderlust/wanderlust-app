@@ -75,11 +75,13 @@ public class CadastroActivity extends AppCompatActivity {
         }
         }
 
-    private boolean senhasIguais(String senha, String confimarsenha) {
+    private boolean senhasIguais(String senha, String confimarsenha,String nome,String email,String nascimento) {
         boolean resultado = (etSenha.getText().toString().equals(etConfirmarSenha.getText().toString()));
-        if(isCampoVazio(senha) && isCampoVazio(confimarsenha)){
+        if(isCampoVazio(senha) & isCampoVazio(confimarsenha)){
             resultado = false;
-        }
+        }else
+            if (isCampoVazio(nome) |  isCampoVazio(email) | isCampoVazio(nascimento))
+                resultado = false;
         return resultado;
     }
 
@@ -149,7 +151,7 @@ public class CadastroActivity extends AppCompatActivity {
             etEmail.setError("Email inválido ");
             etEmail.requestFocus();
         }
-        if (senhasIguais(senha,confimarsenha)){
+        if (senhasIguais(senha,confimarsenha,nome,email,nascimento)){
             resultado = true;
         }else{
             resultado = false;
