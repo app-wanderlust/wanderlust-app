@@ -20,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText EtSenha;
     private String email;
     private String senha;
+    private Toast toast = null;
     private final UsuarioServices usuarioServices = new UsuarioServices(this);
 
     @Override
@@ -41,10 +42,19 @@ public class LoginActivity extends AppCompatActivity {
                         usuarioServices.login(EtEmail.getText().toString(), EtSenha.getText().toString());
                         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     } catch (Exception e) {
-                        Toast.makeText(LoginActivity.this,"E-mail e/ou senha inválidos.", Toast.LENGTH_SHORT).show();
+
+                        if (toast != null){
+                            toast.cancel();
+                        }
+                        toast = Toast.makeText(LoginActivity.this,"E-mail e/ou senha inválidos.", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 }else{
-                    Toast.makeText(LoginActivity.this, "Preencha os campos corretamente",Toast.LENGTH_SHORT).show();
+                    if (toast != null){
+                        toast.cancel();
+                    }
+                    toast = Toast.makeText(LoginActivity.this, "Preencha os campos corretamente",Toast.LENGTH_SHORT);
+                    toast.show();
                 }
 
             }

@@ -3,6 +3,8 @@ package br.ufrpe.wanderlustapp.usuario.gui;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +23,7 @@ public class CadastroActivity extends AppCompatActivity {
     private EditText etConfirmarSenha;
     private EditText etNascimento;
     private Button btnCadastrar;
+    private Toast toast = null;
     UsuarioServices usuarioServices = new UsuarioServices(this);
 
     @Override
@@ -40,7 +43,7 @@ public class CadastroActivity extends AppCompatActivity {
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tentaCadastro();
+                tentarCadastro();
             }
         });
 
@@ -54,32 +57,28 @@ public class CadastroActivity extends AppCompatActivity {
 
     }
 
-    private void tentaCadastro(){
-        if (validaCampos()){
-            Usuario usuario = createUsuario();
-            try{
-                cadastrar(usuario);
-            }catch (Exception e){
-                Toast.makeText(CadastroActivity.this, "Esse login já existe", Toast.LENGTH_LONG).show();
-            }
-        }else {
-            Toast.makeText(CadastroActivity.this, "Por favor, preencha todos os campos", Toast.LENGTH_LONG).show();
-        }
-    }
-
     private void cadastrar(Usuario usuario) throws Exception {
         usuarioServices.cadastrar(usuario);
         startActivity(new Intent(CadastroActivity.this, LoginActivity.class));
         Toast.makeText(CadastroActivity.this, "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
     }
-
-    private void senhasIguais() {
-        if (!etSenha.getText().toString().equals(etConfirmarSenha.getText().toString())){
-            Toast.makeText(this, "As senhas devem ser iguais", Toast.LENGTH_LONG).show();
+    private void tentarCadastro(){
+        if (validarCampos()){
+            Usuario usuario = createUsuario();
+            try{
+                cadastrar(usuario);
+            }catch (Exception e){
+                Toast.makeText(CadastroActivity.this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show();
+            }
         }
-    }
+        }
 
-    private Usuario createUsuario(){
+    private boolean senhasIguais() {
+        boolean resultado = (etSenha.getText().toString().equals(etConfirmarSenha.getText().toString()));
+        return resultado;
+        }
+
+    private Usuario createUsuario() {
         Usuario usuario = new Usuario();
         usuario.setPessoa(createPessoa());
         usuario.setEmail(etEmail.getText().toString());
@@ -94,12 +93,72 @@ public class CadastroActivity extends AppCompatActivity {
         return pessoa;
     }
 
-    private boolean validaCampos() {
-        return etNome.getText().toString().length() != 0 &&
-                etSenha.getText().toString().length() != 0 &&
-                etConfirmarSenha.getText().length() != 0 &&
-                etNascimento.getText().toString().length() != 0 &&
-                etEmail.getText().toString().length() != 0;
-    }
+    private boolean validarCampos() {
+        boolean resultado;
+        String nome = etNome.getText().toString();
+        String senha = etSenha.getText().toString();
+        String confimarsenha = etConfirmarSenha.getText().toString();
+        String email = etEmail.getText().toString();
+        String nascimento = etNascimento.getText().toString();
 
+        if (!isCampoVazio(nome)){
+            resultado = true;
+        }else{
+            resultado = false;
+            etNome.setError("Nome Vazio");
+            etNome.requestFocus();
+        }
+
+        if (!isCampoVazio(senha)){
+            resultado = true;
+        }else{
+            resultado = false;
+            etSenha.setError("Senha Vazia");
+            etSenha.requestFocus();
+        }
+        if (!isCampoVazio(confimarsenha)){
+            resultado = true;
+        }else{
+            resultado = false;
+            etConfirmarSenha.setError("Confirmar Senha Vazio");
+            etConfirmarSenha.requestFocus();
+        }
+        if (!isCampoVazio(email)){
+            resultado = true;
+        }else{
+            resultado = false;
+            etEmail.setError("Email Vazio");
+            etEmail.requestFocus();
+        }
+         if (!isCampoVazio(nascimento)){
+            resultado = true;
+        }else{
+            resultado = false;
+            etNascimento.setError("Data de Nascimento Vazia");
+            etNascimento.requestFocus();
+        }
+        if (isEmail(email)){
+            resultado = true;
+        }else{
+            resultado = false;
+            etEmail.setError("Email inválido ");
+            etEmail.requestFocus();
+        }
+        if (senhasIguais()){
+            resultado = true;
+        }else{
+            resultado = false;
+            etSenha.setError("Senhas Diferentes");
+            etSenha.requestFocus();
+        }
+        return resultado;
+    }
+    private boolean isEmail(String email){
+        boolean resultado = (!isCampoVazio(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        return resultado;
+    }
+    private boolean isCampoVazio(String valor) {
+        boolean resultado = (TextUtils.isEmpty(valor) || valor.trim().isEmpty());
+        return resultado;
+    }
 }
