@@ -110,7 +110,7 @@ public class CadastroActivity extends AppCompatActivity {
             resultado = true;
         }else{
             resultado = false;
-            etNome.setError("Nome Vazio");
+            etNome.setError("Informe o nome");
             etNome.requestFocus();
         }
 
@@ -118,42 +118,42 @@ public class CadastroActivity extends AppCompatActivity {
             resultado = true;
         }else{
             resultado = false;
-            etSenha.setError("Senha Vazia");
+            etSenha.setError("Informe uma senha");
             etSenha.requestFocus();
         }
         if (!isCampoVazio(confimarsenha)){
             resultado = true;
         }else{
             resultado = false;
-            etConfirmarSenha.setError("Confirmar Senha Vazio");
+            etConfirmarSenha.setError("Por favor, confirme a senha");
             etConfirmarSenha.requestFocus();
         }
         if (!isCampoVazio(email)){
             resultado = true;
         }else{
             resultado = false;
-            etEmail.setError("Email Vazio");
+            etEmail.setError("E-mail deve estar preenchido");
             etEmail.requestFocus();
         }
          if (!isCampoVazio(nascimento)){
             resultado = true;
         }else{
             resultado = false;
-            etNascimento.setError("Data de Nascimento Vazia");
+            etNascimento.setError("Informe a data de nascimento");
             etNascimento.requestFocus();
         }
         if (isEmail(email)){
             resultado = true;
         }else{
             resultado = false;
-            etEmail.setError("Email inválido ");
+            etEmail.setError("Este e-mail é inválido");
             etEmail.requestFocus();
         }
         if (senhasIguais(senha,confimarsenha)){
             resultado = true;
         }else{
             resultado = false;
-            etSenha.setError("Senhas Diferentes");
+            etSenha.setError("As senhas devem ser iguais");
             etSenha.requestFocus();
         }
         if (isCampoVazio(nome) |  (isCampoVazio(email)) | (isCampoVazio(nascimento)) | (isCampoVazio(senha)) | (isCampoVazio(confimarsenha))){
