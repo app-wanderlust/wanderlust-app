@@ -94,6 +94,7 @@
         android:paddingLeft="10dp"
         android:textColor="#63539E"
         android:textColorHint="#63539E"
+        android:maxLength="10"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
