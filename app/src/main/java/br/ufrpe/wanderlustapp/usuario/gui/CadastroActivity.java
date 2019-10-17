@@ -38,7 +38,7 @@ public class CadastroActivity extends AppCompatActivity {
         etConfirmarSenha = findViewById(R.id.campoConfirmarSenhaCadastroId);
         etNascimento = findViewById(R.id.campoDataNascimentoCadastroId);
         etNascimento.addTextChangedListener(new MaskWatcher("##/##/####"));
-        Button btnCadastrar = findViewById(R.id.botaoCadastrarId);
+        btnCadastrar = findViewById(R.id.botaoCadastrarId);
 
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +62,7 @@ public class CadastroActivity extends AppCompatActivity {
         startActivity(new Intent(CadastroActivity.this, LoginActivity.class));
         Toast.makeText(CadastroActivity.this, "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
     }
+
     private void tentarCadastro(){
         if (validarCampos()){
             Usuario usuario = createUsuario();
@@ -70,10 +71,8 @@ public class CadastroActivity extends AppCompatActivity {
             }catch (Exception e){
                 Toast.makeText(CadastroActivity.this, "Esse login já existe", Toast.LENGTH_SHORT).show();
             }
-        }else{
-            Toast.makeText(CadastroActivity.this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show();
         }
-        }
+    }
 
     private boolean senhasIguais(String senha, String confimarsenha) {
         boolean resultado = (etSenha.getText().toString().equals(etConfirmarSenha.getText().toString()));
@@ -137,7 +136,7 @@ public class CadastroActivity extends AppCompatActivity {
          if (!isCampoVazio(nascimento)){
             nascimento1 = true;
         }else{
-            etNascimento.setError("Informe a data de nascimento");
+            etNascimento.setError("Informe sua data de nascimento");
             etNascimento.requestFocus();
         }
         if (isEmail(email)){
@@ -161,10 +160,12 @@ public class CadastroActivity extends AppCompatActivity {
         }
         return resultado;
     }
+
     private boolean isEmail(String email){
         boolean resultado = (!isCampoVazio(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
         return resultado;
     }
+
     private boolean isCampoVazio(String valor) {
         boolean resultado = (TextUtils.isEmpty(valor) || valor.trim().isEmpty());
         return resultado;

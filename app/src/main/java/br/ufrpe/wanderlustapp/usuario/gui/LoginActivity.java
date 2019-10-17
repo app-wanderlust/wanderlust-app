@@ -49,14 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                         toast = Toast.makeText(LoginActivity.this,"E-mail e/ou senha inválidos.", Toast.LENGTH_SHORT);
                         toast.show();
                     }
-                }else{
-                    if (toast != null){
-                        toast.cancel();
-                    }
-                    toast = Toast.makeText(LoginActivity.this, "Preencha os campos corretamente",Toast.LENGTH_SHORT);
-                    toast.show();
                 }
-
             }
         });
 
