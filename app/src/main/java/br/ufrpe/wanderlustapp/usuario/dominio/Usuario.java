@@ -7,6 +7,7 @@ public class Usuario {
     private String email;
     private String senha;
     private Pessoa pessoa;
+    private TipoUsuario tipoUsuario;
 
     public long getId() {
         return id;
@@ -38,5 +39,13 @@ public class Usuario {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 }
