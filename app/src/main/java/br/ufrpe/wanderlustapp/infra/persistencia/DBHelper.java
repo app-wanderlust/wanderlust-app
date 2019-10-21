@@ -14,6 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CAMPO_FK_PESSOA = "fk_pessoa";
     public static final String CAMPO_EMAIL = "email";
     public static final String CAMPO_SENHA = "senha";
+    public static final String CAMPO_TIPO = "tipo";
 
     //Tabela Pessoa
     public static final String TABELA_PESSOA = "tb_pessoa";
@@ -44,9 +45,10 @@ public class DBHelper extends SQLiteOpenHelper {
                         "  %3$s TEXT NOT NULL, " +
                         "  %4$s TEXT NOT NULL UNIQUE, " +
                         "  %5$s TEXT NOT NULL " +
+                        "  %6$s TEXT NOT NULL " +
                         ");";
         sqlTbUsuario = String.format(sqlTbUsuario,
-                TABELA_USUARIO, CAMPO_ID_USUARIO, CAMPO_FK_PESSOA, CAMPO_EMAIL, CAMPO_SENHA);
+                TABELA_USUARIO, CAMPO_ID_USUARIO, CAMPO_FK_PESSOA, CAMPO_EMAIL, CAMPO_SENHA, CAMPO_TIPO);
         db.execSQL(sqlTbUsuario);
     }
 

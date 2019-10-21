@@ -70,7 +70,7 @@ public class UsuarioDAO extends AbstractDAO {
         values.put(DBHelper.CAMPO_FK_PESSOA, usuario.getPessoa().getId());
         values.put(DBHelper.CAMPO_EMAIL, usuario.getEmail());
         values.put(DBHelper.CAMPO_SENHA, usuario.getSenha());
-
+        values.put(DBHelper.CAMPO_TIPO, usuario.getTipoUsuario());
         long id = db.insert(DBHelper.TABELA_USUARIO, null, values);
         super.close(db);
 
@@ -88,6 +88,8 @@ public class UsuarioDAO extends AbstractDAO {
         result.setEmail(cursor.getString(columnIndex));
         columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_SENHA);
         result.setSenha(cursor.getString(columnIndex));
+        columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_TIPO);
+        result.setTipoUsuario(cursor.getString(columnIndex));
         return result;
     }
 

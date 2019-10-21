@@ -41,11 +41,11 @@ public class Usuario {
         this.pessoa = pessoa;
     }
 
-    public TipoUsuario getTipoUsuario() {
-        return tipoUsuario;
+    public String getTipoUsuario() {
+        return tipoUsuario.getTipoUsuario();
     }
 
-    public void setTipoUsuario(TipoUsuario tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario.setTipoUsuario(tipoUsuario);
     }
 }
