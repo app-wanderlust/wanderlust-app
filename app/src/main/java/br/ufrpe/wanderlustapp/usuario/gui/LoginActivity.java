@@ -66,9 +66,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validaCampos() {
         boolean resultado = false;
-        String email = EtEmail.getText().toString();
         String senha = EtSenha.getText().toString();
-        if (isEmail(email)){
+        if (isEmail()){
             resultado = true;
         }else{
             EtEmail.setError("Email inválido");
@@ -79,8 +78,8 @@ public class LoginActivity extends AppCompatActivity {
         }
         return resultado && EtSenha.getText().length() != 0;
     }
-    private boolean isEmail(String email){
-        boolean resultado = (!isCampoVazio(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+    private boolean isEmail(){
+        boolean resultado = (!isCampoVazio(EtEmail.getText().toString()) && Patterns.EMAIL_ADDRESS.matcher(EtEmail.getText().toString()).matches());
         return resultado;
     }
     private boolean isCampoVazio(String valor) {
