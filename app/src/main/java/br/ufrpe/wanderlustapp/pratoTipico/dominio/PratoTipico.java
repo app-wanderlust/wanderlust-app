@@ -1,7 +1,5 @@
 package br.ufrpe.wanderlustapp.pratoTipico.dominio;
 
-import java.util.ArrayList;
-
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
 
 public class PratoTipico {
@@ -9,7 +7,7 @@ public class PratoTipico {
     private long id;
     private String nome;
     private String descricao;
-    private ArrayList<Cidade> cidades;
+    private Cidade cidade;
 
     public long getId() {
         return id;
@@ -35,11 +33,11 @@ public class PratoTipico {
         this.descricao = descricao;
     }
 
-    public ArrayList<Cidade> getCidades() {
-        return cidades;
+    public Cidade getCidade() {
+        return cidade;
     }
 
-    public void setCidades(ArrayList<Cidade> cidades) {
-        this.cidades = cidades;
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 }
