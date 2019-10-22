@@ -22,7 +22,12 @@ public class HomeActivity extends AppCompatActivity {
         usuario = Sessao.instance.getUsuario();
         String nomeUsuario = usuario.getPessoa().getNome();
         textoExibicao = findViewById(R.id.textView);
-        textoExibicao.setText("Olá, "+nomeUsuario+"!");
+        //textoExibicao.setText("Olá, "+nomeUsuario+"!");
+        if (usuario.getTipoUsuario().equals("adm")){
+            textoExibicao.setText("Olá, "+nomeUsuario+"!"+" ADM!!!!!!!");
+        }else{
+            textoExibicao.setText("Olá, "+nomeUsuario+"!");
+        }
 
     }
 }

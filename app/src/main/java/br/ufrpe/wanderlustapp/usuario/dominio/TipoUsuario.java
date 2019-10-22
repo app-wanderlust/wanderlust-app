@@ -16,17 +16,18 @@ public enum TipoUsuario {
 
     public void setTipoUsuario(String tipoUsuario){
         this.TIPO_USUARIO = tipoUsuario;
+        stringToEnum(tipoUsuario);
     }
 
 
     @Nullable
-    public static final TipoUsuario stringToEnum(String genero){
-        if(genero.equals(TipoUsuario.ATIVO.toString())){
+    public static final TipoUsuario stringToEnum(String tipo){
+        if(tipo.equals(TipoUsuario.ATIVO.toString())){
             return TipoUsuario.ATIVO;
-        }else if(genero.equals(TipoUsuario.INATIVO.toString())){
+        }else if(tipo.equals(TipoUsuario.INATIVO.toString())){
             return TipoUsuario.INATIVO;
         }
-        else if(genero.equals(TipoUsuario.ADM.toString())){
+        else if(tipo.equals(TipoUsuario.ADM.toString())){
             return TipoUsuario.ADM;
         }
         return null;

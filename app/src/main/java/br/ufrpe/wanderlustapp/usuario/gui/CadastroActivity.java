@@ -84,6 +84,7 @@ public class CadastroActivity extends AppCompatActivity {
         usuario.setPessoa(createPessoa());
         usuario.setEmail(etEmail.getText().toString());
         usuario.setSenha(etSenha.getText().toString());
+        usuario.setTipoUsuario("ativo");
         return usuario;
     }
 
