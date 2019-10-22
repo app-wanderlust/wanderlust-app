@@ -21,9 +21,27 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CAMPO_NOME = "nome";
     public static final String CAMPO_NASCIMENTO = "nascimento";
 
+    //TabelaPais
+    public static final String TABELA_PAIS = "tb_pais";
+    public static final String CAMPO_ID_PAIS = "id";
+    public static final String CAMPO_NOME_PAIS = "nome_pais";
+
+    //TabelaCidade
+    public static final String TABELA_CIDADE = "tb_cidade";
+    public static final String CAMPO_ID_CIDADE = "id";
+    public static final String CAMPO_NOME_CIDADE = "nome_cidade";
+    public static final String CAMPO_FK_PAIS = "fk_pais";
+
+    //Tabela Prato
+    public static final String TABELA_PRATO = "tb_prato";
+    public static final String CAMPO_ID_PRATO = "id";
+    public static final String CAMPO_NOME_PRATO = "nome_prato";
+    public static final String CAMPO_DESCRICAO = "descricao";
+    public static final String CAMPO_FK_CIDADE = "fk_cidade";
+
 
     private static final String[] TABELAS = {
-            TABELA_PESSOA, TABELA_USUARIO
+            TABELA_PESSOA, TABELA_USUARIO, TABELA_PAIS, TABELA_CIDADE, TABELA_PRATO
     };
 
     public DBHelper(Context context) {
@@ -35,6 +53,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         createTableUsuario(db);
         createTablePessoa(db);
+        createTablePais(db);
+        createTableCidade(db);
+        createTablePrato(db);
     }
 
     private void createTableUsuario(SQLiteDatabase db) {
@@ -60,6 +81,42 @@ public class DBHelper extends SQLiteOpenHelper {
         sqlTbPessoa = String.format(sqlTbPessoa,
                 TABELA_PESSOA, CAMPO_ID_PESSOA, CAMPO_NOME, CAMPO_NASCIMENTO);
         db.execSQL(sqlTbPessoa);
+    }
+
+    private void createTablePais(SQLiteDatabase db){
+        String sqlTbPais =
+                "CREATE TABLE %1$s ( "  +
+                        "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "  %3$s TEXT NOT NULL, " +
+                        ");";
+        sqlTbPais = String.format(sqlTbPais,
+                TABELA_PAIS, CAMPO_ID_PAIS, CAMPO_NOME_PAIS);
+        db.execSQL(sqlTbPais);
+    }
+
+    private void createTableCidade(SQLiteDatabase db){
+        String sqlTbCidade =
+                "CREATE TABLE %1$s ( "  +
+                        "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "  %3$s TEXT NOT NULL, " +
+                        "  %4$s TEXT NOT NULL " +
+                        ");";
+        sqlTbCidade = String.format(sqlTbCidade,
+                TABELA_CIDADE, CAMPO_ID_CIDADE, CAMPO_NOME_CIDADE, CAMPO_FK_PAIS);
+        db.execSQL(sqlTbCidade);
+    }
+
+    private void createTablePrato(SQLiteDatabase db){
+        String sqlTbPrato =
+                "CREATE TABLE %1$s ( "  +
+                        "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "  %3$s TEXT NOT NULL, " +
+                        "  %4$s TEXT NOT NULL " +
+                        "  %5$s TEXT NOT NULL " +
+                        ");";
+        sqlTbPrato = String.format(sqlTbPrato,
+                TABELA_PRATO, CAMPO_ID_PRATO, CAMPO_NOME_PRATO, CAMPO_DESCRICAO, CAMPO_FK_CIDADE);
+        db.execSQL(sqlTbPrato);
     }
 
     @Override
