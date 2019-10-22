@@ -10,7 +10,7 @@ import br.ufrpe.wanderlustapp.infra.persistencia.DBHelper;
 import br.ufrpe.wanderlustapp.pessoa.persistencia.PessoaDAO;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 
-public class UsuarioDAO extends AbstractDAO {
+public class  UsuarioDAO extends AbstractDAO {
     private SQLiteDatabase db;
     private DBHelper helper;
     private Context context;

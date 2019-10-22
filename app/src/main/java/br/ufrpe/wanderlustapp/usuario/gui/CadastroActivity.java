@@ -11,8 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.regex.Pattern;
-
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
@@ -36,7 +34,7 @@ public class CadastroActivity extends AppCompatActivity {
 
         txVoltar = findViewById(R.id.textoVoltarId);
         etNome = findViewById(R.id.campoNomeCadastroId);
-        etEmail = findViewById(R.id.campoEmailCadastroId);
+        etEmail = findViewById(R.id.campoDescricaoDoPrato);
         etSenha = findViewById(R.id.campoSenhaCadastroId);
         etConfirmarSenha = findViewById(R.id.campoConfirmarSenhaCadastroId);
         etNascimento = findViewById(R.id.campoDataNascimentoCadastroId);

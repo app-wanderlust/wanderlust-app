@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".usuario.gui.LoginActivity"></activity>
+        <activity android:name=".usuario.gui.ListaPratosActivity"></activity>
+        <activity android:name=".usuario.gui.CadastroPratosActivity" />
+        <activity android:name=".usuario.gui.LoginActivity" />
         <activity android:name=".usuario.gui.HomeActivity" />
         <activity android:name=".usuario.gui.CadastroActivity" />
         <activity android:name=".infra.gui.SplashScreenActivity">
