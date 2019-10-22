@@ -34,6 +34,12 @@ public class LoginActivity extends AppCompatActivity {
         EtSenha = findViewById(R.id.campoSenhaId);
         Button loginbtn = findViewById(R.id.botaoLoginId);
 
+        login(loginbtn);
+
+
+    }
+
+    private void login(Button loginbtn) {
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +59,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        cadastro();
+    }
+
+    private void cadastro() {
         TxCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,8 +70,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(registerIntent);
             }
         });
-
-
     }
 
     private boolean validaCampos() {
@@ -76,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         if (isCampoVazio(senha)){
             EtSenha.setError("Informe uma senha");
         }
-        return resultado && EtSenha.getText().length() != 0;
+        return resultado;
     }
     private boolean isEmail(){
         boolean resultado = (!isCampoVazio(EtEmail.getText().toString()) && Patterns.EMAIL_ADDRESS.matcher(EtEmail.getText().toString()).matches());
