@@ -87,7 +87,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String sqlTbPais =
                 "CREATE TABLE %1$s ( "  +
                         "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "  %3$s TEXT NOT NULL, " +
+                        "  %3$s TEXT NOT NULL " +
                         ");";
         sqlTbPais = String.format(sqlTbPais,
                 TABELA_PAIS, CAMPO_ID_PAIS, CAMPO_NOME_PAIS);
@@ -111,7 +111,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "CREATE TABLE %1$s ( "  +
                         "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "  %3$s TEXT NOT NULL, " +
-                        "  %4$s TEXT NOT NULL " +
+                        "  %4$s TEXT NOT NULL, " +
                         "  %5$s TEXT NOT NULL " +
                         ");";
         sqlTbPrato = String.format(sqlTbPrato,

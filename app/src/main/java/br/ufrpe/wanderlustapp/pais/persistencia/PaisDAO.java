@@ -61,7 +61,7 @@ public class PaisDAO extends AbstractDAO {
         return pais;
     }
 
-    public long cadastrar(Pais pais){
+    public long cadastrarPais(Pais pais){
         db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DBHelper.CAMPO_NOME_PAIS,pais.getNome());

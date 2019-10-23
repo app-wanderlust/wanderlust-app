@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pratoTipico.gui.CadastroPratosActivity;
+import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosActivity;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 
 public class HomeActivity extends AppCompatActivity {
@@ -44,7 +46,7 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent registerIntent = new Intent(HomeActivity.this,ListaPratosActivity.class);
+                Intent registerIntent = new Intent(HomeActivity.this, ListaPratosActivity.class);
                 startActivity(registerIntent);
             }
         });

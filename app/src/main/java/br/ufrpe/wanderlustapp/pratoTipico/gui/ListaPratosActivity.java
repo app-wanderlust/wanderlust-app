@@ -1,4 +1,4 @@
-package br.ufrpe.wanderlustapp.usuario.gui;
+package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;

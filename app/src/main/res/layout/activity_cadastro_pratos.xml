@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".usuario.gui.CadastroPratosActivity">
+    tools:context=".pratoTipico.gui.CadastroPratosActivity">
 
 
     <EditText
@@ -24,15 +24,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.179" />
+        app:layout_constraintVertical_bias="0.089" />
 
+    <EditText
+        android:id="@+id/campoNomeCidade"
+        android:layout_width="168dp"
+        android:layout_height="51dp"
+        android:layout_marginHorizontal="40dp"
+        android:background="@layout/rounded_border_edittext"
+        android:ems="10"
+        android:hint="Cidade"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        android:textColor="#63539E"
+        android:textColorHint="#63539E"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.445" />
+
+    <EditText
+        android:id="@+id/campoNomePais"
+        android:layout_width="153dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="40dp"
+        android:background="@layout/rounded_border_edittext"
+        android:ems="10"
+        android:hint="País"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        android:textColor="#63539E"
+        android:textColorHint="#63539E"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.331" />
 
     <EditText
         android:id="@+id/campoDescricaoDoPrato"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:background="@layout/rounded_border_edittext"
         android:ems="10"
         android:hint="Descrição"
@@ -46,10 +85,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/campoNomeDoPrato" />
 
+
     <Button
         android:id="@+id/botaoSalvarPrato"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="91dp"
+        android:layout_height="32dp"
         android:layout_marginHorizontal="140dp"
         android:layout_marginRight="10dp"
         android:background="@layout/rounded_border_button"
@@ -58,16 +98,14 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/campoDescricaoDoPrato"
-        app:layout_constraintVertical_bias="0.136" />
-
+        app:layout_constraintVertical_bias="0.383" />
 
     <Button
         android:id="@+id/botaoSalvarCadastrarNovoPrato"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="160dp"
+        android:layout_height="36dp"
         android:layout_marginHorizontal="140dp"
         android:background="@layout/rounded_border_button"
         android:text="Cadastrar e salvar"
@@ -77,9 +115,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campoDescricaoDoPrato"
-        app:layout_constraintVertical_bias="0.354" />
-
+        app:layout_constraintTop_toBottomOf="@+id/campoDescricaoDoPrato" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

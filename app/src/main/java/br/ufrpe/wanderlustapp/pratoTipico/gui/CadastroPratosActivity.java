@@ -1,4 +1,4 @@
-package br.ufrpe.wanderlustapp.usuario.gui;
+package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
+import br.ufrpe.wanderlustapp.pais.dominio.Pais;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 
@@ -19,6 +19,8 @@ public class CadastroPratosActivity extends AppCompatActivity {
 
     private EditText etNomeDoPrato;
     private EditText etDescricaoDoPrato;
+    private EditText etNomeDaCidade;
+    private EditText etNomeDoPais;
     private Button btnSalvarPrato;
     private Button btnSalvarCadastrarNovoPrato;
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
@@ -28,8 +30,9 @@ public class CadastroPratosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_pratos);
-
         etNomeDoPrato = findViewById(R.id.campoNomeDoPrato);
+        etNomeDaCidade = findViewById(R.id.campoNomeCidade);
+        etNomeDoPais = findViewById(R.id.campoNomePais);
         etDescricaoDoPrato = findViewById(R.id.campoDescricaoDoPrato);
         btnSalvarPrato = findViewById(R.id.botaoSalvarPrato);
         btnSalvarCadastrarNovoPrato = findViewById(R.id.botaoSalvarCadastrarNovoPrato);
@@ -37,17 +40,22 @@ public class CadastroPratosActivity extends AppCompatActivity {
         btnSalvarPrato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PratoTipico prato = createPratoTipico();
-                try{
-                    cadastrarPrato(prato);
-                }catch (Exception e){
-                    Toast.makeText(CadastroPratosActivity.this, " Prato cadastrado", Toast.LENGTH_LONG).show();
-                }
+                tentarCadastro();
 
             }
         });
 
     }
+
+    private void tentarCadastro() {
+        PratoTipico prato = createPratoTipico();
+        try{
+            cadastrarPrato(prato);
+        }catch (Exception e){
+            Toast.makeText(CadastroPratosActivity.this, " Prato Já cadastrado", Toast.LENGTH_LONG).show();
+        }
+    }
+
     private PratoTipico createPratoTipico() {
         PratoTipico  pratoTipico = new PratoTipico();
         pratoTipico.setCidade(createCidade());
@@ -58,8 +66,15 @@ public class CadastroPratosActivity extends AppCompatActivity {
 
     private Cidade createCidade() {
         Cidade cidade = new Cidade();
-        cidade.setNome(etNomeDoPrato.getText().toString());
+        cidade.setPais(createPais());
+        cidade.setNome(etNomeDaCidade.getText().toString());
         return cidade;
+    }
+
+    private Pais createPais() {
+        Pais pais = new Pais();
+        pais.setNome(etNomeDoPais.getText().toString());
+        return pais;
     }
 
     private void cadastrarPrato(PratoTipico pratoTipico) throws Exception {
