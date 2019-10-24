@@ -2,6 +2,7 @@ package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -29,7 +31,6 @@ public class ListaPratosActivity extends AppCompatActivity {
     public static final String TITULO_APPBAR = "Pratos Cadastrados";
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
     private List<PratoTipico> pratoTipicoList;
     private PratoTipicoDAO pratoTipicoDAO;
     private Context context = this;
@@ -43,18 +44,17 @@ public class ListaPratosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_pratos);
         setTitle(TITULO_APPBAR);
 
-        recyclerView = findViewById(R.id.recyclerViewId);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
         pratoTipicoList = pratoTipicoServices.getLista();
-        if(pratoTipicoList.size()==0){
-            Toast.makeText(ListaPratosActivity.this, "Nada", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(ListaPratosActivity.this, "foi "+pratoTipicoList.size(), Toast.LENGTH_SHORT).show();
-        }
+        AdapterPratoTipico adapterPratoTipico = new AdapterPratoTipico(pratoTipicoList);
 
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
+        recyclerView = findViewById(R.id.recyclerViewId);
+        recyclerView.setAdapter(adapterPratoTipico);
+
+        final List<PratoTipico> finalListaPrato = pratoTipicoServices.getLista();
     }
 
 }
