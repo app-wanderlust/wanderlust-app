@@ -45,14 +45,15 @@ public class ListaPratosActivity extends AppCompatActivity {
         setTitle(TITULO_APPBAR);
 
         pratoTipicoList = pratoTipicoServices.getLista();
-        AdapterPratoTipico adapterPratoTipico = new AdapterPratoTipico(pratoTipicoList);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
+        AdapterPratoTipico adapterPratoTipico = new AdapterPratoTipico(this,pratoTipicoList);
         recyclerView = findViewById(R.id.recyclerViewId);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setAdapter(adapterPratoTipico);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        //recyclerView.setHasFixedSize(true);
+        //recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
+        //recyclerView = findViewById(R.id.recyclerViewId);
+
 
         final List<PratoTipico> finalListaPrato = pratoTipicoServices.getLista();
     }

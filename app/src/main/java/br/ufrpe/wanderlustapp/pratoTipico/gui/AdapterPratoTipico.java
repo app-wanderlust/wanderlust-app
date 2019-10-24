@@ -1,5 +1,6 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.zip.Inflater;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
@@ -16,16 +18,21 @@ import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 public class AdapterPratoTipico extends RecyclerView.Adapter<AdapterPratoTipico.MyViewHolder> {
 
     private List<PratoTipico> pratoTipicoList;
+    private Context context;
+    private LayoutInflater inflater;
 
-    public AdapterPratoTipico(List<PratoTipico> pratoTipicoList) {
+    public AdapterPratoTipico(Context context, List<PratoTipico> pratoTipicoList) {
+        inflater = LayoutInflater.from(context);
         this.pratoTipicoList = pratoTipicoList;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public AdapterPratoTipico.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemLista = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_lista_prato, parent, false);
+        View itemLista = inflater.inflate(R.layout.adapter_lista_prato,parent,false);
+        /*View itemLista = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.adapter_lista_prato, parent, false);*/
         return new MyViewHolder(itemLista);
     }
 
