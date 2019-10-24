@@ -24,18 +24,20 @@ public class PratoTipicoServices {
         if (pratoTipicoDAO.getPratoTipicoByNome(pratoTipico.getNome()) != null){
             throw new Exception();
         }
+
+        long idPais = paisDAO.cadastrarPais(pratoTipico.getCidade().getPais());
+        pratoTipico.getCidade().getPais().setId(idPais);
+
         long idCidade = cidadeDAO.cadastrar(pratoTipico.getCidade());
         pratoTipico.getCidade().setId(idCidade);
 
         long idPratoTipico = pratoTipicoDAO.cadastrar(pratoTipico);
         pratoTipico.setId(idPratoTipico);
-
-        long idPais = paisDAO.cadastrarPais(pratoTipico.getCidade().getPais());
-        pratoTipico.getCidade().getPais().setId(idPais);
     }
 
     public List<PratoTipico> getLista(){
-            return pratoTipicoDAO.getListPrato();
+        List<PratoTipico> lista = pratoTipicoDAO.getListPrato();
+        return lista;
     }
 
 }

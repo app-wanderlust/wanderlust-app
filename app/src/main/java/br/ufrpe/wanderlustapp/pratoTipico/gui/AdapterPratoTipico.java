@@ -14,25 +14,25 @@ import java.util.zip.Inflater;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
+import br.ufrpe.wanderlustapp.pratoTipico.persistencia.PratoTipicoDAO;
 
 public class AdapterPratoTipico extends RecyclerView.Adapter<AdapterPratoTipico.MyViewHolder> {
 
     private List<PratoTipico> pratoTipicoList;
     private Context context;
-    private LayoutInflater inflater;
+    //private LayoutInflater inflater;
+    private PratoTipicoDAO pratoTipicoDAO;
 
-    public AdapterPratoTipico(Context context, List<PratoTipico> pratoTipicoList) {
-        inflater = LayoutInflater.from(context);
+    public AdapterPratoTipico(List<PratoTipico> pratoTipicoList) {
+        pratoTipicoList = pratoTipicoDAO.getListPrato();
         this.pratoTipicoList = pratoTipicoList;
-        this.context = context;
     }
 
     @NonNull
     @Override
     public AdapterPratoTipico.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemLista = inflater.inflate(R.layout.adapter_lista_prato,parent,false);
-        /*View itemLista = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_lista_prato, parent, false);*/
+        View itemLista = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.adapter_lista_prato, parent, false);
         return new MyViewHolder(itemLista);
     }
 
@@ -46,7 +46,7 @@ public class AdapterPratoTipico extends RecyclerView.Adapter<AdapterPratoTipico.
 
     @Override
     public int getItemCount() {
-        return 0;
+        return pratoTipicoList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
