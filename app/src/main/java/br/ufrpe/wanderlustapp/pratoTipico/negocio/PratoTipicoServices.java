@@ -1,6 +1,9 @@
 package br.ufrpe.wanderlustapp.pratoTipico.negocio;
 
 import android.content.Context;
+
+import java.util.List;
+
 import br.ufrpe.wanderlustapp.cidade.persistencia.CidadeDAO;
 import br.ufrpe.wanderlustapp.pais.persistencia.PaisDAO;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
@@ -30,6 +33,11 @@ public class PratoTipicoServices {
         long idPais = paisDAO.cadastrarPais(pratoTipico.getCidade().getPais());
         pratoTipico.getCidade().getPais().setId(idPais);
     }
+
+    public List<PratoTipico> getLista(){
+            return pratoTipicoDAO.getListPrato();
+    }
+
 }
 
 
