@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -53,8 +54,6 @@ public class ListaPratosActivity extends AppCompatActivity {
         }else{
             Toast.makeText(ListaPratosActivity.this, "foi "+pratoTipicoList.size(), Toast.LENGTH_SHORT).show();
         }
-
-        //adapter = new
 
     }
 
