@@ -7,7 +7,7 @@
     tools:context=".pratoTipico.gui.ListaPratosActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listaDePratosActivity"
+        android:id="@+id/recyclerViewId"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
