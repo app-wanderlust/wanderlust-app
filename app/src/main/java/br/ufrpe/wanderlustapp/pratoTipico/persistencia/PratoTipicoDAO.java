@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.ufrpe.wanderlustapp.cidade.persistencia.CidadeDAO;
 import br.ufrpe.wanderlustapp.infra.persistencia.AbstractDAO;
 import br.ufrpe.wanderlustapp.infra.persistencia.DBHelper;
@@ -42,6 +45,21 @@ public class PratoTipicoDAO extends AbstractDAO {
         }
         super.close(cursor, db);
         return prato;
+    }
+
+    public List<PratoTipico> getListPrato(){
+        db = helper.getReadableDatabase();
+        List<PratoTipico> pratos = new ArrayList<PratoTipico>();
+        String sql = "SELECT * FROM " + DBHelper.TABELA_PRATO;
+        Cursor cursor = db.rawQuery(sql, new String[]{});
+        if(cursor.moveToFirst()){
+            pratos.add(createPratoTipico(cursor));
+            while (cursor.moveToNext()){
+                pratos.add(createPratoTipico(cursor));
+            }
+        }
+        super.close(cursor, db);
+        return pratos;
     }
 
     public PratoTipico getPratoTipico(long id) {
