@@ -66,8 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         TxCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(LoginActivity.this, CadastroActivity.class);
-                startActivity(registerIntent);
+                startActivity(new Intent(LoginActivity.this, CadastroActivity.class));
             }
         });
     }

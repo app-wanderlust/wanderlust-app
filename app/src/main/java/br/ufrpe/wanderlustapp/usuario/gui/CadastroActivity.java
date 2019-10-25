@@ -51,8 +51,7 @@ public class CadastroActivity extends AppCompatActivity {
         txVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(CadastroActivity.this, LoginActivity.class);
-                startActivity(registerIntent);
+                startActivity(new Intent(CadastroActivity.this, LoginActivity.class));
             }
         });
 
