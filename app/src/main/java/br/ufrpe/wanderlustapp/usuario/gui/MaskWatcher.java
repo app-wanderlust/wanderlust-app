@@ -40,7 +40,6 @@ public class MaskWatcher implements TextWatcher {
                 editable.insert(editableLength-1, mask, editableLength-1, editableLength);
             }
         }
-
         isRunning = false;
     }
 }

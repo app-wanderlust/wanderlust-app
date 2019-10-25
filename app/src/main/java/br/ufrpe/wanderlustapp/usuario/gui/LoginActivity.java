@@ -33,9 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         EtEmail = findViewById(R.id.campoEmailId);
         EtSenha = findViewById(R.id.campoSenhaId);
         Button loginbtn = findViewById(R.id.botaoLoginId);
-
         login(loginbtn);
-
 
     }
 

@@ -24,7 +24,6 @@ public class CadastroActivity extends AppCompatActivity {
     private EditText etConfirmarSenha;
     private EditText etNascimento;
     private Button btnCadastrar;
-    private Toast toast = null;
     UsuarioServices usuarioServices = new UsuarioServices(this);
 
     @Override
@@ -70,7 +69,6 @@ public class CadastroActivity extends AppCompatActivity {
             try{
                 cadastrar(usuario);
             }catch (Exception e){
-                //Toast.makeText(CadastroActivity.this, "Esse login já existe", Toast.LENGTH_SHORT).show();
                 Toast.makeText(CadastroActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
@@ -128,7 +126,6 @@ public class CadastroActivity extends AppCompatActivity {
                 resultado = false;
                 editText.setError("Campo Inválido");
             }
-
         }
         return  resultado;
     }
