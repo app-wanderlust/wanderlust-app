@@ -11,7 +11,6 @@ public class Pessoa {
     private long id;
     private String nome;
     private String nascimento;
-    private Usuario usuario;
     private ArrayList<Pais> paises;
     private ArrayList<Conversa> conversas;
 
@@ -45,14 +44,6 @@ public class Pessoa {
 
     public void setNascimento(String nascimento) {
         this.nascimento = nascimento;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public ArrayList<Conversa> getConversas() {

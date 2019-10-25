@@ -29,12 +29,6 @@ import br.ufrpe.wanderlustapp.pratoTipico.persistencia.PratoTipicoDAO;
 public class ListaPratosActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Pratos Cadastrados";
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private List<PratoTipico> pratoTipicoList;
-    private PratoTipicoDAO pratoTipicoDAO;
-    private Context context = this;
-    private PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(context);
 
 
 
@@ -44,18 +38,7 @@ public class ListaPratosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_pratos);
         setTitle(TITULO_APPBAR);
 
-        pratoTipicoList = pratoTipicoServices.getLista();
-        AdapterPratoTipico adapterPratoTipico = new AdapterPratoTipico(this,pratoTipicoList);
-        recyclerView = findViewById(R.id.recyclerViewId);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setAdapter(adapterPratoTipico);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        //recyclerView.setHasFixedSize(true);
-        //recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
-        //recyclerView = findViewById(R.id.recyclerViewId);
 
-
-        final List<PratoTipico> finalListaPrato = pratoTipicoServices.getLista();
     }
 
 }

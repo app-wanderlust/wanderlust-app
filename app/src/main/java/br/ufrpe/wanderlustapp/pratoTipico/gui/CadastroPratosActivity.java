@@ -22,7 +22,6 @@ public class CadastroPratosActivity extends AppCompatActivity {
     private EditText etNomeDaCidade;
     private EditText etNomeDoPais;
     private Button btnSalvarPrato;
-    private Button btnSalvarCadastrarNovoPrato;
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
 
 
@@ -35,7 +34,6 @@ public class CadastroPratosActivity extends AppCompatActivity {
         etNomeDoPais = findViewById(R.id.campoNomePais);
         etDescricaoDoPrato = findViewById(R.id.campoDescricaoDoPrato);
         btnSalvarPrato = findViewById(R.id.botaoSalvarPrato);
-        btnSalvarCadastrarNovoPrato = findViewById(R.id.botaoSalvarCadastrarNovoPrato);
 
         btnSalvarPrato.setOnClickListener(new View.OnClickListener() {
             @Override
