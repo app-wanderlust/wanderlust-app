@@ -30,9 +30,6 @@ public class UsuarioServices {
         if (usuarioDAO.getUsuario(usuario.getEmail()) != null){
             throw new Exception();
         }
-        long idPessoa = pessoaDAO.cadastrar(usuario.getPessoa());
-        usuario.getPessoa().setId(idPessoa);
-
         long idUsuario = usuarioDAO.cadastrar(usuario);
         usuario.setId(idUsuario);
     }
