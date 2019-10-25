@@ -11,7 +11,9 @@ import android.widget.Toast;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
+import br.ufrpe.wanderlustapp.cidade.negocio.CidadeServices;
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
+import br.ufrpe.wanderlustapp.pais.negocio.PaisServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 
@@ -23,6 +25,8 @@ public class CadastroPratosActivity extends AppCompatActivity {
     private EditText etNomeDoPais;
     private Button btnSalvarPrato;
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
+    CidadeServices cidadeServices = new CidadeServices(this);
+    PaisServices paisServices = new PaisServices(this);
 
 
     @Override
@@ -76,6 +80,8 @@ public class CadastroPratosActivity extends AppCompatActivity {
     }
 
     private void cadastrarPrato(PratoTipico pratoTipico) throws Exception {
+        paisServices.cadastrar(pratoTipico.getCidade().getPais());
+        cidadeServices.cadastrar(pratoTipico.getCidade());
         pratoTipicoServices.cadastrar(pratoTipico);
         startActivity(new Intent(CadastroPratosActivity.this, ListaPratosActivity.class));
         Toast.makeText(CadastroPratosActivity.this, " Prato cadastrado", Toast.LENGTH_LONG).show();
