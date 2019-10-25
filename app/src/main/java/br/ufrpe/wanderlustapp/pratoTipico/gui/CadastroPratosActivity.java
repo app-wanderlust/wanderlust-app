@@ -51,10 +51,15 @@ public class CadastroPratosActivity extends AppCompatActivity {
 
     private void tentarCadastro() {
         PratoTipico prato = createPratoTipico();
+        Toast toast = Toast.makeText(CadastroPratosActivity.this, " Prato Já cadastrado", Toast.LENGTH_LONG);
         try{
-            cadastrarPrato(prato);
+            if (!pratoTipicoServices.estaCadastrado(prato)){
+                cadastrarPrato(prato);
+            }else{
+                toast.show();
+            }
         }catch (Exception e){
-            Toast.makeText(CadastroPratosActivity.this, " Prato Já cadastrado", Toast.LENGTH_LONG).show();
+            toast.show();
         }
     }
 

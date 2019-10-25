@@ -71,7 +71,7 @@ public class CadastroActivity extends AppCompatActivity {
             try{
                 cadastrar(usuario);
             }catch (Exception e){
-                Toast.makeText(CadastroActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(CadastroActivity.this, "Usuario já cadastrado!", Toast.LENGTH_LONG).show();
             }
         }
     }

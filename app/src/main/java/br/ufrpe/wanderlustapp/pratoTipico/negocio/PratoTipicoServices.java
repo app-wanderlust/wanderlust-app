@@ -20,6 +20,14 @@ public class PratoTipicoServices {
         paisDAO = new PaisDAO(context);
     }
 
+    public boolean estaCadastrado(PratoTipico pratoTipico){
+        boolean cadastrado = false;
+        if (pratoTipicoDAO.getPratoTipicoByNome(pratoTipico.getNome()) != null){
+            cadastrado = true;
+        }
+        return cadastrado;
+    }
+
     public void cadastrar(PratoTipico pratoTipico) throws Exception {
         if (pratoTipicoDAO.getPratoTipicoByNome(pratoTipico.getNome()) != null){
             throw new Exception();
