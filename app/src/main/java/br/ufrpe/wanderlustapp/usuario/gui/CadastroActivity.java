@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
+import br.ufrpe.wanderlustapp.pessoa.negocio.PessoaServices;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 import br.ufrpe.wanderlustapp.usuario.negocio.UsuarioServices;
 
@@ -25,6 +26,7 @@ public class CadastroActivity extends AppCompatActivity {
     private EditText etNascimento;
     private Button btnCadastrar;
     UsuarioServices usuarioServices = new UsuarioServices(this);
+    PessoaServices pessoaServices = new PessoaServices(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     private void cadastrar(Usuario usuario) throws Exception {
+        pessoaServices.cadastrar(usuario.getPessoa());
         usuarioServices.cadastrar(usuario);
         startActivity(new Intent(CadastroActivity.this, LoginActivity.class));
         Toast.makeText(CadastroActivity.this, "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
@@ -68,7 +71,7 @@ public class CadastroActivity extends AppCompatActivity {
             try{
                 cadastrar(usuario);
             }catch (Exception e){
-                Toast.makeText(CadastroActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(CadastroActivity.this, "Usuario já cadastrado!", Toast.LENGTH_LONG).show();
             }
         }
     }

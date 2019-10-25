@@ -10,11 +10,15 @@ import br.ufrpe.wanderlustapp.pessoa.persistencia.PessoaDAO;
 
 public class PessoaServices {
     private Context context;
-    private PessoaDAO pessoaDAO = new PessoaDAO(context);
+    private PessoaDAO pessoaDAO;
 
-    public long cadastrar(Pessoa pessoa) {
+    public PessoaServices(Context context){
+        pessoaDAO = new PessoaDAO(context);
+    }
+
+    public void cadastrar(Pessoa pessoa) {
         long idPessoa = pessoaDAO.cadastrar(pessoa);
-        return idPessoa;
+        pessoa.setId(idPessoa);
     }
 
     public Pessoa getPessoa(long idPessoa) {
