@@ -37,8 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         btnInserirPrato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent registerIntent = new Intent(HomeActivity.this, CadastroPratosActivity.class);
-                startActivity(registerIntent);
+                startActivity(new Intent(HomeActivity.this, CadastroPratosActivity.class));
             }
         });
 
@@ -46,15 +45,8 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent registerIntent = new Intent(HomeActivity.this, ListaPratosActivity.class);
-                startActivity(registerIntent);
+                startActivity(new Intent(HomeActivity.this, ListaPratosActivity.class));
             }
         });
-
-
-
-
-
-
     }
 }
