@@ -9,6 +9,8 @@ public class PratoTipico {
     private String descricao;
     private Cidade cidade;
 
+
+
     public long getId() {
         return id;
     }
@@ -36,6 +38,7 @@ public class PratoTipico {
     public Cidade getCidade() {
         return cidade;
     }
+
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;

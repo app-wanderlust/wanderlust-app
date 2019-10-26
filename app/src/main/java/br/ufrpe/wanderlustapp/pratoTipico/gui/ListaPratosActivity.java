@@ -19,26 +19,38 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
+import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
+import br.ufrpe.wanderlustapp.pais.dominio.Pais;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
+import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 import br.ufrpe.wanderlustapp.pratoTipico.persistencia.PratoTipicoDAO;
 
 public class ListaPratosActivity extends AppCompatActivity {
-
-    public static final String TITULO_APPBAR = "Pratos Cadastrados";
-
+    private List<PratoTipico> novaLista = new ArrayList<>();
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pratos);
-        setTitle(TITULO_APPBAR);
+
+        RecyclerView listaPratos = findViewById(R.id.lista_pratos_recyclerview);
 
 
+
+        for (int i = 1; i <= 20; i++){
+            PratoTipico prato = new PratoTipico();
+            prato.setNome("Prato" + i);
+            prato.setDescricao("Descrição" + i);
+            novaLista.add(prato);
+        }
+
+        listaPratos.setAdapter(new ListPratosAdapter(this,novaLista));
     }
 
 }

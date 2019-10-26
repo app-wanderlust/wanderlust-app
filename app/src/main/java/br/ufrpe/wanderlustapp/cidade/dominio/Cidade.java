@@ -8,6 +8,7 @@ public class Cidade {
     private String nome;
     private Pais pais;
 
+
     public long getId() {
         return id;
     }
