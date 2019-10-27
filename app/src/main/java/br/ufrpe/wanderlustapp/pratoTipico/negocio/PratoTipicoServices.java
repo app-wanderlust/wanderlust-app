@@ -32,8 +32,8 @@ public class PratoTipicoServices {
         if (pratoTipicoDAO.getPratoTipicoByNome(pratoTipico.getNome()) != null){
             throw new Exception();
         }
-        long idPais = paisDAO.cadastrarPais(pratoTipico.getCidade().getPais());
-        pratoTipico.getCidade().getPais().setId(idPais);
+        long idPrato = pratoTipicoDAO.cadastrar(pratoTipico);
+        pratoTipico.setId(idPrato);
     }
 
     public List<PratoTipico> getLista(){

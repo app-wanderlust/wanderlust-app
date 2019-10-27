@@ -48,17 +48,15 @@ public class PratoTipicoDAO extends AbstractDAO {
     }
 
     public List<PratoTipico> getListPrato(){
-        db = helper.getReadableDatabase();
         List<PratoTipico> pratos = new ArrayList<PratoTipico>();
-        String sql = "SELECT * FROM " + DBHelper.TABELA_PRATO + ";";
+        db = helper.getReadableDatabase();
+        String sql = "SELECT * FROM " + DBHelper.TABELA_PRATO;
         Cursor cursor = db.rawQuery(sql, new String[]{});
-        if(cursor.moveToFirst()){
+        while (cursor.moveToNext()){
             pratos.add(createPratoTipico(cursor));
-            while (cursor.moveToNext()){
-                pratos.add(createPratoTipico(cursor));
-            }
         }
-        super.close(cursor, db);
+        cursor.close();
+        db.close();
         return pratos;
     }
 

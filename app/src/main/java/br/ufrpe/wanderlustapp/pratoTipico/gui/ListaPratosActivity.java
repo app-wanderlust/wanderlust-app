@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,8 +32,7 @@ import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 import br.ufrpe.wanderlustapp.pratoTipico.persistencia.PratoTipicoDAO;
 
 public class ListaPratosActivity extends AppCompatActivity {
-    private List<PratoTipico> novaLista = new ArrayList<>();
-
+    PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,18 +40,44 @@ public class ListaPratosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_pratos);
 
         RecyclerView listaPratos = findViewById(R.id.lista_pratos_recyclerview);
+        setAdapter(listaPratos);
+        configuraBtnInserePrato();
 
-
-
-        for (int i = 1; i <= 20; i++){
-            PratoTipico prato = new PratoTipico();
-            prato.setNome("Prato" + i);
-            prato.setDescricao("Descrição" + i);
-            novaLista.add(prato);
-        }
-
-        listaPratos.setAdapter(new ListPratosAdapter(this,novaLista));
     }
+
+    private void configuraBtnInserePrato() {
+        TextView btnInserePrato = findViewById(R.id.lista_pratos_insere_prato);
+        btnInserePrato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vaiPraFormularioPratoAcitivity();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        RecyclerView listaPratos = findViewById(R.id.lista_pratos_recyclerview);
+        setAdapter(listaPratos);
+        super.onResume();
+    }
+
+    private void vaiPraFormularioPratoAcitivity() {
+        Intent iniciarFormularioPrato =
+                new Intent(ListaPratosActivity.this,FormularioPratosAcitivity.class);
+        startActivity(iniciarFormularioPrato);
+
+    }
+
+    private List<PratoTipico> geraLista(){
+        return pratoTipicoServices.getLista();
+    }
+
+    private void setAdapter(RecyclerView recyclerView){
+        recyclerView.setAdapter(new ListPratosAdapter(this,geraLista()));
+
+    }
+
 
 }
 
