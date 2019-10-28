@@ -27,7 +27,6 @@ public class UsuarioServices {
     }
 
     public void cadastrar(Usuario usuario) throws Exception{
-        // TODO: 25/10/19 transportar o cadastrar pessoa para seu services
         if (usuarioDAO.getUsuario(usuario.getEmail()) != null){
             throw new Exception();
         }

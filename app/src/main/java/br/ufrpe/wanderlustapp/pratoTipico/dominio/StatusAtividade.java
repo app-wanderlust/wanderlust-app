@@ -13,7 +13,7 @@ public enum StatusAtividade {
         return this.valor;
     }
 
-    public StatusAtividade stringToEnum(String status){
+    public static StatusAtividade stringToEnum(String status){
         if(status.equals(StatusAtividade.ATIVO.toString())){
             return StatusAtividade.ATIVO;
         }else if(status.equals(StatusAtividade.INATIVO.toString())){
