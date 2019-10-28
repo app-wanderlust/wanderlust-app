@@ -1,7 +1,9 @@
 package br.ufrpe.wanderlustapp.pais.dominio;
 
 
-public class Pais {
+import java.io.Serializable;
+
+public class Pais implements Serializable {
 
     private long id;
     private String nome;

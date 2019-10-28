@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import br.ufrpe.wanderlustapp.R;
+import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosActivity;
 import br.ufrpe.wanderlustapp.usuario.negocio.UsuarioServices;
 
 public class LoginActivity extends AppCompatActivity {

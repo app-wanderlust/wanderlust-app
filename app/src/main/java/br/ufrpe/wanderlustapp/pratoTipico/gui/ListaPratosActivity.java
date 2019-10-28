@@ -1,50 +1,37 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
-import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
-import br.ufrpe.wanderlustapp.pais.dominio.Pais;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
-import br.ufrpe.wanderlustapp.pratoTipico.persistencia.PratoTipicoDAO;
+
+import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
+import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_RESULTADO_PRATO_CRIADO;
+import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_REUISICAO_INSERE_PRATO;
 
 public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
+    private ListPratosAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pratos);
-
-        RecyclerView listaPratos = findViewById(R.id.lista_pratos_recyclerview);
-        setAdapter(listaPratos);
+        configuraRecyclerview();
         configuraBtnInserePrato();
 
     }
-
     private void configuraBtnInserePrato() {
         TextView btnInserePrato = findViewById(R.id.lista_pratos_insere_prato);
         btnInserePrato.setOnClickListener(new View.OnClickListener() {
@@ -57,16 +44,25 @@ public class ListaPratosActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        RecyclerView listaPratos = findViewById(R.id.lista_pratos_recyclerview);
-        setAdapter(listaPratos);
+        configuraRecyclerview();
+        adapter.notifyDataSetChanged();
         super.onResume();
     }
 
     private void vaiPraFormularioPratoAcitivity() {
         Intent iniciarFormularioPrato =
                 new Intent(ListaPratosActivity.this,FormularioPratosAcitivity.class);
-        startActivity(iniciarFormularioPrato);
+        startActivityForResult(iniciarFormularioPrato, CODIGO_REUISICAO_INSERE_PRATO);
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode == CODIGO_REUISICAO_INSERE_PRATO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)){
+            PratoTipico pratoRecibido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
+            adapter.adicona(pratoRecibido);
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private List<PratoTipico> geraLista(){
@@ -74,9 +70,15 @@ public class ListaPratosActivity extends AppCompatActivity {
     }
 
     private void setAdapter(RecyclerView recyclerView){
-        recyclerView.setAdapter(new ListPratosAdapter(this,geraLista()));
+        adapter = new ListPratosAdapter(this, geraLista());
+        recyclerView.setAdapter(adapter);
 
     }
+    private void configuraRecyclerview() {
+        RecyclerView listaPratos = findViewById(R.id.lista_pratos_recyclerview);
+        setAdapter(listaPratos);
+    }
+
 
 
 }

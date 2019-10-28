@@ -1,6 +1,7 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,5 +62,10 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
             descricao.setText(prato.getDescricao());
         }
 
+    }
+
+    public void adicona(PratoTipico prato){
+        pratos.add(prato);
+        notifyDataSetChanged();
     }
 }

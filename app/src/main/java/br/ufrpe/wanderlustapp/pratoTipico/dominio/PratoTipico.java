@@ -1,8 +1,10 @@
 package br.ufrpe.wanderlustapp.pratoTipico.dominio;
 
+import java.io.Serializable;
+
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
 
-public class PratoTipico {
+public class PratoTipico implements Serializable {
 
     private long id;
     private String nome;

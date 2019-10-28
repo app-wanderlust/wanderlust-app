@@ -30,16 +30,8 @@ public class HomeActivity extends AppCompatActivity {
         String nomeUsuario = usuario.getPessoa().getNome();
         textoExibicao = findViewById(R.id.textView);
         textoExibicao.setText("Olá, "+nomeUsuario+"!");
-        btnInserirPrato = (Button)findViewById(R.id.botaoCadastrarPrato);
         btnVisualizarPrato = (Button)findViewById(R.id.botaoVisualizarPrato);
 
-
-        btnInserirPrato.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, CadastroPratosActivity.class));
-            }
-        });
 
         btnVisualizarPrato.setOnClickListener(new View.OnClickListener(){
 

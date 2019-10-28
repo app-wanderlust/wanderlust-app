@@ -1,8 +1,10 @@
 package br.ufrpe.wanderlustapp.cidade.dominio;
 
+import java.io.Serializable;
+
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
 
-public class Cidade {
+public class Cidade implements Serializable {
 
     private long id;
     private String nome;
