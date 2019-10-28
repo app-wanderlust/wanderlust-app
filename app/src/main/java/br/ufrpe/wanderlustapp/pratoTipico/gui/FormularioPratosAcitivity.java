@@ -40,7 +40,6 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.menu_formulario_prato_ic_salva){
             PratoTipico pratoTipico = criaPratoTipico();
-            inserePrato(pratoTipico);
             retornaPrato(pratoTipico);
             finish();
         }
@@ -53,13 +52,7 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
         setResult(CODIGO_RESULTADO_PRATO_CRIADO,resultadoInsercao);
     }
 
-    private void inserePrato(PratoTipico pratoTipico) {
-        try {
-            pratoTipicoServices.cadastrar(pratoTipico);
-        } catch (Exception e) {
-            Toast.makeText(FormularioPratosAcitivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
+
 
     private PratoTipico criaPratoTipico() {
         EditText nome = findViewById(R.id.formulario_prato_nome);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,12 +43,6 @@ public class ListaPratosActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        configuraRecyclerview();
-        adapter.notifyDataSetChanged();
-        super.onResume();
-    }
 
     private void vaiPraFormularioPratoAcitivity() {
         Intent iniciarFormularioPrato =
@@ -57,9 +52,10 @@ public class ListaPratosActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode == CODIGO_REUISICAO_INSERE_PRATO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)){
-            PratoTipico pratoRecibido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
-            adapter.adicona(pratoRecibido);
+        if(requestCode == CODIGO_REUISICAO_INSERE_PRATO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)){
+            PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
+            inserePrato(pratoRecebido);
+            adapter.adicona(pratoRecebido);
 
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -77,6 +73,14 @@ public class ListaPratosActivity extends AppCompatActivity {
     private void configuraRecyclerview() {
         RecyclerView listaPratos = findViewById(R.id.lista_pratos_recyclerview);
         setAdapter(listaPratos);
+    }
+
+    private void inserePrato(PratoTipico pratoTipico) {
+        try {
+            pratoTipicoServices.cadastrar(pratoTipico);
+        } catch (Exception e) {
+            Toast.makeText(ListaPratosActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
 
