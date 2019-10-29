@@ -1,6 +1,7 @@
 package br.ufrpe.wanderlustapp.pratoTipico.negocio;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import java.util.List;
 

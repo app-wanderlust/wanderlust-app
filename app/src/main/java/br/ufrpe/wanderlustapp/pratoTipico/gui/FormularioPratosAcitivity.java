@@ -64,6 +64,10 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
 
     private void retornaPrato(PratoTipico pratoTipico) {
         Intent resultadoInsercao = new Intent();
+        TextView novoNome = findViewById(R.id.formulario_prato_nome);
+        TextView novoDescricao = findViewById(R.id.formulario_prato_descricao);
+        pratoTipico.setNome(novoNome.getText().toString());
+        pratoTipico.setDescricao(novoDescricao.getText().toString());
         resultadoInsercao.putExtra(CHAVE_PRATO,pratoTipico);
         resultadoInsercao.putExtra("posicao", posicaoRecebida);
         setResult(CODIGO_RESULTADO_PRATO_CRIADO,resultadoInsercao);

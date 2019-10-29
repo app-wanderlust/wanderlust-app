@@ -32,8 +32,8 @@ public class ListaPratosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_pratos);
         configuraRecyclerview();
         configuraBtnInserePrato();
-
     }
+
     private void configuraBtnInserePrato() {
         TextView btnInserePrato = findViewById(R.id.lista_pratos_insere_prato);
         btnInserePrato.setOnClickListener(new View.OnClickListener() {
@@ -55,18 +55,17 @@ public class ListaPratosActivity extends AppCompatActivity {
         if(requestCode == CODIGO_REUISICAO_INSERE_PRATO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)){
             PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
             inserePrato(pratoRecebido);
-            adapter.adicona(pratoRecebido);
         }
         if(requestCode == 2 && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)
                 && data.hasExtra("posicao")) {
             PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
+            Toast.makeText(this, pratoRecebido.getNome(), Toast.LENGTH_SHORT).show();
             int posicaoRecebida = data.getIntExtra("posicao", -1);
+            System.out.println("vlau"+pratoRecebido.getId());
             pratoTipicoServices.update(pratoRecebido);
             adapter.altera(posicaoRecebida,pratoRecebido);
-
         }
         super.onActivityResult(requestCode, resultCode, data);
-            
         }
 
     private List<PratoTipico> geraLista(){
@@ -86,8 +85,8 @@ public class ListaPratosActivity extends AppCompatActivity {
                 startActivityForResult(abreFormularioComPrato,2);
             }
         });
-
     }
+
     private void configuraRecyclerview() {
         RecyclerView listaPratos = findViewById(R.id.lista_pratos_recyclerview);
         setAdapter(listaPratos);
@@ -96,8 +95,9 @@ public class ListaPratosActivity extends AppCompatActivity {
     private void inserePrato(PratoTipico pratoTipico) {
         try {
             pratoTipicoServices.cadastrar(pratoTipico);
+            adapter.adicona(pratoTipico);
         } catch (Exception e) {
-            Toast.makeText(ListaPratosActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(ListaPratosActivity.this, "Prato já cadastrado", Toast.LENGTH_LONG).show();
         }
     }
 
