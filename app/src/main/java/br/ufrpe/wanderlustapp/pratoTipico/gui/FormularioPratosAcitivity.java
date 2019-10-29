@@ -8,8 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.Serializable;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
@@ -23,12 +27,24 @@ import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CO
 
 public class FormularioPratosAcitivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
+    private int posicaoRecebida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_pratos);
+
+        Intent dadosRecebidos = getIntent();
+        if (dadosRecebidos.hasExtra(CHAVE_PRATO) && dadosRecebidos.hasExtra("posicao") ){
+            PratoTipico pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
+            posicaoRecebida = dadosRecebidos.getIntExtra("posicao", -1);
+            TextView nome = findViewById(R.id.formulario_prato_nome);
+            nome.setText(pratoRecebido.getNome());
+            TextView descricao = findViewById(R.id.formulario_prato_descricao);
+            descricao.setText(pratoRecebido.getDescricao());
+        }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,6 +65,7 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
     private void retornaPrato(PratoTipico pratoTipico) {
         Intent resultadoInsercao = new Intent();
         resultadoInsercao.putExtra(CHAVE_PRATO,pratoTipico);
+        resultadoInsercao.putExtra("posicao", posicaoRecebida);
         setResult(CODIGO_RESULTADO_PRATO_CRIADO,resultadoInsercao);
     }
 

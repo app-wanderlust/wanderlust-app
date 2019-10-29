@@ -40,6 +40,10 @@ public class PratoTipicoServices {
         return pratoTipicoDAO.getListPrato();
     }
 
+    public void update(PratoTipico prato){
+        pratoTipicoDAO.updatePrato(prato);
+    }
+
 }
 
 

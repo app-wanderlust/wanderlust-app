@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
@@ -22,7 +23,6 @@ import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CO
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_REUISICAO_INSERE_PRATO;
 
 public class ListaPratosActivity extends AppCompatActivity {
-    PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     private ListPratosAdapter adapter;
 
     @Override
@@ -43,7 +43,6 @@ public class ListaPratosActivity extends AppCompatActivity {
         });
     }
 
-
     private void vaiPraFormularioPratoAcitivity() {
         Intent iniciarFormularioPrato =
                 new Intent(ListaPratosActivity.this,FormularioPratosAcitivity.class);
@@ -56,18 +55,37 @@ public class ListaPratosActivity extends AppCompatActivity {
             PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
             inserePrato(pratoRecebido);
             adapter.adicona(pratoRecebido);
-
+        }
+        if(requestCode == 2 && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)
+                && data.hasExtra("posicao")) {
+            PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
+            int posicaoRecebida = data.getIntExtra("posicao", -1);
+            PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
+            pratoTipicoServices.update(pratoRecebido);
+            adapter.altera(posicaoRecebida,pratoRecebido);
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
+            
+        }
 
     private List<PratoTipico> geraLista(){
+        PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
         return pratoTipicoServices.getLista();
     }
 
     private void setAdapter(RecyclerView recyclerView){
         adapter = new ListPratosAdapter(this, geraLista());
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(PratoTipico prato, int posicao) {
+                Intent abreFormularioComPrato = new Intent(ListaPratosActivity.this,
+                        FormularioPratosAcitivity.class);
+                abreFormularioComPrato.putExtra(CHAVE_PRATO,prato);
+                abreFormularioComPrato.putExtra("posicao",posicao);
+                startActivityForResult(abreFormularioComPrato,2);
+            }
+        });
 
     }
     private void configuraRecyclerview() {
@@ -76,6 +94,7 @@ public class ListaPratosActivity extends AppCompatActivity {
     }
 
     private void inserePrato(PratoTipico pratoTipico) {
+        PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
         try {
             pratoTipicoServices.cadastrar(pratoTipico);
         } catch (Exception e) {
