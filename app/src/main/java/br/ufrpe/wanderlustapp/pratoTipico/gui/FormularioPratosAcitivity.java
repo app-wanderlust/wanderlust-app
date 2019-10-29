@@ -19,10 +19,10 @@ import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_RESULTADO_PRATO_CRIADO;
+import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.POSICAO_INVALIDA;
 
 
 public class FormularioPratosAcitivity extends AppCompatActivity {
-    PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     private int posicaoRecebida;
 
     @Override
@@ -33,7 +33,7 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
         Intent dadosRecebidos = getIntent();
         if (dadosRecebidos.hasExtra(CHAVE_PRATO) && dadosRecebidos.hasExtra("posicao") ){
             PratoTipico pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
-            posicaoRecebida = dadosRecebidos.getIntExtra("posicao", -1);
+            posicaoRecebida = dadosRecebidos.getIntExtra("posicao", POSICAO_INVALIDA);
             TextView nome = findViewById(R.id.formulario_prato_nome);
             nome.setText(pratoRecebido.getNome());
             TextView descricao = findViewById(R.id.formulario_prato_descricao);
@@ -57,7 +57,7 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
                 pratoRecebido = criaPratoTipico();
             }
             pratoRecebido = atualizaPrato(pratoRecebido);
-            retornaPrato(pratoRecebido);
+            retornaPratoViaExtra(pratoRecebido);
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -65,15 +65,19 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
 
     private PratoTipico criaPratoTipico() {
         PratoTipico pratoTipico = new PratoTipico();
+        preencheAtributosPrato(pratoTipico);
+        return pratoTipico;
+    }
+
+    private void preencheAtributosPrato(PratoTipico pratoTipico) {
         EditText nome = findViewById(R.id.formulario_prato_nome);
         EditText descricao = findViewById(R.id.formulario_prato_descricao);
         pratoTipico.setNome(nome.getText().toString());
         pratoTipico.setDescricao(descricao.getText().toString());
         pratoTipico.setCidade(createCidadePadrao());
-        return pratoTipico;
     }
 
-    private void retornaPrato(PratoTipico pratoTipico) {
+    private void retornaPratoViaExtra(PratoTipico pratoTipico) {
         Intent resultadoInsercao = new Intent();
         TextView novoNome = findViewById(R.id.formulario_prato_nome);
         TextView novoDescricao = findViewById(R.id.formulario_prato_descricao);
@@ -84,14 +88,8 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
         setResult(CODIGO_RESULTADO_PRATO_CRIADO,resultadoInsercao);
     }
 
-
-
     private PratoTipico atualizaPrato(PratoTipico pratoTipico) {
-        EditText nome = findViewById(R.id.formulario_prato_nome);
-        EditText descricao = findViewById(R.id.formulario_prato_descricao);
-        pratoTipico.setNome(nome.getText().toString());
-        pratoTipico.setDescricao(descricao.getText().toString());
-        pratoTipico.setCidade(createCidadePadrao());
+        preencheAtributosPrato(pratoTipico);
         return pratoTipico;
     }
 

@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.Serializable;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
@@ -21,6 +20,7 @@ import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_RESULTADO_PRATO_CRIADO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_REUISICAO_INSERE_PRATO;
+import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.POSICAO_INVALIDA;
 
 public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
@@ -56,12 +56,12 @@ public class ListaPratosActivity extends AppCompatActivity {
             PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
             inserePrato(pratoRecebido);
         }
-        if(requestCode == 2 && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)
+        if(requestCode == CODIGO_REUISICAO_INSERE_PRATO
+                && resultCode == CODIGO_RESULTADO_PRATO_CRIADO
+                && data.hasExtra(CHAVE_PRATO)
                 && data.hasExtra("posicao")) {
             PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
-            Toast.makeText(this, pratoRecebido.getNome(), Toast.LENGTH_SHORT).show();
-            int posicaoRecebida = data.getIntExtra("posicao", -1);
-            System.out.println("vlau"+pratoRecebido.getId());
+            int posicaoRecebida = data.getIntExtra("posicao", POSICAO_INVALIDA);
             pratoTipicoServices.update(pratoRecebido);
             adapter.altera(posicaoRecebida,pratoRecebido);
         }
@@ -100,9 +100,6 @@ public class ListaPratosActivity extends AppCompatActivity {
             Toast.makeText(ListaPratosActivity.this, "Prato já cadastrado", Toast.LENGTH_LONG).show();
         }
     }
-
-
-
 }
 
 

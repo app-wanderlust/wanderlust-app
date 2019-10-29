@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/item_nota_titulo"
+            android:id="@+id/item_prato_nome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -24,7 +24,7 @@
             tools:text="Título" />
 
         <TextView
-            android:id="@+id/item_nota_descricao"
+            android:id="@+id/item_prato_descricao"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -34,8 +34,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/item_nota_titulo"
-            app:layout_constraintTop_toBottomOf="@id/item_nota_titulo"
+            app:layout_constraintStart_toStartOf="@+id/item_prato_nome"
+            app:layout_constraintTop_toBottomOf="@id/item_prato_nome"
             tools:text="Descrição" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

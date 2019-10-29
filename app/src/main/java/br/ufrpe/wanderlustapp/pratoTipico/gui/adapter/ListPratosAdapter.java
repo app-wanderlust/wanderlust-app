@@ -1,12 +1,10 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +22,6 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
     private OnItemClickListener onItemClickListener;
 
     public ListPratosAdapter(Context context,List<PratoTipico> pratos) {
-
         this.context = context;
         this.pratos = pratos;
     }
@@ -36,7 +33,7 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
     @Override
     public ListPratosAdapter.PratoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View viewCriada = LayoutInflater.from(context)
-                .inflate(R.layout.item_nota, parent, false);
+                .inflate(R.layout.item_prato, parent, false);
         return new PratoViewHolder(viewCriada);
     }
 
@@ -66,8 +63,8 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
 
         public PratoViewHolder(@NonNull View itemView) {
             super(itemView);
-            titulo = itemView.findViewById(R.id.item_nota_titulo);
-            descricao = itemView.findViewById(R.id.item_nota_descricao);
+            titulo = itemView.findViewById(R.id.item_prato_nome);
+            descricao = itemView.findViewById(R.id.item_prato_descricao);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

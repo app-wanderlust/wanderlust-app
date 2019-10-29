@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.CadastroPratosActivity;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosActivity;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 

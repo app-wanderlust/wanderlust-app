@@ -12,7 +12,6 @@
         <activity android:name=".pratoTipico.gui.FormularioPratosAcitivity">
         </activity>
         <activity android:name=".pratoTipico.gui.ListaPratosActivity" />
-        <activity android:name=".pratoTipico.gui.CadastroPratosActivity" />
         <activity android:name=".usuario.gui.LoginActivity" />
         <activity android:name=".usuario.gui.HomeActivity" />
         <activity android:name=".usuario.gui.CadastroActivity" />

@@ -88,10 +88,8 @@ public class PratoTipicoDAO extends AbstractDAO {
         values.put(DBHelper.CAMPO_FK_CIDADE,prato.getCidade().getId());
         values.put(DBHelper.CAMPO_NOME_PRATO,prato.getNome());
         values.put(DBHelper.CAMPO_DESCRICAO,prato.getDescricao());
-
         long id = db.insert(DBHelper.TABELA_PRATO,null,values);
         super.close(db);
-
         return id;
     }
 
