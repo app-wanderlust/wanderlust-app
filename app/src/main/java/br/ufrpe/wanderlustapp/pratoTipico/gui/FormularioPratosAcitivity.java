@@ -8,12 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.Serializable;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
@@ -55,11 +51,26 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.menu_formulario_prato_ic_salva){
-            PratoTipico pratoTipico = criaPratoTipico();
-            retornaPrato(pratoTipico);
+            Intent dadosRecebidos = getIntent();
+            PratoTipico pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
+            if (pratoRecebido == null){
+                pratoRecebido = criaPratoTipico();
+            }
+            pratoRecebido = atualizaPrato(pratoRecebido);
+            retornaPrato(pratoRecebido);
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private PratoTipico criaPratoTipico() {
+        PratoTipico pratoTipico = new PratoTipico();
+        EditText nome = findViewById(R.id.formulario_prato_nome);
+        EditText descricao = findViewById(R.id.formulario_prato_descricao);
+        pratoTipico.setNome(nome.getText().toString());
+        pratoTipico.setDescricao(descricao.getText().toString());
+        pratoTipico.setCidade(createCidadePadrao());
+        return pratoTipico;
     }
 
     private void retornaPrato(PratoTipico pratoTipico) {
@@ -75,10 +86,9 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
 
 
 
-    private PratoTipico criaPratoTipico() {
+    private PratoTipico atualizaPrato(PratoTipico pratoTipico) {
         EditText nome = findViewById(R.id.formulario_prato_nome);
         EditText descricao = findViewById(R.id.formulario_prato_descricao);
-        PratoTipico  pratoTipico = new PratoTipico();
         pratoTipico.setNome(nome.getText().toString());
         pratoTipico.setDescricao(descricao.getText().toString());
         pratoTipico.setCidade(createCidadePadrao());
@@ -92,8 +102,5 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
         pais.setNome("Brasil");
         cidade.setPais(pais);
         return cidade;
-
-
-
     }
 }
