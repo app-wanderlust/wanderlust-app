@@ -23,6 +23,7 @@ import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CO
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_REUISICAO_INSERE_PRATO;
 
 public class ListaPratosActivity extends AppCompatActivity {
+    PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     private ListPratosAdapter adapter;
 
     @Override
@@ -60,16 +61,15 @@ public class ListaPratosActivity extends AppCompatActivity {
                 && data.hasExtra("posicao")) {
             PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
             int posicaoRecebida = data.getIntExtra("posicao", -1);
-            PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
             pratoTipicoServices.update(pratoRecebido);
             adapter.altera(posicaoRecebida,pratoRecebido);
+
         }
         super.onActivityResult(requestCode, resultCode, data);
             
         }
 
     private List<PratoTipico> geraLista(){
-        PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
         return pratoTipicoServices.getLista();
     }
 
@@ -94,7 +94,6 @@ public class ListaPratosActivity extends AppCompatActivity {
     }
 
     private void inserePrato(PratoTipico pratoTipico) {
-        PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
         try {
             pratoTipicoServices.cadastrar(pratoTipico);
         } catch (Exception e) {
