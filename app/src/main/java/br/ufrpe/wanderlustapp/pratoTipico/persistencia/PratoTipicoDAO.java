@@ -106,4 +106,11 @@ public class PratoTipicoDAO extends AbstractDAO {
         super.close();
     }
 
+    public void deletePrato(PratoTipico pratoTipico){
+        db = helper.getReadableDatabase();
+        db.delete("tb_prato","id = ?", new String[] {String.valueOf(pratoTipico.getId())});
+        db.close();
+    }
+
+
 }

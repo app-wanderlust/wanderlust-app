@@ -59,9 +59,7 @@ public class ListaPratosActivity extends AppCompatActivity {
         if(requestCode == 2 && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)
                 && data.hasExtra("posicao")) {
             PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
-            Toast.makeText(this, pratoRecebido.getNome(), Toast.LENGTH_SHORT).show();
             int posicaoRecebida = data.getIntExtra("posicao", -1);
-            System.out.println("vlau"+pratoRecebido.getId());
             pratoTipicoServices.update(pratoRecebido);
             adapter.altera(posicaoRecebida,pratoRecebido);
         }
