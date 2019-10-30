@@ -57,6 +57,11 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
         notifyDataSetChanged();
     }
 
+    public void remove(int posicao) {
+        pratos.remove(posicao);
+        notifyDataSetChanged();
+    }
+
     class PratoViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView titulo;

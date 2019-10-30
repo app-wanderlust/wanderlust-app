@@ -4,8 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
+
 class PratoItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
+    private ListPratosAdapter adapter;
+
+    PratoItemTouchHelperCallback(ListPratosAdapter adapter) {
+        this.adapter = adapter;
+    }
 
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
@@ -20,6 +27,8 @@ class PratoItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+        int posicaoPratoDeslizado = viewHolder.getAdapterPosition();
+        adapter.remove(posicaoPratoDeslizado);
 
     }
 }
