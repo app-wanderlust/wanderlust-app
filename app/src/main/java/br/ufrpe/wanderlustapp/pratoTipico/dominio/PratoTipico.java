@@ -12,8 +12,6 @@ public class PratoTipico implements Serializable {
     private Cidade cidade;
     private StatusAtividade statusAtividade = StatusAtividade.ATIVO;
 
-
-
     public long getId() {
         return id;
     }
