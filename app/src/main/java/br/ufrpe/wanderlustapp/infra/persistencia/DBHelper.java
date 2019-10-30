@@ -38,7 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CAMPO_NOME_PRATO = "nome_prato";
     public static final String CAMPO_DESCRICAO = "descricao";
     public static final String CAMPO_FK_CIDADE = "fk_cidade";
-    public static final String CAMPO_STATUS_ATIVIDADE = "status_atividade";
+    //public static final String CAMPO_STATUS_ATIVIDADE = "status_atividade";
 
 
     private static final String[] TABELAS = {
@@ -114,10 +114,9 @@ public class DBHelper extends SQLiteOpenHelper {
                         "  %3$s TEXT NOT NULL, " +
                         "  %4$s TEXT NOT NULL, " +
                         "  %5$s TEXT NOT NULL " +
-                        "  %6$s TEXT NOT NULL " +
                         ");";
         sqlTbPrato = String.format(sqlTbPrato,
-                TABELA_PRATO, CAMPO_ID_PRATO, CAMPO_NOME_PRATO, CAMPO_DESCRICAO, CAMPO_FK_CIDADE, CAMPO_STATUS_ATIVIDADE);
+                TABELA_PRATO, CAMPO_ID_PRATO, CAMPO_NOME_PRATO, CAMPO_DESCRICAO, CAMPO_FK_CIDADE);
         db.execSQL(sqlTbPrato);
     }
 
