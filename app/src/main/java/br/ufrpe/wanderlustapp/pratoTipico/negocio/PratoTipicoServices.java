@@ -1,7 +1,6 @@
 package br.ufrpe.wanderlustapp.pratoTipico.negocio;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -45,8 +44,9 @@ public class PratoTipicoServices {
         pratoTipicoDAO.updatePrato(prato);
     }
 
-    public void delete(PratoTipico prato) {pratoTipicoDAO.deletePrato(prato);}
-
+    public void delete(PratoTipico prato) {
+        pratoTipicoDAO.deletePrato(prato);
+    }
 }
 
 

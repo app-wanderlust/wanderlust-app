@@ -88,7 +88,7 @@ public class ListaPratosActivity extends AppCompatActivity {
     private void configuraRecyclerview() {
         RecyclerView listaPratos = findViewById(R.id.lista_pratos_recyclerview);
         setAdapter(listaPratos);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PratoItemTouchHelperCallback(adapter));
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PratoItemTouchHelperCallback(adapter, pratoTipicoServices));
         itemTouchHelper.attachToRecyclerView(listaPratos);
     }
 
@@ -100,9 +100,6 @@ public class ListaPratosActivity extends AppCompatActivity {
             Toast.makeText(ListaPratosActivity.this, "Prato já cadastrado", Toast.LENGTH_LONG).show();
         }
     }
-
-
-
 }
 
 
