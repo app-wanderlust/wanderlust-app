@@ -29,10 +29,11 @@
         android:layout_marginTop="12dp"
         android:layout_marginBottom="570dp"
         android:text="Deslize o item para a direita para removê-lo"
+        android:textColor="#CACACA"
         android:textSize="16dp"
-        android:textColor="#471F8F"
         app:layout_constraintBottom_toTopOf="@+id/lista_notas_fundo_gradiente_inferior"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
