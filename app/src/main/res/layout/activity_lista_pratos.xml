@@ -51,7 +51,7 @@
         android:id="@+id/lista_pratos_insere_prato"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#471F8F"
+        android:background="#A56191"
         android:padding="10dp"
         android:text="Inserir um prato"
         android:textAlignment="center"
