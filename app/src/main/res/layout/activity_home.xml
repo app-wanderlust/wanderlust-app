@@ -10,7 +10,6 @@
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:src="@drawable/hello"
-
         android:tint="#471F8F"
         app:layout_constraintBottom_toTopOf="@id/textView"
         app:layout_constraintEnd_toEndOf="parent"

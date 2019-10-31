@@ -14,7 +14,7 @@
         android:layout_margin="20dp"
         android:background="#ECECEC"
         android:hint="Nome"
-        android:textColorHint="#707070"
+
         android:textSize="30sp"
         android:padding="10dp"
         android:textStyle="bold"
@@ -32,7 +32,7 @@
         android:background="#ECECEC"
         android:gravity="top"
         android:hint="Descrição do prato"
-        android:textColorHint="#707070"
+        android:textColorHint="#471F8F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/formulario_prato_nome"
         app:layout_constraintStart_toStartOf="@id/formulario_prato_nome"
