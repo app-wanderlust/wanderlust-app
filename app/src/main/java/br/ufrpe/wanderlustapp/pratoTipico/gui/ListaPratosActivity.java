@@ -2,12 +2,17 @@ package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -102,6 +107,29 @@ public class ListaPratosActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(ListaPratosActivity.this, "Prato já cadastrado", Toast.LENGTH_LONG).show();
         }
+
+    }
+
+    public boolean OnCreateOptionsMenu(Menu menu){
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_bar_lista_pratos, menu);
+
+        SearchView mSearchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return true;
     }
 }
 

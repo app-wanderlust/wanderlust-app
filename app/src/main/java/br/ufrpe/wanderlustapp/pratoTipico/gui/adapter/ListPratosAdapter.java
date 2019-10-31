@@ -4,32 +4,46 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
 
-public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.PratoViewHolder> {
+public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.PratoViewHolder> implements Filterable {
 
     private final Context context;
     private final List<PratoTipico> pratos;
+    // add final
+    private List<PratoTipico> pratosCopia;
     private OnItemClickListener onItemClickListener;
+
+    //public ListPratosAdapter(Context context,List<PratoTipico> pratos) {
+        //this.context = context;
+        //this.pratos = pratos;
+    //}
+
+    //novo construtor
 
     public ListPratosAdapter(Context context,List<PratoTipico> pratos) {
         this.context = context;
         this.pratos = pratos;
+        pratosCopia = new ArrayList<>(pratos);
     }
+
 
     public List<PratoTipico> getList(){
         return this.pratos;
     }
-
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -63,6 +77,37 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
         pratos.remove(posicao);
         notifyDataSetChanged();
     }
+
+    public Filter getFilter() {
+        return pratosFilter;
+    }
+
+    private Filter pratosFilter = new Filter(){
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<PratoTipico> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.add((PratoTipico) pratosCopia);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (PratoTipico item : pratosCopia){
+                    if(item.getNome().toLowerCase().contains(filterPattern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            pratos.clear();
+            pratos.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     class PratoViewHolder extends RecyclerView.ViewHolder {
 
