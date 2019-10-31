@@ -13,7 +13,6 @@
         </activity>
         <activity android:name=".pratoTipico.gui.ListaPratosActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".pratoTipico.gui.CadastroPratosActivity" />
         <activity android:name=".usuario.gui.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".usuario.gui.HomeActivity"

@@ -21,15 +21,19 @@ import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.PO
 
 
 public class FormularioPratosAcitivity extends AppCompatActivity {
+    public static final String TITULO_APPBAR_INSERE = "Inserir prato";
+    public static final String TITULO_APPBAR_ALTERA = "Alterar prato";
     private int posicaoRecebida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_pratos);
+        setTitle(TITULO_APPBAR_INSERE);
 
         Intent dadosRecebidos = getIntent();
         if (dadosRecebidos.hasExtra(CHAVE_PRATO) && dadosRecebidos.hasExtra("posicao") ){
+            setTitle(TITULO_APPBAR_ALTERA);
             PratoTipico pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
             posicaoRecebida = dadosRecebidos.getIntExtra("posicao", POSICAO_INVALIDA);
             TextView nome = findViewById(R.id.formulario_prato_nome);
