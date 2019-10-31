@@ -23,23 +23,15 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
 
     private final Context context;
     private final List<PratoTipico> pratos;
-    // add final
+    // add final?
     private List<PratoTipico> pratosCopia;
     private OnItemClickListener onItemClickListener;
-
-    //public ListPratosAdapter(Context context,List<PratoTipico> pratos) {
-        //this.context = context;
-        //this.pratos = pratos;
-    //}
-
-    //novo construtor
 
     public ListPratosAdapter(Context context,List<PratoTipico> pratos) {
         this.context = context;
         this.pratos = pratos;
         pratosCopia = new ArrayList<>(pratos);
     }
-
 
     public List<PratoTipico> getList(){
         return this.pratos;

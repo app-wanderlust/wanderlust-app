@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -110,13 +111,13 @@ public class ListaPratosActivity extends AppCompatActivity {
 
     }
 
-    public boolean OnCreateOptionsMenu(Menu menu){
-        super.onCreateOptionsMenu(menu);
+    public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_bar_lista_pratos, menu);
-
-        SearchView mSearchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
