@@ -24,7 +24,7 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
     private final Context context;
     private final List<PratoTipico> pratos;
     // add final?
-    private List<PratoTipico> pratosCopia;
+    private final List<PratoTipico> pratosCopia;
     private OnItemClickListener onItemClickListener;
 
     public ListPratosAdapter(Context context,List<PratoTipico> pratos) {
