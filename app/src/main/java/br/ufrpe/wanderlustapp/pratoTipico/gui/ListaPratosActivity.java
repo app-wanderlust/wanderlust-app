@@ -21,6 +21,7 @@ import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_RESULTADO_PRATO_CRIADO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_REUISICAO_INSERE_PRATO;
+import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.POSICAO_INVALIDA;
 
 public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
@@ -56,10 +57,10 @@ public class ListaPratosActivity extends AppCompatActivity {
             PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
             inserePrato(pratoRecebido);
         }
-        if(requestCode == 2 && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)
+        if(requestCode == CODIGO_RESULTADO_PRATO_CRIADO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)
                 && data.hasExtra("posicao")) {
             PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
-            int posicaoRecebida = data.getIntExtra("posicao", -1);
+            int posicaoRecebida = data.getIntExtra("posicao", POSICAO_INVALIDA);
             pratoTipicoServices.update(pratoRecebido);
             adapter.altera(posicaoRecebida,pratoRecebido);
         }
@@ -80,7 +81,7 @@ public class ListaPratosActivity extends AppCompatActivity {
                         FormularioPratosAcitivity.class);
                 abreFormularioComPrato.putExtra(CHAVE_PRATO,prato);
                 abreFormularioComPrato.putExtra("posicao",posicao);
-                startActivityForResult(abreFormularioComPrato,2);
+                startActivityForResult(abreFormularioComPrato,CODIGO_RESULTADO_PRATO_CRIADO);
             }
         });
     }
