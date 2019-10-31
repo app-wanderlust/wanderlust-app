@@ -29,12 +29,15 @@
         android:id="@+id/lista_pratos_insere_prato"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="#707070"
         android:padding="10dp"
+        android:textAlignment="center"
         android:text="Inserir um prato"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="20sp"
+        android:textColor="#fff"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
         app:layout_constraintStart_toStartOf="parent" />
 
 

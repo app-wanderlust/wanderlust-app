@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#ECECEC">
 
         <TextView
             android:id="@+id/item_nota_titulo"
@@ -17,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:maxLines="2"
-            android:textSize="30sp"
+            android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
