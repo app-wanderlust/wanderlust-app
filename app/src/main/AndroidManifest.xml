@@ -11,8 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".pratoTipico.gui.FormularioPratosAcitivity">
         </activity>
-        <activity android:name=".pratoTipico.gui.ListaPratosActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".pratoTipico.gui.ListaPratosActivity"/>
         <activity android:name=".usuario.gui.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".usuario.gui.HomeActivity"

@@ -5,6 +5,7 @@
         android:id="@+id/menu_formulario_prato_ic_salva"
         android:title="Salvar Prato"
         android:icon="@drawable/ic_action_salvar"
+        android:iconTint="@color/colorWhite"
         app:showAsAction="always" />
 
 

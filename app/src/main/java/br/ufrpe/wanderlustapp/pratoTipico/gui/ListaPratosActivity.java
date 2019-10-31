@@ -25,12 +25,14 @@ import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.PO
 
 public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
+    public static final String TITULO_APPBAR_LISTA = "Lista de Pratos";
     private ListPratosAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pratos);
+        setTitle(TITULO_APPBAR_LISTA);
         configuraRecyclerview();
         configuraBtnInserePrato();
     }
