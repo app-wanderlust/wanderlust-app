@@ -14,6 +14,7 @@ import java.util.List;
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
+import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 
 public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.PratoViewHolder> {
 
@@ -25,6 +26,11 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
         this.context = context;
         this.pratos = pratos;
     }
+
+    public List<PratoTipico> getList(){
+        return this.pratos;
+    }
+
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -51,6 +57,11 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
 
     public void altera(int posicao, PratoTipico prato) {
         pratos.set(posicao,prato);
+        notifyDataSetChanged();
+    }
+
+    public void remove(int posicao) {
+        pratos.remove(posicao);
         notifyDataSetChanged();
     }
 

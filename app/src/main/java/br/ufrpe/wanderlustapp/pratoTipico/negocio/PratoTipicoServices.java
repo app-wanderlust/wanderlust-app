@@ -38,6 +38,9 @@ public class PratoTipicoServices {
         pratoTipicoDAO.updatePrato(prato);
     }
 
+    public void delete(PratoTipico prato) {
+        pratoTipicoDAO.deletePrato(prato);
+    }
 }
 
 

@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#ECECEC">
 
         <TextView
             android:id="@+id/item_prato_nome"
@@ -17,8 +18,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:maxLines="2"
-            android:textSize="30sp"
+            android:textSize="25dp"
             android:textStyle="bold"
+            android:textColor="#471F8F"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Título" />
@@ -31,6 +33,7 @@
             android:layout_marginTop="8dp"
             android:maxLines="6"
             android:textSize="18sp"
+            android:textColor="#471F8F"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

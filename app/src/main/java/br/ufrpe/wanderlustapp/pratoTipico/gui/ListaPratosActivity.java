@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -20,7 +21,6 @@ import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_RESULTADO_PRATO_CRIADO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_REUISICAO_INSERE_PRATO;
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.POSICAO_INVALIDA;
 
 public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
@@ -56,12 +56,10 @@ public class ListaPratosActivity extends AppCompatActivity {
             PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
             inserePrato(pratoRecebido);
         }
-        if(requestCode == CODIGO_REUISICAO_INSERE_PRATO
-                && resultCode == CODIGO_RESULTADO_PRATO_CRIADO
-                && data.hasExtra(CHAVE_PRATO)
+        if(requestCode == 2 && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)
                 && data.hasExtra("posicao")) {
             PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
-            int posicaoRecebida = data.getIntExtra("posicao", POSICAO_INVALIDA);
+            int posicaoRecebida = data.getIntExtra("posicao", -1);
             pratoTipicoServices.update(pratoRecebido);
             adapter.altera(posicaoRecebida,pratoRecebido);
         }
@@ -90,6 +88,8 @@ public class ListaPratosActivity extends AppCompatActivity {
     private void configuraRecyclerview() {
         RecyclerView listaPratos = findViewById(R.id.lista_pratos_recyclerview);
         setAdapter(listaPratos);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PratoItemTouchHelperCallback(adapter, pratoTipicoServices));
+        itemTouchHelper.attachToRecyclerView(listaPratos);
     }
 
     private void inserePrato(PratoTipico pratoTipico) {
