@@ -60,14 +60,6 @@ public class PratoTipicoDAO extends AbstractDAO {
         return pratos;
     }
 
-    public PratoTipico getPratoTipico(long id) {
-        PratoTipico prato = getPratoTipicoById(id);
-        if (prato != null){
-            prato = null;
-        }
-        return prato;
-    }
-
     private PratoTipico createPratoTipico(Cursor cursor) {
         PratoTipico prato = new PratoTipico();
         CidadeDAO cidadeDAO = new CidadeDAO(context);
