@@ -10,7 +10,6 @@ public class PratoTipico implements Serializable {
     private String nome;
     private String descricao;
     private Cidade cidade;
-    private StatusAtividade statusAtividade = StatusAtividade.ATIVO;
 
     public long getId() {
         return id;
@@ -45,11 +44,4 @@ public class PratoTipico implements Serializable {
         this.cidade = cidade;
     }
 
-    public StatusAtividade getStatusAtividade() {
-        return statusAtividade;
-    }
-
-    public void setStatusAtividade(StatusAtividade statusAtividade) {
-        this.statusAtividade = statusAtividade;
-    }
 }

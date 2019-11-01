@@ -38,7 +38,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CAMPO_NOME_PRATO = "nome_prato";
     public static final String CAMPO_DESCRICAO = "descricao";
     public static final String CAMPO_FK_CIDADE = "fk_cidade";
-    //public static final String CAMPO_STATUS_ATIVIDADE = "status_atividade";
 
 
     private static final String[] TABELAS = {

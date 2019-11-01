@@ -17,7 +17,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private TextView textoExibicao;
     private Usuario usuario;
-    private Button  btnInserirPrato;
     private Button  btnVisualizarPrato;
 
     @Override
@@ -30,7 +29,6 @@ public class HomeActivity extends AppCompatActivity {
         textoExibicao = findViewById(R.id.textView);
         textoExibicao.setText("Olá, "+nomeUsuario+"!");
         btnVisualizarPrato = (Button)findViewById(R.id.botaoVisualizarPrato);
-
 
         btnVisualizarPrato.setOnClickListener(new View.OnClickListener(){
 

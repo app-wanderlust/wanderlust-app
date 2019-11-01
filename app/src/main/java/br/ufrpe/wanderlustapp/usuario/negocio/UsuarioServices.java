@@ -9,11 +9,9 @@ import br.ufrpe.wanderlustapp.usuario.persistencia.UsuarioDAO;
 
 public class UsuarioServices {
     private UsuarioDAO usuarioDAO;
-    private PessoaDAO pessoaDAO;
 
     public UsuarioServices(Context context){
         usuarioDAO = new UsuarioDAO(context);
-        pessoaDAO = new PessoaDAO(context);
     }
 
     public void login(String email, String senha) throws Exception{
@@ -23,7 +21,6 @@ public class UsuarioServices {
         }else {
             Sessao.instance.setUsuario(usuario);
         }
-
     }
 
     public void cadastrar(Usuario usuario) throws Exception{
