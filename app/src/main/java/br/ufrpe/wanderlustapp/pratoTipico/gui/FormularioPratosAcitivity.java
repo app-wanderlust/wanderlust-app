@@ -55,11 +55,14 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
         if(item.getItemId() == R.id.menu_formulario_prato_ic_salva){
             Intent dadosRecebidos = getIntent();
             PratoTipico pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
-            if (pratoRecebido == null){
-                pratoRecebido = criaPratoTipico();
+            if (verficaCampos()) {
+                if (pratoRecebido == null) {
+                    pratoRecebido = criaPratoTipico();
+                } else {
+                    pratoRecebido = atualizaPrato(pratoRecebido);
+                }
+                retornaPratoViaExtra(pratoRecebido);
             }
-            pratoRecebido = atualizaPrato(pratoRecebido);
-            retornaPratoViaExtra(pratoRecebido);
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -69,6 +72,17 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
         PratoTipico pratoTipico = new PratoTipico();
         preencheAtributosPrato(pratoTipico);
         return pratoTipico;
+    }
+
+    private PratoTipico atualizaPrato(PratoTipico pratoTipico) {
+        preencheAtributosPrato(pratoTipico);
+        return pratoTipico;
+    }
+
+    private boolean verficaCampos(){
+        EditText nome = findViewById(R.id.formulario_prato_nome);
+        EditText descricao = findViewById(R.id.formulario_prato_descricao);
+        return nome.length() > 0 && descricao.length() > 0;
     }
 
     private void preencheAtributosPrato(PratoTipico pratoTipico) {
@@ -88,11 +102,6 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
         resultadoInsercao.putExtra(CHAVE_PRATO,pratoTipico);
         resultadoInsercao.putExtra("posicao", posicaoRecebida);
         setResult(CODIGO_RESULTADO_PRATO_CRIADO,resultadoInsercao);
-    }
-
-    private PratoTipico atualizaPrato(PratoTipico pratoTipico) {
-        preencheAtributosPrato(pratoTipico);
-        return pratoTipico;
     }
 
     private Cidade createCidadePadrao() {
