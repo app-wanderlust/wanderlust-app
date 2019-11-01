@@ -12,7 +12,6 @@ import br.ufrpe.wanderlustapp.cidade.persistencia.CidadeDAO;
 import br.ufrpe.wanderlustapp.infra.persistencia.AbstractDAO;
 import br.ufrpe.wanderlustapp.infra.persistencia.DBHelper;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
-import br.ufrpe.wanderlustapp.pratoTipico.dominio.StatusAtividade;
 
 public class PratoTipicoDAO extends AbstractDAO {
     private SQLiteDatabase db;
@@ -80,8 +79,6 @@ public class PratoTipicoDAO extends AbstractDAO {
         prato.setDescricao(cursor.getString(columnIndex));
         columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_FK_CIDADE);
         prato.setCidade(cidadeDAO.getCidade(cursor.getInt(columnIndex)));
-        //columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_STATUS_ATIVIDADE);
-        //prato.setStatusAtividade(StatusAtividade.stringToEnum(cursor.getString(columnIndex)));
         return prato;
     }
 
@@ -91,7 +88,6 @@ public class PratoTipicoDAO extends AbstractDAO {
         values.put(DBHelper.CAMPO_FK_CIDADE,prato.getCidade().getId());
         values.put(DBHelper.CAMPO_NOME_PRATO,prato.getNome());
         values.put(DBHelper.CAMPO_DESCRICAO,prato.getDescricao());
-        //values.put(DBHelper.CAMPO_STATUS_ATIVIDADE,prato.getStatusAtividade().toString());
         long id = db.insert(DBHelper.TABELA_PRATO,null,values);
         super.close(db);
         return id;
@@ -103,7 +99,6 @@ public class PratoTipicoDAO extends AbstractDAO {
         values.put(DBHelper.CAMPO_FK_CIDADE,prato.getCidade().getId());
         values.put(DBHelper.CAMPO_NOME_PRATO,prato.getNome());
         values.put(DBHelper.CAMPO_DESCRICAO,prato.getDescricao());
-        //values.put(DBHelper.CAMPO_STATUS_ATIVIDADE,prato.getStatusAtividade().toString());
         String[] id = new String[]{Long.toString(prato.getId())};
         db.update(DBHelper.TABELA_PRATO,values,DBHelper.CAMPO_ID_PRATO+"=?",id);
         super.close();

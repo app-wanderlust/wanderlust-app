@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
@@ -23,7 +22,6 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
 
     private final Context context;
     private final List<PratoTipico> pratos;
-    // add final?
     private final List<PratoTipico> pratosCopia;
     private OnItemClickListener onItemClickListener;
 

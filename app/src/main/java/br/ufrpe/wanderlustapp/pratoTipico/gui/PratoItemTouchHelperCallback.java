@@ -1,9 +1,5 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
-import android.content.Context;
-import android.content.Intent;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,8 +9,6 @@ import java.util.List;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
-
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
 
 class PratoItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
@@ -46,6 +40,5 @@ class PratoItemTouchHelperCallback extends ItemTouchHelper.Callback {
         PratoTipico pratoDeslizado = pratos.get(posicaoPratoDeslizado);
         services.delete(pratoDeslizado);
         adapter.remove(posicaoPratoDeslizado);
-
     }
 }

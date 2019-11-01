@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -108,7 +107,6 @@ public class ListaPratosActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(ListaPratosActivity.this, "Prato já cadastrado", Toast.LENGTH_LONG).show();
         }
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -118,12 +116,10 @@ public class ListaPratosActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 adapter.getFilter().filter(newText);
