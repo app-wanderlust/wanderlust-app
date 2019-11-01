@@ -14,7 +14,7 @@
         android:layout_margin="20dp"
         android:background="#ECECEC"
         android:hint="Nome"
-
+        android:textColorHint="#471F8F"
         android:textSize="30sp"
         android:padding="10dp"
         android:textStyle="bold"
