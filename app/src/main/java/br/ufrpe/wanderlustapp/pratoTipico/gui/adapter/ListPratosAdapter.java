@@ -95,9 +95,15 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
         }
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            pratos.clear();
-            pratos.addAll((List) results.values);
-            notifyDataSetChanged();
+            if (constraint.length() > 0){
+                pratos.clear();
+                pratos.addAll((List) results.values);
+                notifyDataSetChanged();
+            }else {
+                pratos.clear();
+                pratos.addAll((List) pratosCopia);
+                notifyDataSetChanged();
+            }
         }
     };
 
