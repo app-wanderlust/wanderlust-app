@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
@@ -19,6 +24,16 @@ public class HomeActivity extends AppCompatActivity {
     private Usuario usuario;
     private Button  btnVisualizarPrato;
 
+    int[] images = {R.drawable.cuscuz, R.drawable.tapioca, R.drawable.lasanha, R.drawable.feijoada};
+
+    String[] version = {"Cuscuz", "Tapioca", "Lasanha", "Feijoada"};
+
+    String[] versionNumber = {"Farinha", "Farinha tbm", "Macarrão", "Feijão"};
+
+    ListView lView;
+
+    ListAdapter lAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +41,6 @@ public class HomeActivity extends AppCompatActivity {
 
         usuario = Sessao.instance.getUsuario();
         String nomeUsuario = usuario.getPessoa().getNome();
-        textoExibicao = findViewById(R.id.textView);
-        textoExibicao.setText("Olá, "+nomeUsuario+"!");
         btnVisualizarPrato = (Button)findViewById(R.id.botaoVisualizarPrato);
 
         btnVisualizarPrato.setOnClickListener(new View.OnClickListener(){
@@ -37,5 +50,19 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, ListaPratosActivity.class));
             }
         });
-    }
+        lView = (ListView) findViewById(R.id.androidList);
+
+        lAdapter = new ListAdapter(HomeActivity.this, version, versionNumber, images);
+
+        lView.setAdapter(lAdapter);
+
+        lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Toast.makeText(HomeActivity.this, version[i]+" "+versionNumber[i], Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        }
 }
