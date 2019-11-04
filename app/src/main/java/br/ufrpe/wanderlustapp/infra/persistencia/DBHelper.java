@@ -39,9 +39,16 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CAMPO_DESCRICAO = "descricao";
     public static final String CAMPO_FK_CIDADE = "fk_cidade";
 
+    //Tabela PessoaPrato
+    public static final String TABELA_PESSOA_PRATO = "tb_pessoa_prato";
+    public static final String CAMPO_ID_PESSOA_PRATO = "id";
+    public static final String CAMPO_FK_ID_PESSOA = "fk_pessoa";
+    public static final String CAMPO_FK_ID_PRATO = "fk_prato";
+    public static final String CAMPO_NOTA = "nota";
+
 
     private static final String[] TABELAS = {
-            TABELA_PESSOA, TABELA_USUARIO, TABELA_PAIS, TABELA_CIDADE, TABELA_PRATO
+            TABELA_PESSOA, TABELA_USUARIO, TABELA_PAIS, TABELA_CIDADE, TABELA_PRATO, TABELA_PESSOA_PRATO
     };
 
     public DBHelper(Context context) {
@@ -56,6 +63,7 @@ public class DBHelper extends SQLiteOpenHelper {
         createTablePais(db);
         createTableCidade(db);
         createTablePrato(db);
+        createTablePessoaPrato(db);
     }
 
     private void createTableUsuario(SQLiteDatabase db) {
@@ -117,6 +125,19 @@ public class DBHelper extends SQLiteOpenHelper {
         sqlTbPrato = String.format(sqlTbPrato,
                 TABELA_PRATO, CAMPO_ID_PRATO, CAMPO_NOME_PRATO, CAMPO_DESCRICAO, CAMPO_FK_CIDADE);
         db.execSQL(sqlTbPrato);
+    }
+
+    private void createTablePessoaPrato(SQLiteDatabase db) {
+        String sqlTbPessoaPrato =
+                "CREATE TABLE %1$s ( "  +
+                        "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "  %3$s TEXT NOT NULL, " +
+                        "  %4$s TEXT NOT NULL, " +
+                        "  %5$s TEXT NOT NULL " +
+                        ");";
+        sqlTbPessoaPrato = String.format(sqlTbPessoaPrato,
+                TABELA_PESSOA_PRATO, CAMPO_ID_PESSOA_PRATO, CAMPO_FK_ID_PESSOA, CAMPO_FK_ID_PRATO, CAMPO_NOTA);
+        db.execSQL(sqlTbPessoaPrato);
     }
 
     @Override
