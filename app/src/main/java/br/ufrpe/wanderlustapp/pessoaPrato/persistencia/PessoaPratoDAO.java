@@ -36,28 +36,28 @@ public class PessoaPratoDAO extends AbstractDAO {
         return pessoaPrato;
     }
 
-    public PessoaPrato getPessoaPratoByIdPessoa(long id){
-        PessoaPrato pessoaPrato = null;
+    public List<PessoaPrato> getPessoaPratoByIdPessoa(long id){
+        List<PessoaPrato> pessoaPratos = new ArrayList<>();
         db = helper.getReadableDatabase();
         String sql = "SELECT * FROM " + DBHelper.TABELA_PESSOA_PRATO + " WHERE " + DBHelper.CAMPO_FK_ID_PESSOA + " LIKE ?;";
         Cursor cursor = db.rawQuery(sql, new String[]{Long.toString(id)});
-        if (cursor.moveToFirst()){
-            pessoaPrato = createPessoaPrato(cursor);
+        if (cursor.moveToNext()){
+            pessoaPratos.add(createPessoaPrato(cursor));
         }
         super.close(db);
-        return pessoaPrato;
+        return pessoaPratos;
     }
 
-    public PessoaPrato getPessoaPratoByIdPrato(long id){
-        PessoaPrato pessoaPrato = null;
+    public List<PessoaPrato> getPessoaPratoByIdPrato(long id){
+        List<PessoaPrato> pessoaPratos = new ArrayList<>();
         db = helper.getReadableDatabase();
         String sql = "SELECT * FROM " + DBHelper.TABELA_PESSOA_PRATO + " WHERE " + DBHelper.CAMPO_FK_ID_PRATO + " LIKE ?;";
         Cursor cursor = db.rawQuery(sql, new String[]{Long.toString(id)});
-        if (cursor.moveToFirst()){
-            pessoaPrato = createPessoaPrato(cursor);
+        if (cursor.moveToNext()){
+            pessoaPratos.add(createPessoaPrato(cursor));
         }
         super.close(db);
-        return pessoaPrato;
+        return pessoaPratos;
     }
 
     public List<PessoaPrato> getListPessoaPrato(){
