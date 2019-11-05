@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home"></item>
+
+    <item
+        android:id="@+id/nav_person"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="Perfil"></item>
+
+    <item
+        android:id="@+id/nav_business"
+        android:icon="@drawable/ic_business_black_24dp"
+        android:title="Contatos Úteis"></item>
+
+    <item
+        android:id="@+id/nav_chat"
+        android:icon="@drawable/ic_message_black_24dp"
+        android:title="Wand"></item>
+
+    <item
+        android:id="@+id/nav_add"
+        android:icon="@drawable/ic_add_circle_black_24dp"
+        android:title="Adicionar prato" />
+
+</menu>
