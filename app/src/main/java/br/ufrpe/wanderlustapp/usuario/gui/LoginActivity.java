@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(validaCampos()){
                     try {
                         usuarioServices.login(EtEmail.getText().toString(), EtSenha.getText().toString());
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                        startActivity(new Intent(LoginActivity.this, HomeFragment.class));
                     } catch (Exception e) {
 
                         if (toast != null){
