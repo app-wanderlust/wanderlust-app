@@ -21,6 +21,7 @@ import java.util.List;
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
+import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdpterFavoritos;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
@@ -32,6 +33,7 @@ public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     public static final String TITULO_APPBAR_LISTA = "Lista de pratos";
     private ListPratosAdapter adapter;
+    private ListPratosAdpterFavoritos adapterFavoritos;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class ListaPratosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_pratos);
         setTitle(TITULO_APPBAR_LISTA);
         configuraRecyclerview();
+        configuraRecyclerviewFavoritos();
         configuraBtnInserePrato();
     }
 
@@ -92,12 +95,30 @@ public class ListaPratosActivity extends AppCompatActivity {
             }
         });
     }
+    private void setAdapterFavoritos(RecyclerView recyclerView){
+            adapterFavoritos = new ListPratosAdpterFavoritos(this, geraLista());
+            recyclerView.setAdapter(adapter);
+            adapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(PratoTipico prato, int posicao) {
+                    Intent abreFormularioComPrato = new Intent(ListaPratosActivity.this,
+                            FormularioPratosAcitivity.class);
+                    abreFormularioComPrato.putExtra(CHAVE_PRATO,prato);
+                    abreFormularioComPrato.putExtra("posicao",posicao);
+                    startActivityForResult(abreFormularioComPrato,CODIGO_RESULTADO_PRATO_CRIADO);
+                }
+            });
+        }
 
     private void configuraRecyclerview() {
         RecyclerView listaPratos = findViewById(R.id.lista_pratos_recyclerview);
         setAdapter(listaPratos);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PratoItemTouchHelperCallback(adapter, pratoTipicoServices));
         itemTouchHelper.attachToRecyclerView(listaPratos);
+    }
+    private void configuraRecyclerviewFavoritos() {
+        RecyclerView listaPratosFavoritos = findViewById(R.id.lista_pratos_recyclerview);
+        setAdapterFavoritos(listaPratosFavoritos);
     }
 
     private void inserePrato(PratoTipico pratoTipico) {
