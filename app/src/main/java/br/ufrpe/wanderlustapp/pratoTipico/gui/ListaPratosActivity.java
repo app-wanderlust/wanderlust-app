@@ -21,7 +21,7 @@ import java.util.List;
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdpterFavoritos;
+import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapterFavoritos;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
@@ -33,7 +33,7 @@ public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     public static final String TITULO_APPBAR_LISTA = "Lista de pratos";
     private ListPratosAdapter adapter;
-    private ListPratosAdpterFavoritos adapterFavoritos;
+    private ListPratosAdapterFavoritos adapterFavoritos;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,9 +96,9 @@ public class ListaPratosActivity extends AppCompatActivity {
         });
     }
     private void setAdapterFavoritos(RecyclerView recyclerView){
-            adapterFavoritos = new ListPratosAdpterFavoritos(this, geraLista());
-            recyclerView.setAdapter(adapter);
-            adapter.setOnItemClickListener(new OnItemClickListener() {
+            adapterFavoritos = new ListPratosAdapterFavoritos(this, geraLista());
+            recyclerView.setAdapter(adapterFavoritos);
+            adapterFavoritos.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(PratoTipico prato, int posicao) {
                     Intent abreFormularioComPrato = new Intent(ListaPratosActivity.this,
@@ -117,7 +117,7 @@ public class ListaPratosActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(listaPratos);
     }
     private void configuraRecyclerviewFavoritos() {
-        RecyclerView listaPratosFavoritos = findViewById(R.id.lista_pratos_recyclerview);
+        RecyclerView listaPratosFavoritos = findViewById(R.id.lista_pratos_recyclerview_Favoritos);
         setAdapterFavoritos(listaPratosFavoritos);
     }
 
