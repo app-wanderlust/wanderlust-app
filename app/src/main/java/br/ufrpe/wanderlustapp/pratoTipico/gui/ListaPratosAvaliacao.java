@@ -1,6 +1,10 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,13 +19,13 @@ import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 public class ListaPratosAvaliacao extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     private ListaPratosAvaliacaoAdapter adapter;
+    private ToggleButton toggleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pratos_avaliacao);
         configuraRecyclerviewAvaliacao();
-        //Configurar botão da lista de favoritos
     }
 
     private void configuraRecyclerviewAvaliacao() {
@@ -32,11 +36,8 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
     private void setAdapterAvaliacao(RecyclerView recyclerView) {
         adapter = new ListaPratosAvaliacaoAdapter(this,geraListaFavoritos());
         recyclerView.setAdapter(adapter);
-
     }
 
     private List<PratoTipico> geraListaFavoritos(){return pratoTipicoServices.getLista();}
-
-
 
 }
