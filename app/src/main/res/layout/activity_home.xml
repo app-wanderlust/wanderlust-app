@@ -44,8 +44,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42000002" />
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/botaoAvaliarPrato"
         android:layout_width="155dp"
@@ -58,19 +58,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62000002" />
+        app:layout_constraintVertical_bias="0.6" />
+
     <Button
         android:id="@+id/botaoVisualizarPratoFavoritos"
         android:layout_width="155dp"
         android:layout_height="52dp"
         android:background="@layout/rounded_border_button"
         android:gravity="center"
-        android:text="Visualizar pratos Favoritos"
+        android:text="Ver pratos Favoritos"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.82000002" />
+        app:layout_constraintVertical_bias="0.7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
