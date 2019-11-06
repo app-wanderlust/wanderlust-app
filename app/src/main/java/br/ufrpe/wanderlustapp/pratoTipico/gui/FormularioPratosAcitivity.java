@@ -4,16 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
+import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
+import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
+import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
+import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_RESULTADO_PRATO_CRIADO;
@@ -24,6 +33,13 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
     public static final String TITULO_APPBAR_INSERE = "Inserir prato";
     public static final String TITULO_APPBAR_ALTERA = "Alterar prato";
     private int posicaoRecebida;
+    private Button btAvaliar;
+    private RatingBar ratingBar;
+    private PratoTipico pratoRecebido;
+    private PratoTipico prato;
+    private PessoaPrato pessoaPrato;
+    private Usuario usuario;
+    PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +47,40 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
         setContentView(R.layout.activity_formulario_pratos);
         setTitle(TITULO_APPBAR_INSERE);
 
+        usuario = Sessao.instance.getUsuario();
+        ratingBar = findViewById(R.id.ratingBarId);
+        btAvaliar = findViewById(R.id.botaoAvaliarPratoTipicoId);
+
         Intent dadosRecebidos = getIntent();
         if (dadosRecebidos.hasExtra(CHAVE_PRATO) && dadosRecebidos.hasExtra("posicao") ){
             setTitle(TITULO_APPBAR_ALTERA);
-            PratoTipico pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
+            pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
             posicaoRecebida = dadosRecebidos.getIntExtra("posicao", POSICAO_INVALIDA);
             TextView nome = findViewById(R.id.formulario_prato_nome);
             nome.setText(pratoRecebido.getNome());
             TextView descricao = findViewById(R.id.formulario_prato_descricao);
             descricao.setText(pratoRecebido.getDescricao());
         }
+
+
+        btAvaliar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (pratoRecebido != null) {
+                    float nota = ratingBar.getRating();
+                    pessoaPrato.setPratoTipico(prato);
+                    pessoaPrato.setPessoa(usuario.getPessoa());
+                    pessoaPrato.setNota(nota);
+                    pessoaPratoServices.cadastrar(pessoaPrato);
+                    Toast.makeText(getApplicationContext(), "prato avaliado: " + nota, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Sem prato", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
+
+
 
 
     @Override
