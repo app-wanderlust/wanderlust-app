@@ -12,6 +12,7 @@ import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosActivity;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosAvaliacao;
+import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosFavoritos;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 
 public class HomeActivity extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class HomeActivity extends AppCompatActivity {
     private Usuario usuario;
     private Button  btnVisualizarPrato;
     private Button btnAvaliarPrato;
+    private Button btnVisualizarPratoFavoritos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class HomeActivity extends AppCompatActivity {
         textoExibicao.setText("Olá, "+nomeUsuario+"!");
         btnVisualizarPrato = findViewById(R.id.botaoVisualizarPrato);
         btnAvaliarPrato = findViewById(R.id.botaoAvaliarPrato);
+        btnVisualizarPratoFavoritos = findViewById(R.id.botaoVisualizarPratoFavoritos);
 
         btnVisualizarPrato.setOnClickListener(new View.OnClickListener(){
 
@@ -47,5 +50,16 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, ListaPratosAvaliacao.class));
             }
         });
+        btnVisualizarPratoFavoritos.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, ListaPratosFavoritos.class));
+            }
+        });
+
+
+
+
     }
 }
