@@ -4,7 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,7 +43,6 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
     public void onBindViewHolder(@NonNull PratoViewHolder holder, int position) {
         PratoTipico prato = pratosAvaliacao.get(position);
         holder.vincula(prato);
-
     }
 
     @Override
@@ -54,11 +56,22 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
         private PratoTipico prato;
 
 
-        public PratoViewHolder(@NonNull View itemView) {
+        public PratoViewHolder(@NonNull final View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.item_prato_nome_avaliacao);
             descricao = itemView.findViewById(R.id.item_prato_descricao_avaliacao);
-
+            ToggleButton toggleButton = itemView.findViewById(R.id.button_favorite);
+            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    int posicao = itemView.getId();
+                    if (isChecked){
+                        System.out.println("checked" + posicao);
+                    }else{
+                        System.out.println("not checked" + posicao);
+                    }
+                }
+            });
         }
 
         public void vincula(PratoTipico prato){
