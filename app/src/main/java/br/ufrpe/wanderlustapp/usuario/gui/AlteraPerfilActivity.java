@@ -1,8 +1,8 @@
 package br.ufrpe.wanderlustapp.usuario.gui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import br.ufrpe.wanderlustapp.R;
 

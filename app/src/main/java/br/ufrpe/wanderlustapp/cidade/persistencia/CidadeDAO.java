@@ -9,7 +9,6 @@ import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
 import br.ufrpe.wanderlustapp.infra.persistencia.AbstractDAO;
 import br.ufrpe.wanderlustapp.infra.persistencia.DBHelper;
 import br.ufrpe.wanderlustapp.pais.persistencia.PaisDAO;
-import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 
 public class CidadeDAO extends AbstractDAO {
 
@@ -19,7 +18,7 @@ public class CidadeDAO extends AbstractDAO {
 
     public CidadeDAO(Context context) {
         this.context = context;
-        helper = new DBHelper(context);
+        helper = new DBHelper(this.context);
     }
 
     public Cidade getCidadeById(long id) {

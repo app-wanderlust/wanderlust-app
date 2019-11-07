@@ -3,7 +3,6 @@ package br.ufrpe.wanderlustapp.usuario.negocio;
 import android.content.Context;
 
 import br.ufrpe.wanderlustapp.infra.Sessao;
-import br.ufrpe.wanderlustapp.pessoa.persistencia.PessoaDAO;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 import br.ufrpe.wanderlustapp.usuario.persistencia.UsuarioDAO;
 

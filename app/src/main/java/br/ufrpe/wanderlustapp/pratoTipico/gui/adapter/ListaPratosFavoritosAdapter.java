@@ -14,14 +14,10 @@ import java.util.List;
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosFavoritos;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
 
 public class ListaPratosFavoritosAdapter extends RecyclerView.Adapter<ListaPratosFavoritosAdapter.PratoViewHolder> {
     private final Context context;
-    //private final List<PratoTipico> pratosFavoritos;
     private final List<PessoaPrato> pessoaPratos;
-    private OnItemClickListener onItemClickListener;
 
     public ListaPratosFavoritosAdapter(Context context, List<PessoaPrato> pessoaPratos) {
         this.context = context;
@@ -30,10 +26,6 @@ public class ListaPratosFavoritosAdapter extends RecyclerView.Adapter<ListaPrato
 
     public List<PessoaPrato> getList(){
         return this.pessoaPratos;
-    }
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
-        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -69,8 +61,8 @@ public class ListaPratosFavoritosAdapter extends RecyclerView.Adapter<ListaPrato
 
         public void vincula(PratoTipico prato){
             this.prato = prato;
-            titulo.setText(prato.getNome());
-            descricao.setText(prato.getDescricao());
+            titulo.setText(this.prato.getNome());
+            descricao.setText(this.prato.getDescricao());
         }
     }
 

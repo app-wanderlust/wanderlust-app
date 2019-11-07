@@ -4,10 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,16 +63,12 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
                     onItemClickListener.onItemClick(prato, getAdapterPosition());
                 }
             });
-
         }
 
         public void vincula(PratoTipico prato){
             this.prato = prato;
-            titulo.setText(prato.getNome());
-            descricao.setText(prato.getDescricao());
+            titulo.setText(this.prato.getNome());
+            descricao.setText(this.prato.getDescricao());
         }
     }
-
-
-
 }

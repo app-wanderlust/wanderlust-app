@@ -1,10 +1,10 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import java.util.List;
 
@@ -13,15 +13,10 @@ import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
-import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListaPratosAvaliacaoAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListaPratosFavoritosAdapter;
-import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
-import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 
 public class ListaPratosFavoritos extends AppCompatActivity {
 
-    PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(this);
     private Pessoa pessoa = Sessao.instance.getUsuario().getPessoa();
     private ListaPratosFavoritosAdapter adapter;
@@ -43,7 +38,6 @@ public class ListaPratosFavoritos extends AppCompatActivity {
     private void setAdapterFavoritos(RecyclerView recyclerView) {
         adapter = new ListaPratosFavoritosAdapter(this,geraListaFavoritos());
         recyclerView.setAdapter(adapter);
-
     }
 
     private List<PessoaPrato> geraListaFavoritos(){
