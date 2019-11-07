@@ -16,7 +16,7 @@
             android:layout_height="80dp"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/kitchen" />
+            android:src="@drawable/kitchen_food" />
 
         <TextView
             android:id="@+id/item_prato_nome_favoritos"
@@ -25,7 +25,7 @@
             android:layout_below="@+id/thumbnail"
             android:maxLines="5"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="2dp"
             android:text="Nome"
@@ -45,7 +45,7 @@
             android:layout_marginBottom="2dp"
             android:text="Descrição"
             android:textColor="#471F8F"
-            android:textSize="14dp" />
+            android:textSize="16dp" />
 
         <View
             android:id="@+id/lista_notas_fundo_gradiente_inferior"
@@ -59,8 +59,14 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="317dp"
+            android:layout_marginLeft="317dp"
+            android:layout_marginTop="99dp"
             app:srcCompat="@drawable/what" />
 
 

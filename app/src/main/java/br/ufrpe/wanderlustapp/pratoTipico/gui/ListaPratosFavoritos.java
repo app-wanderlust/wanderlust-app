@@ -23,6 +23,7 @@ public class ListaPratosFavoritos extends AppCompatActivity {
 
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(this);
+    public static final String TITULO_APPBAR_LISTA = "Pratos favoritos";
     private Pessoa pessoa = Sessao.instance.getUsuario().getPessoa();
     private ListaPratosFavoritosAdapter adapter;
 
@@ -30,6 +31,7 @@ public class ListaPratosFavoritos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pratos_favoritos);
+        setTitle(TITULO_APPBAR_LISTA);
         configuraRecyclerviewFavoritos();
     }
 
