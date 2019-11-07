@@ -40,10 +40,10 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(PratoTipico prato, int posicao) {
-                /*pessoaPrato.setPratoTipico(prato);
+                pessoaPrato.setPratoTipico(prato);
                 pessoaPrato.setPessoa(usuario.getPessoa());
                 pessoaPrato.setNota(1);
-                pessoaPratoServices.cadastrar(pessoaPrato);*/
+                pessoaPratoServices.cadastrar(pessoaPrato);
                 Toast.makeText(ListaPratosAvaliacao.this, prato.getNome(), Toast.LENGTH_LONG).show();
             }
         });

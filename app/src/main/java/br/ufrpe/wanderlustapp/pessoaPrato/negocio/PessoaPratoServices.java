@@ -24,6 +24,10 @@ public class PessoaPratoServices {
         return pessoaPratoDAO.getListPessoaPrato();
     }
 
+    public List<PessoaPrato> getListByIdPessoa(long idPessoa){
+        return pessoaPratoDAO.getPratoByIdPessoa(idPessoa);
+    }
+
     public void update(PessoaPrato pessoaPrato){
         pessoaPratoDAO.updatePessoaPrato(pessoaPrato);
     }

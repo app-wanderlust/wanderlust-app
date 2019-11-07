@@ -12,18 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
+import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosFavoritos;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
 
 public class ListaPratosFavoritosAdapter extends RecyclerView.Adapter<ListaPratosFavoritosAdapter.PratoViewHolder> {
     private final Context context;
-    private final List<PratoTipico> pratosFavoritos;
+    //private final List<PratoTipico> pratosFavoritos;
+    private final List<PessoaPrato> pessoaPratos;
     private OnItemClickListener onItemClickListener;
 
-    public ListaPratosFavoritosAdapter(Context context, List<PratoTipico> pratos) {
+    public ListaPratosFavoritosAdapter(Context context, List<PessoaPrato> pessoaPratos) {
         this.context = context;
-        this.pratosFavoritos = pratos;
+        this.pessoaPratos = pessoaPratos;
     }
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
@@ -39,14 +41,13 @@ public class ListaPratosFavoritosAdapter extends RecyclerView.Adapter<ListaPrato
 
     @Override
     public void onBindViewHolder(@NonNull PratoViewHolder holder, int position) {
-        PratoTipico prato = pratosFavoritos.get(position);
+        PratoTipico prato = pessoaPratos.get(position).getPratoTipico();
         holder.vincula(prato);
-
     }
 
     @Override
     public int getItemCount() {
-        return pratosFavoritos.size();
+        return pessoaPratos.size();
     }
 
     class PratoViewHolder extends RecyclerView.ViewHolder{
@@ -59,7 +60,6 @@ public class ListaPratosFavoritosAdapter extends RecyclerView.Adapter<ListaPrato
             super(itemView);
             titulo = itemView.findViewById(R.id.item_prato_nome_favoritos);
             descricao = itemView.findViewById(R.id.item_prato_descricao_favoritos);
-
         }
 
         public void vincula(PratoTipico prato){
@@ -67,5 +67,10 @@ public class ListaPratosFavoritosAdapter extends RecyclerView.Adapter<ListaPrato
             titulo.setText(prato.getNome());
             descricao.setText(prato.getDescricao());
         }
+    }
+
+    public void adicona(PessoaPrato pessoaPrato){
+        pessoaPratos.add(pessoaPrato);
+        notifyDataSetChanged();
     }
 }
