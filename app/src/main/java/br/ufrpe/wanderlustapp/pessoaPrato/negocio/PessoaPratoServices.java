@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pessoaPrato.persistencia.PessoaPratoDAO;
+import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 
 public class PessoaPratoServices {
     private PessoaPratoDAO pessoaPratoDAO;

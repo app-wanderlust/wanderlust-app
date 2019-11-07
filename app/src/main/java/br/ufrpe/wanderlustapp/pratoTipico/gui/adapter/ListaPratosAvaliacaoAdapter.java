@@ -60,18 +60,13 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
             super(itemView);
             titulo = itemView.findViewById(R.id.item_prato_nome_avaliacao);
             descricao = itemView.findViewById(R.id.item_prato_descricao_avaliacao);
-            ToggleButton toggleButton = itemView.findViewById(R.id.button_favorite);
-            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    int posicao = itemView.getId();
-                    if (isChecked){
-                        System.out.println("checked" + posicao);
-                    }else{
-                        System.out.println("not checked" + posicao);
-                    }
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(prato, getAdapterPosition());
                 }
             });
+
         }
 
         public void vincula(PratoTipico prato){

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
+import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListaPratosAvaliacaoAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListaPratosFavoritosAdapter;
@@ -16,6 +17,7 @@ import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 public class ListaPratosFavoritos extends AppCompatActivity {
 
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
+    PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(this);
     private ListaPratosFavoritosAdapter adapter;
 
     @Override
