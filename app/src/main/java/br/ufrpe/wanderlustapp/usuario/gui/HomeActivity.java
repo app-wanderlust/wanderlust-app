@@ -17,7 +17,7 @@ import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private Usuario = Sessao.instance.getUsuario();
+    private Usuario usuario = Sessao.instance.getUsuario();
     private TextView textoExibicao;
     private Button  btnVisualizarPrato;
     private Button btnAvaliarPrato;

@@ -14,7 +14,6 @@ public class Sessao {
     }
 
     public Usuario getUsuario() {
-
         return (Usuario)values.get("sessao.Usuario");
     }
 
