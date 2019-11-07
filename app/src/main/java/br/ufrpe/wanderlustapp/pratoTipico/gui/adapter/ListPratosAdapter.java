@@ -129,8 +129,8 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
 
         public void vincula(PratoTipico prato) {
             this.prato = prato;
-            titulo.setText(prato.getNome());
-            descricao.setText(prato.getDescricao());
+            titulo.setText(this.prato.getNome());
+            descricao.setText(this.prato.getDescricao());
         }
     }
     public void adiciona(PratoTipico prato){

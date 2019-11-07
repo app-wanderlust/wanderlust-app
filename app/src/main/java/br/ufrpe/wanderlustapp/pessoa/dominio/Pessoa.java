@@ -1,14 +1,9 @@
 package br.ufrpe.wanderlustapp.pessoa.dominio;
 
-import java.util.ArrayList;
-
-import br.ufrpe.wanderlustapp.conversa.dominio.Conversa;
-
 public class Pessoa {
     private long id;
     private String nome;
     private String nascimento;
-    private ArrayList<Conversa> conversas;
 
     public long getId() {
         return id;
@@ -32,13 +27,5 @@ public class Pessoa {
 
     public void setNascimento(String nascimento) {
         this.nascimento = nascimento;
-    }
-
-    public ArrayList<Conversa> getConversas() {
-        return conversas;
-    }
-
-    public void setConversas(ArrayList<Conversa> conversas) {
-        this.conversas = conversas;
     }
 }

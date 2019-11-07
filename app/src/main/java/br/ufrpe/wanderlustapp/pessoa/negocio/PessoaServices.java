@@ -11,7 +11,8 @@ public class PessoaServices {
     private PessoaDAO pessoaDAO;
 
     public PessoaServices(Context context){
-        pessoaDAO = new PessoaDAO(context);
+        this.context = context;
+        pessoaDAO = new PessoaDAO(this.context);
     }
 
     public void cadastrar(Pessoa pessoa) {

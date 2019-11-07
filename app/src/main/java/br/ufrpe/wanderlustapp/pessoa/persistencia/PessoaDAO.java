@@ -16,7 +16,7 @@ public class PessoaDAO extends AbstractDAO {
 
     public PessoaDAO(Context context){
         this.context = context;
-        helper = new DBHelper(context);
+        helper = new DBHelper(this.context);
     }
 
     public Pessoa getPessoa(long id) {

@@ -16,7 +16,7 @@ public class PaisDAO extends AbstractDAO {
 
     public PaisDAO(Context context) {
         this.context = context;
-        helper = new DBHelper(context);
+        helper = new DBHelper(this.context);
     }
 
     public Pais getPaisById(long id) {
