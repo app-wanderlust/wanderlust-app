@@ -55,10 +55,7 @@ public class  UsuarioDAO extends AbstractDAO {
 
     public void updateUsuario(Usuario usuario){
         db = helper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DBHelper.CAMPO_EMAIL, usuario.getEmail());
-        values.put(DBHelper.CAMPO_SENHA, usuario.getSenha());
-        values.put(DBHelper.CAMPO_FK_PESSOA, usuario.getPessoa().getId());
+        ContentValues values = getContentValues(usuario);
         String[] id = new String[]{Long.toString(usuario.getId())};
         db.update(DBHelper.TABELA_USUARIO, values, DBHelper.CAMPO_ID_USUARIO+"=?", id);
         super.close();
@@ -66,20 +63,28 @@ public class  UsuarioDAO extends AbstractDAO {
 
     public long cadastrar(Usuario usuario) {
         db = helper.getWritableDatabase();
+        ContentValues values = getContentValues(usuario);
+        long id = db.insert(DBHelper.TABELA_USUARIO, null, values);
+        super.close(db);
+        return id;
+    }
+
+    private ContentValues getContentValues(Usuario usuario) {
         ContentValues values = new ContentValues();
         values.put(DBHelper.CAMPO_FK_PESSOA, usuario.getPessoa().getId());
         values.put(DBHelper.CAMPO_EMAIL, usuario.getEmail());
         values.put(DBHelper.CAMPO_SENHA, usuario.getSenha());
-
-        long id = db.insert(DBHelper.TABELA_USUARIO, null, values);
-        super.close(db);
-
-        return id;
+        return values;
     }
 
     private Usuario createUsuario(Cursor cursor) {
         Usuario result = new Usuario();
         PessoaDAO pessoaDAO = new PessoaDAO(context);
+        setsUsuario(cursor, result, pessoaDAO);
+        return result;
+    }
+
+    private void setsUsuario(Cursor cursor, Usuario result, PessoaDAO pessoaDAO) {
         int columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_ID_USUARIO);
         result.setId(Integer.parseInt(cursor.getString(columnIndex)));
         columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_FK_PESSOA);
@@ -88,7 +93,6 @@ public class  UsuarioDAO extends AbstractDAO {
         result.setEmail(cursor.getString(columnIndex));
         columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_SENHA);
         result.setSenha(cursor.getString(columnIndex));
-        return result;
     }
 
 }

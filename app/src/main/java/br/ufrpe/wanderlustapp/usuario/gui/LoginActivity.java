@@ -1,7 +1,5 @@
 package br.ufrpe.wanderlustapp.usuario.gui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,8 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import br.ufrpe.wanderlustapp.R;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosActivity;
 import br.ufrpe.wanderlustapp.usuario.negocio.UsuarioServices;
 
 public class LoginActivity extends AppCompatActivity {
@@ -42,23 +41,25 @@ public class LoginActivity extends AppCompatActivity {
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validaCampos()){
-                    try {
-                        usuarioServices.login(EtEmail.getText().toString(), EtSenha.getText().toString());
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                    } catch (Exception e) {
-
-                        if (toast != null){
-                            toast.cancel();
-                        }
-                        toast = Toast.makeText(LoginActivity.this,"E-mail e/ou senha inválidos.", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                }
+                logar();
             }
         });
-
         cadastro();
+    }
+
+    private void logar() {
+        if(validaCampos()){
+            try {
+                usuarioServices.login(EtEmail.getText().toString(), EtSenha.getText().toString());
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            } catch (Exception e) {
+                if (toast != null){
+                    toast.cancel();
+                }
+                toast = Toast.makeText(LoginActivity.this,"E-mail e/ou senha inválidos.", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
     }
 
     private void cadastro() {
