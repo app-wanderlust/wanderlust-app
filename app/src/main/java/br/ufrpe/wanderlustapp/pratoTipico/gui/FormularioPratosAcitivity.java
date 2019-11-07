@@ -34,13 +34,17 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
         Intent dadosRecebidos = getIntent();
         if (dadosRecebidos.hasExtra(CHAVE_PRATO) && dadosRecebidos.hasExtra("posicao") ){
             setTitle(TITULO_APPBAR_ALTERA);
-            PratoTipico pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
-            posicaoRecebida = dadosRecebidos.getIntExtra("posicao", POSICAO_INVALIDA);
-            TextView nome = findViewById(R.id.formulario_prato_nome);
-            nome.setText(pratoRecebido.getNome());
-            TextView descricao = findViewById(R.id.formulario_prato_descricao);
-            descricao.setText(pratoRecebido.getDescricao());
+            recebePrato(dadosRecebidos);
         }
+    }
+
+    private void recebePrato(Intent dadosRecebidos) {
+        PratoTipico pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
+        posicaoRecebida = dadosRecebidos.getIntExtra("posicao", POSICAO_INVALIDA);
+        TextView nome = findViewById(R.id.formulario_prato_nome);
+        TextView descricao = findViewById(R.id.formulario_prato_descricao);
+        nome.setText(pratoRecebido.getNome());
+        descricao.setText(pratoRecebido.getDescricao());
     }
 
 
@@ -55,17 +59,21 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
         if(item.getItemId() == R.id.menu_formulario_prato_ic_salva){
             Intent dadosRecebidos = getIntent();
             PratoTipico pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
-            if (verficaCampos()) {
-                if (pratoRecebido == null) {
-                    pratoRecebido = criaPratoTipico();
-                } else {
-                    pratoRecebido = atualizaPrato(pratoRecebido);
-                }
-                retornaPratoViaExtra(pratoRecebido);
-            }
+            fetchPratoTipico(pratoRecebido);
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void fetchPratoTipico(PratoTipico pratoRecebido) {
+        if (verficaCampos()) {
+            if (pratoRecebido == null) {
+                pratoRecebido = criaPratoTipico();
+            } else {
+                pratoRecebido = atualizaPrato(pratoRecebido);
+            }
+            retornaPratoViaExtra(pratoRecebido);
+        }
     }
 
     private PratoTipico criaPratoTipico() {

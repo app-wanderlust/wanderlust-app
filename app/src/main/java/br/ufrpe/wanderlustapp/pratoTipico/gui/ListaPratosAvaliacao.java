@@ -2,7 +2,6 @@ package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
 import android.os.Bundle;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +10,6 @@ import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
-import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
@@ -22,16 +20,13 @@ import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 public class ListaPratosAvaliacao extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(this);
-    private Usuario usuario;
     PessoaPrato pessoaPrato = new PessoaPrato();
     private ListaPratosAvaliacaoAdapter adapter;
-    private ToggleButton toggleButton;
-    //private List<PessoaPrato> pessoaPratoList = getListPessoaPrato();
+    private Usuario usuario  = Sessao.instance.getUsuario();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        usuario = Sessao.instance.getUsuario();
         setContentView(R.layout.activity_lista_pratos_avaliacao);
         configuraRecyclerviewAvaliacao();
     }
@@ -42,17 +37,21 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(PratoTipico prato, int posicao) {
-                pessoaPrato.setPratoTipico(prato);
-                pessoaPrato.setPessoa(usuario.getPessoa());
-                pessoaPrato.setNota(1);
-                try {
-                    pessoaPratoServices.cadastrar(pessoaPrato);
-                    Toast.makeText(ListaPratosAvaliacao.this, "você curtiu: " + prato.getNome(), Toast.LENGTH_LONG).show();
-                }catch (Exception e){
-                    Toast.makeText(ListaPratosAvaliacao.this, "você já tinha curtido", Toast.LENGTH_LONG).show();
-                }
+                criaPessoaPrato(prato);
             }
         });
+    }
+
+    private void criaPessoaPrato(PratoTipico prato) {
+        pessoaPrato.setPratoTipico(prato);
+        pessoaPrato.setPessoa(usuario.getPessoa());
+        pessoaPrato.setNota(1);
+        try {
+            pessoaPratoServices.cadastrar(pessoaPrato);
+            Toast.makeText(ListaPratosAvaliacao.this, "Você curtiu: " + prato.getNome(), Toast.LENGTH_LONG).show();
+        }catch (Exception e){
+            Toast.makeText(ListaPratosAvaliacao.this, "Você já tinha curtido", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void setAdapterAvaliacao(RecyclerView recyclerView) {

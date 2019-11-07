@@ -76,17 +76,7 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<PratoTipico> filteredList = new ArrayList<>();
-
-            if (constraint == null || constraint.length() == 0) {
-                filteredList.add((PratoTipico) pratosCopia);
-            } else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for (PratoTipico item : pratosCopia){
-                    if(item.getNome().toLowerCase().contains(filterPattern)){
-                        filteredList.add(item);
-                    }
-                }
-            }
+            ListPratosAdapter.this.filter(constraint, filteredList);
             FilterResults results = new FilterResults();
             results.values = filteredList;
             return results;
@@ -104,6 +94,19 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
             }
         }
     };
+
+    private void filter(CharSequence constraint, List<PratoTipico> filteredList) {
+        if (constraint == null || constraint.length() == 0) {
+            filteredList.add((PratoTipico) pratosCopia);
+        } else {
+            String filterPattern = constraint.toString().toLowerCase().trim();
+            for (PratoTipico item : pratosCopia){
+                if(item.getNome().toLowerCase().contains(filterPattern)){
+                    filteredList.add(item);
+                }
+            }
+        }
+    }
 
     class PratoViewHolder extends RecyclerView.ViewHolder {
 
@@ -130,7 +133,7 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
             descricao.setText(prato.getDescricao());
         }
     }
-    public void adicona(PratoTipico prato){
+    public void adiciona(PratoTipico prato){
         pratos.add(prato);
         notifyDataSetChanged();
     }

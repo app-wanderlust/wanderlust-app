@@ -64,15 +64,22 @@ public class ListaPratosActivity extends AppCompatActivity {
             PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
             inserePrato(pratoRecebido);
         }
-        if(requestCode == CODIGO_RESULTADO_PRATO_CRIADO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)
-                && data.hasExtra("posicao")) {
-            PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
-            int posicaoRecebida = data.getIntExtra("posicao", POSICAO_INVALIDA);
-            pratoTipicoServices.update(pratoRecebido);
-            adapter.altera(posicaoRecebida,pratoRecebido);
+        if(verificaAtualiza(requestCode, resultCode, data)) {
+            atualizaPrato(data);
         }
         super.onActivityResult(requestCode, resultCode, data);
         }
+
+    private boolean verificaAtualiza(int requestCode, int resultCode, Intent data) {
+        return requestCode == CODIGO_RESULTADO_PRATO_CRIADO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO) && data.hasExtra("posicao");
+    }
+
+    private void atualizaPrato(Intent data) {
+        PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
+        int posicaoRecebida = data.getIntExtra("posicao", POSICAO_INVALIDA);
+        pratoTipicoServices.update(pratoRecebido);
+        adapter.altera(posicaoRecebida,pratoRecebido);
+    }
 
     private List<PratoTipico> geraLista(){
         return pratoTipicoServices.getLista();
@@ -84,13 +91,18 @@ public class ListaPratosActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(PratoTipico prato, int posicao) {
-                Intent abreFormularioComPrato = new Intent(ListaPratosActivity.this,
-                        FormularioPratosAcitivity.class);
-                abreFormularioComPrato.putExtra(CHAVE_PRATO,prato);
-                abreFormularioComPrato.putExtra("posicao",posicao);
+                Intent abreFormularioComPrato = getIntent(prato, posicao);
                 startActivityForResult(abreFormularioComPrato,CODIGO_RESULTADO_PRATO_CRIADO);
             }
         });
+    }
+
+    private Intent getIntent(PratoTipico prato, int posicao) {
+        Intent abreFormularioComPrato = new Intent(ListaPratosActivity.this,
+                FormularioPratosAcitivity.class);
+        abreFormularioComPrato.putExtra(CHAVE_PRATO,prato);
+        abreFormularioComPrato.putExtra("posicao",posicao);
+        return abreFormularioComPrato;
     }
 
     private void configuraRecyclerview() {
@@ -103,7 +115,7 @@ public class ListaPratosActivity extends AppCompatActivity {
     private void inserePrato(PratoTipico pratoTipico) {
         try {
             pratoTipicoServices.cadastrar(pratoTipico);
-            adapter.adicona(pratoTipico);
+            adapter.adiciona(pratoTipico);
         } catch (Exception e) {
             Toast.makeText(ListaPratosActivity.this, "Prato já cadastrado", Toast.LENGTH_LONG).show();
         }
