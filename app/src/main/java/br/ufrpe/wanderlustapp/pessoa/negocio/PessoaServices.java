@@ -1,9 +1,7 @@
 package br.ufrpe.wanderlustapp.pessoa.negocio;
 
 import android.content.Context;
-import android.database.Cursor;
 
-import br.ufrpe.wanderlustapp.infra.persistencia.DBHelper;
 import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
 import br.ufrpe.wanderlustapp.pessoa.persistencia.PessoaDAO;
 
