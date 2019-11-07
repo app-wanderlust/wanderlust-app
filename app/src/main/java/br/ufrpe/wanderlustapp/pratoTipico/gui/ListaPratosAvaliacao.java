@@ -50,7 +50,7 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
             pessoaPratoServices.cadastrar(pessoaPrato);
             Toast.makeText(ListaPratosAvaliacao.this, "Você curtiu: " + prato.getNome(), Toast.LENGTH_LONG).show();
         }catch (Exception e){
-            Toast.makeText(ListaPratosAvaliacao.this, "Você já tinha curtido", Toast.LENGTH_LONG).show();
+            Toast.makeText(ListaPratosAvaliacao.this, "Você já curtiu", Toast.LENGTH_LONG).show();
         }
     }
 
