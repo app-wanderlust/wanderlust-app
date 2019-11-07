@@ -1,6 +1,7 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -35,6 +36,8 @@ public class ListaPratosFavoritos extends AppCompatActivity {
     private void configuraRecyclerviewFavoritos() {
         RecyclerView listaPratosFavoritos = findViewById(R.id.lista_pratos_favoritos_recyclerview);
         setAdapterFavoritos(listaPratosFavoritos);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PratoFavoritoItemTouchHelperCallback(adapter, pessoaPratoServices));
+        itemTouchHelper.attachToRecyclerView(listaPratosFavoritos);
     }
 
     private void setAdapterFavoritos(RecyclerView recyclerView) {

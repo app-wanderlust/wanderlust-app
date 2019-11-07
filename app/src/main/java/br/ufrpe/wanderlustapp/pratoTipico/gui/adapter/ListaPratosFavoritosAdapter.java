@@ -27,6 +27,11 @@ public class ListaPratosFavoritosAdapter extends RecyclerView.Adapter<ListaPrato
         this.context = context;
         this.pessoaPratos = pessoaPratos;
     }
+
+    public List<PessoaPrato> getList(){
+        return this.pessoaPratos;
+    }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
     }
@@ -69,8 +74,9 @@ public class ListaPratosFavoritosAdapter extends RecyclerView.Adapter<ListaPrato
         }
     }
 
-    public void adicona(PessoaPrato pessoaPrato){
-        pessoaPratos.add(pessoaPrato);
+    public void remove(int posicao){
+        pessoaPratos.remove(posicao);
         notifyDataSetChanged();
     }
+
 }
