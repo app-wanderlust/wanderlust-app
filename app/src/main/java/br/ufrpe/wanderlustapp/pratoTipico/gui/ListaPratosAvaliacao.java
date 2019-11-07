@@ -11,6 +11,7 @@ import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
@@ -25,6 +26,7 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
     PessoaPrato pessoaPrato = new PessoaPrato();
     private ListaPratosAvaliacaoAdapter adapter;
     private ToggleButton toggleButton;
+    //private List<PessoaPrato> pessoaPratoList = getListPessoaPrato();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +45,12 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
                 pessoaPrato.setPratoTipico(prato);
                 pessoaPrato.setPessoa(usuario.getPessoa());
                 pessoaPrato.setNota(1);
-                pessoaPratoServices.cadastrar(pessoaPrato);
-                Toast.makeText(ListaPratosAvaliacao.this, prato.getNome(), Toast.LENGTH_LONG).show();
+                try {
+                    pessoaPratoServices.cadastrar(pessoaPrato);
+                    Toast.makeText(ListaPratosAvaliacao.this, "você curtiu: " + prato.getNome(), Toast.LENGTH_LONG).show();
+                }catch (Exception e){
+                    Toast.makeText(ListaPratosAvaliacao.this, "você já tinha curtido", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -54,6 +60,8 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    private List<PratoTipico> geraListaFavoritos(){return pratoTipicoServices.getLista();}
+    private List<PratoTipico> geraListaFavoritos(){
+        return pratoTipicoServices.getLista();
+    }
 
 }

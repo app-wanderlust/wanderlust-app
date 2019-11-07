@@ -24,6 +24,18 @@ public class PessoaPratoDAO extends AbstractDAO {
         helper = new DBHelper(context);
     }
 
+    public PessoaPrato getPessoaPrato(long idPessoa, long idPrato){
+        PessoaPrato pessoaPrato = null;
+        db = helper.getReadableDatabase();
+        String sql = "SELECT * FROM " + DBHelper.TABELA_PESSOA_PRATO + " WHERE " + DBHelper.CAMPO_FK_ID_PESSOA + " LIKE ? AND " + DBHelper.CAMPO_FK_ID_PRATO + " LIKE ?;";
+        Cursor cursor = db.rawQuery(sql, new String[]{Long.toString(idPessoa), Long.toString(idPrato)});
+        if (cursor.moveToFirst()){
+            pessoaPrato = createPessoaPrato(cursor);
+        }
+        super.close(db);
+        return pessoaPrato;
+    }
+
     public PessoaPrato getPessoaPratoById(long id){
         PessoaPrato pessoaPrato = null;
         db = helper.getReadableDatabase();
@@ -54,10 +66,11 @@ public class PessoaPratoDAO extends AbstractDAO {
         db = helper.getReadableDatabase();
         String sql = "SELECT * FROM " + DBHelper.TABELA_PESSOA_PRATO + " WHERE " + DBHelper.CAMPO_FK_ID_PRATO + " LIKE ?;";
         Cursor cursor = db.rawQuery(sql, new String[]{Long.toString(id)});
-        if (cursor.moveToNext()){
+        while (cursor.moveToNext()){
             pessoaPratos.add(createPessoaPrato(cursor));
         }
-        super.close(db);
+        cursor.close();
+        db.close();
         return pessoaPratos;
     }
 
