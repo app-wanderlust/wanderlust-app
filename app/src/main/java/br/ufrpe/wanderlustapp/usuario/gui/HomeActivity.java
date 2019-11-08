@@ -22,6 +22,7 @@ public class HomeActivity extends AppCompatActivity {
     private Button  btnVisualizarPrato;
     private Button btnAvaliarPrato;
     private Button btnVisualizarPratoFavoritos;
+    private Button btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,13 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, ListaPratosFavoritos.class));
             }
         });
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Sessao.instance.reset();
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            }
+        });
     }
 
     private void findById() {
@@ -60,5 +68,6 @@ public class HomeActivity extends AppCompatActivity {
         btnVisualizarPrato = findViewById(R.id.botaoVisualizarPrato);
         btnAvaliarPrato = findViewById(R.id.botaoAvaliarPrato);
         btnVisualizarPratoFavoritos = findViewById(R.id.botaoVisualizarPratoFavoritos);
+        btnLogout = findViewById(R.id.botaoLogout);
     }
 }

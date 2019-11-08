@@ -22,6 +22,7 @@ public class Sessao {
         values.put(key, value);
     }
 
+
     public void reset() {
         this.values.clear();
     }
