@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "database.db";
 
-    //TABELA USUARIO
+    //Tabela Usuario
     public static final String TABELA_USUARIO = "tb_usuario";
     public static final String CAMPO_ID_USUARIO = "id";
     public static final String CAMPO_FK_PESSOA = "fk_pessoa";
@@ -21,12 +21,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CAMPO_NOME = "nome";
     public static final String CAMPO_NASCIMENTO = "nascimento";
 
-    //TabelaPais
+    //Tabela Pais
     public static final String TABELA_PAIS = "tb_pais";
     public static final String CAMPO_ID_PAIS = "id";
     public static final String CAMPO_NOME_PAIS = "nome_pais";
 
-    //TabelaCidade
+    //Tabela Cidade
     public static final String TABELA_CIDADE = "tb_cidade";
     public static final String CAMPO_ID_CIDADE = "id";
     public static final String CAMPO_NOME_CIDADE = "nome_cidade";
@@ -74,16 +74,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     private void createTableUsuario(SQLiteDatabase db) {
-        String sqlTbUsuario =
-                "CREATE TABLE %1$s ( "  +
-                        "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "  %3$s TEXT NOT NULL, " +
-                        "  %4$s TEXT NOT NULL UNIQUE, " +
-                        "  %5$s TEXT NOT NULL " +
-                        ");";
-        sqlTbUsuario = String.format(sqlTbUsuario,
-                TABELA_USUARIO, CAMPO_ID_USUARIO, CAMPO_FK_PESSOA, CAMPO_EMAIL, CAMPO_SENHA);
-        db.execSQL(sqlTbUsuario);
+        String sql = "CREATE TABLE %1$s (" +
+                " %2$s INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " %3$s INTEGER NOT NULL," +
+                " %4$s TEXT NOT NULL, " +
+                " %5$s TEXT NOT NULL, " +
+                " FOREIGN KEY(%6$s) REFERENCES %7$s(%8$s) " +
+                ");";
+        sql = String.format(sql,
+                TABELA_USUARIO, CAMPO_ID_USUARIO, CAMPO_FK_PESSOA, CAMPO_EMAIL,CAMPO_SENHA, CAMPO_FK_PESSOA, CAMPO_ID_PESSOA);
+        db.execSQL(sql);
     }
 
     private void createTablePessoa(SQLiteDatabase db){
@@ -114,10 +114,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 "CREATE TABLE %1$s ( "  +
                         "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "  %3$s TEXT NOT NULL, " +
-                        "  %4$s TEXT NOT NULL " +
+                        "  %4$s INTEGER NOT NULL, " +
+                        "  FOREIGN KEY(%5$s) REFERENCES %6$s(%7$s)" +
                         ");";
         sqlTbCidade = String.format(sqlTbCidade,
-                TABELA_CIDADE, CAMPO_ID_CIDADE, CAMPO_NOME_CIDADE, CAMPO_FK_PAIS);
+                TABELA_CIDADE, CAMPO_ID_CIDADE, CAMPO_NOME_CIDADE, CAMPO_FK_PAIS, CAMPO_FK_PAIS, TABELA_PAIS, CAMPO_ID_PAIS);
         db.execSQL(sqlTbCidade);
     }
 
@@ -127,10 +128,11 @@ public class DBHelper extends SQLiteOpenHelper {
                         "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "  %3$s TEXT NOT NULL, " +
                         "  %4$s TEXT NOT NULL, " +
-                        "  %5$s TEXT NOT NULL " +
+                        "  %5$s INTEGER NOT NULL, " +
+                        "  FOREIGN KEY(%6$s) REFERENCES %7$s(%8$s)" +
                         ");";
         sqlTbPrato = String.format(sqlTbPrato,
-                TABELA_PRATO, CAMPO_ID_PRATO, CAMPO_NOME_PRATO, CAMPO_DESCRICAO, CAMPO_FK_CIDADE);
+                TABELA_PRATO, CAMPO_ID_PRATO, CAMPO_NOME_PRATO, CAMPO_DESCRICAO, CAMPO_FK_CIDADE, CAMPO_FK_CIDADE, TABELA_CIDADE, CAMPO_ID_CIDADE);
         db.execSQL(sqlTbPrato);
     }
 
@@ -138,12 +140,15 @@ public class DBHelper extends SQLiteOpenHelper {
         String sqlTbPessoaPrato =
                 "CREATE TABLE %1$s ( "  +
                         "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "  %3$s TEXT NOT NULL, " +
-                        "  %4$s TEXT NOT NULL, " +
-                        "  %5$s TEXT NOT NULL " +
+                        "  %3$s INTEGER NOT NULL, " +
+                        "  %4$s INTEGER NOT NULL, " +
+                        "  %5$s TEXT NOT NULL, " +
+                        " FOREIGN KEY(%6$s) REFERENCES %7$s(%8$s)," +
+                        " FOREIGN KEY(%9$s) REFERENCES %10$s(%11$s)" +
                         ");";
         sqlTbPessoaPrato = String.format(sqlTbPessoaPrato,
-                TABELA_PESSOA_PRATO, CAMPO_ID_PESSOA_PRATO, CAMPO_FK_ID_PESSOA, CAMPO_FK_ID_PRATO, CAMPO_NOTA);
+                TABELA_PESSOA_PRATO, CAMPO_ID_PESSOA_PRATO, CAMPO_FK_ID_PESSOA, CAMPO_FK_ID_PRATO, CAMPO_NOTA,
+                CAMPO_FK_ID_PESSOA, TABELA_PESSOA, CAMPO_ID_PESSOA, CAMPO_FK_ID_PRATO, TABELA_PRATO, CAMPO_ID_PRATO);
         db.execSQL(sqlTbPessoaPrato);
     }
 
