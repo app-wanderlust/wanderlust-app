@@ -1,7 +1,9 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
 import android.os.Bundle;
+import android.widget.CompoundButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
