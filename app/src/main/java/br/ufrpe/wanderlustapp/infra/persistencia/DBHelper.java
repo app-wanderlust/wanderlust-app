@@ -46,9 +46,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CAMPO_FK_ID_PRATO = "fk_prato";
     public static final String CAMPO_NOTA = "nota";
 
+    //Tabela PratoImagem
+    public static final String TABELA_PRATO_IMAGEM = "tb_prato_imagem";
+    public static final String CAMPO_ID_PRATO_IMAGEM = "id";
+    public static final String CAMPO_FK_ID_PRATO_TIPICO = "fk_prato";
+    public static final String CAMPO_IMAGEM = "imagem";
 
     private static final String[] TABELAS = {
-            TABELA_PESSOA, TABELA_USUARIO, TABELA_PAIS, TABELA_CIDADE, TABELA_PRATO, TABELA_PESSOA_PRATO
+            TABELA_PESSOA, TABELA_USUARIO, TABELA_PAIS, TABELA_CIDADE, TABELA_PRATO, TABELA_PESSOA_PRATO, TABELA_PRATO_IMAGEM
     };
 
     public DBHelper(Context context) {
@@ -64,7 +69,9 @@ public class DBHelper extends SQLiteOpenHelper {
         createTableCidade(db);
         createTablePrato(db);
         createTablePessoaPrato(db);
+        createTablePratoImagem(db);
     }
+
 
     private void createTableUsuario(SQLiteDatabase db) {
         String sql = "CREATE TABLE %1$s (" +
@@ -144,6 +151,22 @@ public class DBHelper extends SQLiteOpenHelper {
                 CAMPO_FK_ID_PESSOA, TABELA_PESSOA, CAMPO_ID_PESSOA, CAMPO_FK_ID_PRATO, TABELA_PRATO, CAMPO_ID_PRATO);
         db.execSQL(sqlTbPessoaPrato);
     }
+
+
+    private void createTablePratoImagem(SQLiteDatabase db) {
+        String sqlTbPratoImagem =
+                "CREATE TABLE %1$s ( "  +
+                        "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "  %3$s INTEGER NOT NULL, " +
+                        "  %4$s TEXT NOT NULL, " +
+                        " FOREIGN KEY(%5$s) REFERENCES %6$s(%7$s)," +
+                        ");";
+        sqlTbPratoImagem = String.format(sqlTbPratoImagem,
+                TABELA_PRATO_IMAGEM, CAMPO_ID_PRATO_IMAGEM, CAMPO_FK_ID_PRATO_TIPICO, CAMPO_IMAGEM,
+                CAMPO_FK_ID_PRATO_TIPICO, TABELA_PRATO, CAMPO_ID_PRATO);
+        db.execSQL(sqlTbPratoImagem);
+    }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
