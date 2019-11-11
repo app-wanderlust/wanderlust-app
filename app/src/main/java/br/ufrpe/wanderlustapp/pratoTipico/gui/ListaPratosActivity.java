@@ -30,7 +30,7 @@ import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.PO
 
 public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
-    public static final String TITULO_APPBAR_LISTA = "Lista de pratos";
+    public static final String TITULO_APPBAR_LISTA = "Gerenciar pratos";
     private ListPratosAdapter adapter;
 
     @Override
