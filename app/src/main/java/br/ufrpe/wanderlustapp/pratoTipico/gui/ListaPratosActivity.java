@@ -96,7 +96,7 @@ public class ListaPratosActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onItemClick2(PratoTipico pratoTipico, int posicao, boolean checked) {
+            public void onItemClick(PratoTipico pratoTipico, int posicao, boolean checked) {
             }
         });
     }

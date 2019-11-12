@@ -1,9 +1,7 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
 import android.os.Bundle;
-import android.widget.CompoundButton;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,7 +40,7 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
             }
 
             @Override
-            public void onItemClick2(PratoTipico pratoTipico, int posicao, boolean isChecked) {
+            public void onItemClick(PratoTipico pratoTipico, int posicao, boolean isChecked) {
                 if (isChecked){
                     criaPessoaPrato(pratoTipico);
                 }else {
@@ -61,10 +59,7 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
         try {
             pessoaPratoServices.cadastrar(pessoaPrato);
             Toast.makeText(ListaPratosAvaliacao.this, "Você curtiu: " + prato.getNome(), Toast.LENGTH_LONG).show();
-        }catch (Exception e){
-            //Toast.makeText(ListaPratosAvaliacao.this, "Você já curtiu", Toast.LENGTH_LONG).show();
-            System.out.println("vla");
-        }
+        }catch (Exception e){}
     }
 
     private void setAdapterAvaliacao(RecyclerView recyclerView) {
