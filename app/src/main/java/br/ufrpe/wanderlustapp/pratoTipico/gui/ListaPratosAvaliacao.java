@@ -38,8 +38,18 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
         setAdapterAvaliacao(listaPratosAvaliacao);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(PratoTipico prato, int posicao) {
-                criaPessoaPrato(prato);
+            public void onItemClick(PratoTipico pratoTipico, int posicao) {
+            }
+
+            @Override
+            public void onItemClick2(PratoTipico pratoTipico, int posicao, boolean isChecked) {
+                if (isChecked){
+                    criaPessoaPrato(pratoTipico);
+                }else {
+                    PessoaPrato pessoaPrato = pessoaPratoServices.getPessoaPrato(usuario.getPessoa().getId(), pratoTipico.getId());
+                    pessoaPratoServices.delete(pessoaPrato);
+                    Toast.makeText(ListaPratosAvaliacao.this, "descurtiu", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -52,7 +62,8 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
             pessoaPratoServices.cadastrar(pessoaPrato);
             Toast.makeText(ListaPratosAvaliacao.this, "Você curtiu: " + prato.getNome(), Toast.LENGTH_LONG).show();
         }catch (Exception e){
-            Toast.makeText(ListaPratosAvaliacao.this, "Você já curtiu", Toast.LENGTH_LONG).show();
+            //Toast.makeText(ListaPratosAvaliacao.this, "Você já curtiu", Toast.LENGTH_LONG).show();
+            System.out.println("vla");
         }
     }
 

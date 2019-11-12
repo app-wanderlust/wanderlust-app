@@ -14,6 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
+import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
+import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
+import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
 
@@ -53,23 +57,23 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
         private final TextView titulo;
         private final TextView descricao;
         private PratoTipico prato;
+        private Pessoa pessoa = Sessao.instance.getUsuario().getPessoa();
+        private PessoaPrato pessoaPrato;
+        PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(context);
 
 
         public PratoViewHolder(@NonNull final View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.item_prato_nome_avaliacao);
             descricao = itemView.findViewById(R.id.item_prato_descricao_avaliacao);
-            /*itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.onItemClick(prato, getAdapterPosition());
-                }
-            });*/
-            final ToggleButton toggleButton = itemView.findViewById(R.id.button_favorite);
+            final ToggleButton toggleButton = itemView.findViewById(R.id.button_favorite);;
+            if (this.pessoaPrato != null){
+                toggleButton.setChecked(true);
+            }
             toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        onItemClickListener.onItemClick(prato,getAdapterPosition());
+                    onItemClickListener.onItemClick2(prato,getAdapterPosition(), isChecked);
                 }
             });
         }
@@ -78,6 +82,7 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
             this.prato = prato;
             titulo.setText(this.prato.getNome());
             descricao.setText(this.prato.getDescricao());
+            this.pessoaPrato = pessoaPratoServices.getPessoaPrato(pessoa.getId(), this.prato.getId());
         }
     }
 }

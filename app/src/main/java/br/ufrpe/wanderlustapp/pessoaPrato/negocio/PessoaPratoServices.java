@@ -23,6 +23,10 @@ public class PessoaPratoServices {
         }
     }
 
+    public PessoaPrato getPessoaPrato(long idPessoa, long idPrato){
+        return pessoaPratoDAO.getPessoaPrato(idPessoa, idPrato);
+    }
+
     public List<PessoaPrato> getList(){
         return pessoaPratoDAO.getListPessoaPrato();
     }

@@ -94,6 +94,10 @@ public class ListaPratosActivity extends AppCompatActivity {
                 Intent abreFormularioComPrato = getIntent(prato, posicao);
                 startActivityForResult(abreFormularioComPrato,CODIGO_RESULTADO_PRATO_CRIADO);
             }
+
+            @Override
+            public void onItemClick2(PratoTipico pratoTipico, int posicao, boolean checked) {
+            }
         });
     }
 
