@@ -69,7 +69,13 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
             toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        onItemClickListener.onItemClick(prato,getAdapterPosition());
+                        if (toggleButton.isChecked()){
+                            onItemClickListener.onItemClick(prato,getAdapterPosition());
+                            toggleButton.setChecked(true);
+                        }
+                        else if(!isChecked){
+                            toggleButton.setChecked(false);
+                    }
                 }
             });
         }
