@@ -1,9 +1,12 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -25,6 +28,8 @@ import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.PO
 public class FormularioPratosAcitivity extends AppCompatActivity {
     public static final String TITULO_APPBAR_INSERE = "Inserir prato";
     public static final String TITULO_APPBAR_ALTERA = "Alterar prato";
+    private static final int IMAGE_VIEW_ACTIVITY_REQUEST_CODE   = 101;
+    private Button galeria;
     private int posicaoRecebida;
     CidadeServices cidadeServices = new CidadeServices(this);
     PaisServices paisServices = new PaisServices(this);
@@ -40,7 +45,16 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
             setTitle(TITULO_APPBAR_ALTERA);
             recebePrato(dadosRecebidos);
         }
+
+        galeria.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( Intent.ACTION_VIEW, uriDaSuaImagem );
+                startActivityForResult( intent, IMAGE_VIEW_ACTIVITY_REQUEST_CODE );
+            }
+        });
     }
+
 
     private void recebePrato(Intent dadosRecebidos) {
         PratoTipico pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
