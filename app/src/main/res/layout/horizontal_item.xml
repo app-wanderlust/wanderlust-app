@@ -8,7 +8,7 @@
     card_view:cardCornerRadius="5dp"
     card_view:cardBackgroundColor="#A56191"
     android:layout_gravity="bottom"
-    android:layout_margin="6dp">
+    android:layout_margin="5dp">
 
     <TextView
         android:id="@+id/textview1"

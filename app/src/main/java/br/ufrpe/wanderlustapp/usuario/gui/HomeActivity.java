@@ -4,14 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.widget.Toast;
 import java.util.ArrayList;
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
@@ -21,6 +18,7 @@ import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosFavoritos;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 
 public class HomeActivity extends AppCompatActivity {
+    private Usuario usuario = Sessao.instance.getUsuario();
     RecyclerView recyclerView;
     ArrayList<String> Tela;
     RecyclerView.LayoutManager RecyclerViewLayoutManager;
@@ -42,7 +40,6 @@ public class HomeActivity extends AppCompatActivity {
         HorizontalLayout = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(HorizontalLayout);
         recyclerView.setAdapter(RecyclerViewHorizontalAdapter);
-
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             GestureDetector gestureDetector = new GestureDetector(HomeActivity.this, new GestureDetector.SimpleOnGestureListener() {
                 @Override public boolean onSingleTapUp(MotionEvent motionEvent) {
@@ -87,10 +84,10 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(iniciarGerenciarPrato);
         }
         else if(RecyclerViewItemPosition == 3){
-            Intent iniciarPerfil =
-                    new Intent(HomeActivity.this, AlteraPerfilActivity.class);
-            startActivity(iniciarPerfil);
+           Sessao.instance.reset();
+           startActivity(new Intent(HomeActivity.this, LoginActivity.class));
         }
+
     }
 
     public void AddItemsToRecyclerViewArrayList(){
@@ -98,6 +95,6 @@ public class HomeActivity extends AppCompatActivity {
         Tela.add("Avaliar prato");
         Tela.add("Pratos favoritos");
         Tela.add("Gerenciar pratos");
-        Tela.add("Perfil");
+        Tela.add("Sair");
     }
 }
