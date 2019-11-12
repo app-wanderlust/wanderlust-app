@@ -59,6 +59,7 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
         private PratoTipico prato;
         private Pessoa pessoa = Sessao.instance.getUsuario().getPessoa();
         private PessoaPrato pessoaPrato;
+        private ToggleButton toggleButton;
         PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(context);
 
 
@@ -66,10 +67,7 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
             super(itemView);
             titulo = itemView.findViewById(R.id.item_prato_nome_avaliacao);
             descricao = itemView.findViewById(R.id.item_prato_descricao_avaliacao);
-            final ToggleButton toggleButton = itemView.findViewById(R.id.button_favorite);;
-            if (this.pessoaPrato != null){
-                toggleButton.setChecked(true);
-            }
+            toggleButton = itemView.findViewById(R.id.button_favorite);
             toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -83,6 +81,9 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
             titulo.setText(this.prato.getNome());
             descricao.setText(this.prato.getDescricao());
             this.pessoaPrato = pessoaPratoServices.getPessoaPrato(pessoa.getId(), this.prato.getId());
+            if (this.pessoaPrato != null){
+                toggleButton.setChecked(true);
+            }
         }
     }
 }
