@@ -10,7 +10,7 @@ import br.ufrpe.wanderlustapp.pratoImagem.persistencia.PratoImagemDAO;
 public class PratoImagemServices {
     private PratoImagemDAO pratoImagemDAO;
 
-    private PratoImagemServices(Context context){
+    public PratoImagemServices(Context context){
         pratoImagemDAO = new PratoImagemDAO(context);
     }
 

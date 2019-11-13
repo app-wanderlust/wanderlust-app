@@ -23,11 +23,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
 import br.ufrpe.wanderlustapp.cidade.negocio.CidadeServices;
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
 import br.ufrpe.wanderlustapp.pais.negocio.PaisServices;
+import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
+import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
@@ -45,6 +50,9 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
     private int posicaoRecebida;
     CidadeServices cidadeServices = new CidadeServices(this);
     PaisServices paisServices = new PaisServices(this);
+    PratoImagemServices pratoImagemServices = new PratoImagemServices(this);
+    private Bitmap thumbnail;
+    private Bitmap imageBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,12 +106,12 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
             int columnIndex = c.getColumnIndex(filePath[0]);
             String picturePath = c.getString(columnIndex);
             c.close();
-            Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
+            thumbnail = (BitmapFactory.decodeFile(picturePath));
             imagem.setImageBitmap(thumbnail);
         }
         if (requestCode == TIRAR_FOTO && resultCode == RESULT_OK){
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageBitmap = (Bitmap) extras.get("data");
             imagem.setImageBitmap(imageBitmap);
         }
     }
@@ -157,6 +165,10 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
             } else {
                 pratoRecebido = atualizaPrato(pratoRecebido);
             }
+            PratoImagem pratoImagem = createPratoImagem(pratoRecebido, thumbnail);
+            try {
+                pratoImagemServices.cadastrar(pratoImagem);
+            }catch (Exception e) {}
             retornaPratoViaExtra(pratoRecebido);
         }
     }
@@ -170,6 +182,16 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
     private PratoTipico atualizaPrato(PratoTipico pratoTipico) {
         preencheAtributosPrato(pratoTipico);
         return pratoTipico;
+    }
+
+    private PratoImagem createPratoImagem(PratoTipico pratoTipico, Bitmap imagem){
+        PratoImagem pratoImagem = new PratoImagem();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte imagemBytes[] = stream.toByteArray();
+        pratoImagem.setPratoTipico(pratoTipico);
+        pratoImagem.setImagem(imagemBytes);
+        return pratoImagem;
     }
 
     private boolean verficaCampos(){
