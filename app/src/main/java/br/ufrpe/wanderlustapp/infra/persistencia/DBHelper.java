@@ -159,7 +159,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "  %3$s INTEGER NOT NULL, " +
                         "  %4$s TEXT NOT NULL, " +
-                        " FOREIGN KEY(%5$s) REFERENCES %6$s(%7$s)," +
+                        " FOREIGN KEY(%5$s) REFERENCES %6$s(%7$s)" +
                         ");";
         sqlTbPratoImagem = String.format(sqlTbPratoImagem,
                 TABELA_PRATO_IMAGEM, CAMPO_ID_PRATO_IMAGEM, CAMPO_FK_ID_PRATO_TIPICO, CAMPO_IMAGEM,
