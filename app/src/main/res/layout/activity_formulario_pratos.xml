@@ -39,4 +39,44 @@
         app:layout_constraintTop_toBottomOf="@id/formulario_prato_nome"
         app:layout_constraintVertical_bias="0.04000002" />
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/formulario_prato_descricao"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@id/formulario_prato_descricao"
+        app:layout_constraintTop_toBottomOf="@id/formulario_prato_descricao"
+        app:layout_constraintVertical_bias="0.784"
+        app:srcCompat="@drawable/app_logo" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ABRIR GALERIA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/formulario_prato_descricao"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/formulario_prato_descricao"
+        app:layout_constraintTop_toBottomOf="@id/formulario_prato_descricao"
+        app:layout_constraintVertical_bias="0.103"
+        app:srcCompat="@drawable/app_logo" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Abrir Câmera"
+        tools:layout_editor_absoluteX="273dp"
+        tools:layout_editor_absoluteY="274dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/formulario_prato_descricao"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="@id/formulario_prato_descricao"
+        app:layout_constraintTop_toBottomOf="@id/formulario_prato_descricao"
+        app:layout_constraintVertical_bias="0.103"
+        app:srcCompat="@drawable/app_logo"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
