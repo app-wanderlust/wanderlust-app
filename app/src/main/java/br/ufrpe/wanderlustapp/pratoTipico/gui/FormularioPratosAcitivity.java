@@ -61,6 +61,12 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
         setContentView(R.layout.activity_formulario_pratos);
         setTitle(TITULO_APPBAR_INSERE);
 
+        Intent dadosRecebidos = getIntent();
+        if (dadosRecebidos.hasExtra(CHAVE_PRATO) && dadosRecebidos.hasExtra("posicao") ){
+            setTitle(TITULO_APPBAR_ALTERA);
+            recebePrato(dadosRecebidos);
+        }
+
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -170,6 +176,7 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
             try {
                 pratoImagemServices.cadastrar(pratoImagem);
             }catch (Exception e) {
+                System.out.println("vlau"+e.toString());
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
             retornaPratoViaExtra(pratoRecebido);

@@ -59,6 +59,7 @@ public class PratoImagemDAO extends AbstractDAO {
         db = helper.getReadableDatabase();
         String sql = "SELECT * FROM " + DBHelper.TABELA_PRATO_IMAGEM + " WHERE " + DBHelper.CAMPO_FK_ID_PRATO_TIPICO + " LIKE ?;";
         Cursor cursor = getCursor(id, pratoImagens, sql);
+        cursor.close();
         db.close();
         return pratoImagens;
     }
