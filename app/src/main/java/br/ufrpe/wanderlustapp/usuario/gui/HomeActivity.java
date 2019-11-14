@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        configuraRecyclerviewSugestao();
         setContentView(R.layout.activity_home);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview1);
         RecyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -78,9 +79,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
             }
         });
-
-        configuraRecyclerviewSugestao();
-
 
     }
 

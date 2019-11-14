@@ -8,21 +8,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lista_pratos_sugestao_recyclerview"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:orientation="horizontal"
-        tools:listitem="@layout/item_prato_sugestao" />
-
-    <View
-        android:id="@+id/lista_notas_fundo_gradiente_inferior"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/fundo_gradiente_insere_nota" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="false"
+        android:layout_centerHorizontal="false"
+        android:layout_marginTop="200dp"
+        tools:listitem="@layout/horizontal_item"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview1"
