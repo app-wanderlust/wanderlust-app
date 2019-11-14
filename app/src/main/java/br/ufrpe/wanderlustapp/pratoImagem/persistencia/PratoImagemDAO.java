@@ -30,35 +30,27 @@ public class PratoImagemDAO extends AbstractDAO {
         return values;
     }
 
-    private void setsPratoImagem(Cursor cursor, PratoImagem pratoImagem, PratoTipicoDAO pratoTipicoDAO) {
+    private PratoImagem createPratoImagem(Cursor cursor){
+        PratoTipicoDAO pratoTipicoDAO = new PratoTipicoDAO(context);
+        PratoImagem pratoImagem = new PratoImagem();
         int columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_ID_PRATO_IMAGEM);
         pratoImagem.setId(Integer.parseInt(cursor.getString(columnIndex)));
         columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_FK_ID_PRATO_TIPICO);
         pratoImagem.setPratoTipico(pratoTipicoDAO.getPratoTipicoById(cursor.getInt(columnIndex)));
         columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_IMAGEM);
         pratoImagem.setImagem(cursor.getBlob(columnIndex));
-    }
-
-    private PratoImagem createPratoImagem(Cursor cursor){
-        PratoImagem pratoImagem = new PratoImagem();
-        PratoTipicoDAO pratoTipicoDAO = new PratoTipicoDAO(context);
-        setsPratoImagem(cursor, pratoImagem, pratoTipicoDAO);
         return pratoImagem;
     }
 
-    private Cursor getCursor(long id, List<PratoImagem> pratoImagens, String sql){
+
+    public List<PratoImagem> getImagemByIdPrato(long id){
+        db = helper.getReadableDatabase();
+        String sql = "SELECT * FROM " + DBHelper.TABELA_PRATO_IMAGEM + " WHERE " + DBHelper.CAMPO_FK_ID_PRATO_TIPICO + " = ?;";
+        List<PratoImagem> pratoImagens = new ArrayList<>();
         Cursor cursor = db.rawQuery(sql, new String[]{Long.toString(id)});
         while (cursor.moveToNext()){
             pratoImagens.add(createPratoImagem(cursor));
         }
-        return cursor;
-    }
-
-    public List<PratoImagem> getImagemByIdPrato(long id){
-        List<PratoImagem> pratoImagens = new ArrayList<>();
-        db = helper.getReadableDatabase();
-        String sql = "SELECT * FROM " + DBHelper.TABELA_PRATO_IMAGEM + " WHERE " + DBHelper.CAMPO_FK_ID_PRATO_TIPICO + " LIKE ?;";
-        Cursor cursor = getCursor(id, pratoImagens, sql);
         cursor.close();
         db.close();
         return pratoImagens;
