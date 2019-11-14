@@ -47,6 +47,7 @@ public class AtualizaPratosAcitivity extends AppCompatActivity {
     private final int PERMISSAO_REQUEST = 2;
     private final int TIRAR_FOTO = 3;
     private int posicaoRecebida;
+    private Button galeria;
     private PratoTipico pratoTipico;
     CidadeServices cidadeServices = new CidadeServices(this);
     PaisServices paisServices = new PaisServices(this);
@@ -58,7 +59,7 @@ public class AtualizaPratosAcitivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastra_pratos);
+        setContentView(R.layout.activity_atualiza_pratos);
         setTitle(TITULO_APPBAR_ALTERA);
 
         Intent dadosRecebidos = getIntent();
@@ -77,7 +78,7 @@ public class AtualizaPratosAcitivity extends AppCompatActivity {
         }
 
         imagem = findViewById(R.id.imageView3);
-        Button galeria = findViewById(R.id.button);
+        galeria = findViewById(R.id.button);
         galeria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,7 +157,7 @@ public class AtualizaPratosAcitivity extends AppCompatActivity {
         if(item.getItemId() == R.id.menu_formulario_prato_ic_salva){
             if (verficaCampos()){
                 atualizaPrato(pratoTipico);
-                cadastraPrato(pratoTipico);
+                //cadastraPrato(pratoTipico);
             }
             finish();
         }
