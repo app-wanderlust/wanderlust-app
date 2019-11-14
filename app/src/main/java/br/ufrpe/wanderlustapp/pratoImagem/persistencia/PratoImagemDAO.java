@@ -36,7 +36,7 @@ public class PratoImagemDAO extends AbstractDAO {
         columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_FK_ID_PRATO_TIPICO);
         pratoImagem.setPratoTipico(pratoTipicoDAO.getPratoTipicoById(cursor.getInt(columnIndex)));
         columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_IMAGEM);
-        pratoImagem.setImagem(cursor.getString(columnIndex));
+        pratoImagem.setImagem(cursor.getBlob(columnIndex));
     }
 
     private PratoImagem createPratoImagem(Cursor cursor){

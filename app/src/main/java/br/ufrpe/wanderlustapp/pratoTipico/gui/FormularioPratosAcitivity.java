@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -168,7 +169,9 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
             PratoImagem pratoImagem = createPratoImagem(pratoRecebido, thumbnail);
             try {
                 pratoImagemServices.cadastrar(pratoImagem);
-            }catch (Exception e) {}
+            }catch (Exception e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
             retornaPratoViaExtra(pratoRecebido);
         }
     }
@@ -187,7 +190,7 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
     private PratoImagem createPratoImagem(PratoTipico pratoTipico, Bitmap imagem){
         PratoImagem pratoImagem = new PratoImagem();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        imagem.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte imagemBytes[] = stream.toByteArray();
         pratoImagem.setPratoTipico(pratoTipico);
         pratoImagem.setImagem(imagemBytes);
