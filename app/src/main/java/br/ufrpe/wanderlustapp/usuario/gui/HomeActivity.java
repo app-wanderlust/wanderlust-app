@@ -52,7 +52,6 @@ public class HomeActivity extends AppCompatActivity {
         HorizontalLayout = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(HorizontalLayout);
         recyclerView.setAdapter(RecyclerViewHorizontalAdapter);
-        configuraRecyclerviewSugestao();
 
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             GestureDetector gestureDetector = new GestureDetector(HomeActivity.this, new GestureDetector.SimpleOnGestureListener() {
@@ -79,6 +78,10 @@ public class HomeActivity extends AppCompatActivity {
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
             }
         });
+
+        configuraRecyclerviewSugestao();
+
+
     }
 
     private void configuraRecyclerviewSugestao() {
