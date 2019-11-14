@@ -177,7 +177,7 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
                 pratoImagemServices.cadastrar(pratoImagem);
             }catch (Exception e) {
                 System.out.println("vlau"+e.toString());
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
             retornaPratoViaExtra(pratoRecebido);
         }
