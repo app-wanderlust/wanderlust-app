@@ -98,18 +98,6 @@ public class HomeActivity extends AppCompatActivity {
         return pessoaPratoServices.getListByIdPessoa(pessoa.getId());
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     private void defineIntent() {
         if(RecyclerViewItemPosition == 0){
             Intent iniciarAvaliarPratos =
