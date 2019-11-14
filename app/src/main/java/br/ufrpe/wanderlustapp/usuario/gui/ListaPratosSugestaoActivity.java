@@ -22,7 +22,7 @@ public class ListaPratosSugestaoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_pratos_sugestao);
+        setContentView(R.layout.activity_home);
         configuraRecyclerviewFavoritos();
     }
 
