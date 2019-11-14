@@ -1,8 +1,10 @@
 package br.ufrpe.wanderlustapp.pratoImagem.dominio;
 
+import java.io.Serializable;
+
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 
-public class PratoImagem {
+public class PratoImagem implements Serializable {
     private long id;
     private PratoTipico pratoTipico;
     private byte[] imagem;

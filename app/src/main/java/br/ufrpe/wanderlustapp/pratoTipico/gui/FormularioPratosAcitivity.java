@@ -171,13 +171,13 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
                 pratoRecebido = criaPratoTipico();
             } else {
                 pratoRecebido = atualizaPrato(pratoRecebido);
-            }
-            PratoImagem pratoImagem = createPratoImagem(pratoRecebido, thumbnail);
-            try {
-                pratoImagemServices.cadastrar(pratoImagem);
-            }catch (Exception e) {
-                System.out.println("vlau"+e.toString());
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                PratoImagem pratoImagem = createPratoImagem(pratoRecebido, thumbnail);
+                try {
+                    pratoImagemServices.cadastrar(pratoImagem);
+                }catch (Exception e) {
+                    System.out.println("vlau"+e.toString());
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
             retornaPratoViaExtra(pratoRecebido);
         }
