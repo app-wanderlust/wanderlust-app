@@ -19,12 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 import br.ufrpe.wanderlustapp.R;
@@ -41,7 +39,7 @@ import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CO
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.POSICAO_INVALIDA;
 
 
-public class FormularioPratosAcitivity extends AppCompatActivity {
+public class AtualizaPratosAcitivity extends AppCompatActivity {
     public static final String TITULO_APPBAR_INSERE = "Inserir prato";
     public static final String TITULO_APPBAR_ALTERA = "Alterar prato";
     private ImageView imagem;
@@ -58,7 +56,7 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_formulario_pratos);
+        setContentView(R.layout.activity_cadastra_pratos);
         setTitle(TITULO_APPBAR_INSERE);
 
         Intent dadosRecebidos = getIntent();

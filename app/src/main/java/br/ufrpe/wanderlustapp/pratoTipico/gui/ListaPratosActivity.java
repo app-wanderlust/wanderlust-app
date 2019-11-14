@@ -47,32 +47,28 @@ public class ListaPratosActivity extends AppCompatActivity {
         btnInserePrato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vaiPraFormularioPratoAcitivity();
+               startActivity(new Intent(ListaPratosActivity.this, CadastraPratosAcitivity.class));
             }
         });
     }
 
     private void vaiPraFormularioPratoAcitivity() {
         Intent iniciarFormularioPrato =
-                new Intent(ListaPratosActivity.this,FormularioPratosAcitivity.class);
+                new Intent(ListaPratosActivity.this, CadastraPratosAcitivity.class);
         startActivityForResult(iniciarFormularioPrato, CODIGO_REUISICAO_INSERE_PRATO);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == CODIGO_REUISICAO_INSERE_PRATO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)){
+        /*if(requestCode == CODIGO_REUISICAO_INSERE_PRATO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)){
             PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
             inserePrato(pratoRecebido);
         }
         if(verificaAtualiza(requestCode, resultCode, data)) {
             atualizaPrato(data);
-        }
+        }*/
         super.onActivityResult(requestCode, resultCode, data);
         }
-
-    private boolean verificaAtualiza(int requestCode, int resultCode, Intent data) {
-        return requestCode == CODIGO_RESULTADO_PRATO_CRIADO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO) && data.hasExtra("posicao");
-    }
 
     private void atualizaPrato(Intent data) {
         PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
@@ -102,8 +98,7 @@ public class ListaPratosActivity extends AppCompatActivity {
     }
 
     private Intent getIntent(PratoTipico prato, int posicao) {
-        Intent abreFormularioComPrato = new Intent(ListaPratosActivity.this,
-                FormularioPratosAcitivity.class);
+        Intent abreFormularioComPrato = new Intent(ListaPratosActivity.this, AtualizaPratosAcitivity.class);
         abreFormularioComPrato.putExtra(CHAVE_PRATO,prato);
         abreFormularioComPrato.putExtra("posicao",posicao);
         return abreFormularioComPrato;
