@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".pratoTipico.gui.ListaPratosFavoritos"></activity>
+        <activity android:name=".usuario.gui.ListaPratosSugestaoActivity"></activity>
+        <activity android:name=".pratoTipico.gui.ListaPratosFavoritos" />
         <activity
             android:name=".pratoTipico.gui.ListaPratosAvaliacao"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
