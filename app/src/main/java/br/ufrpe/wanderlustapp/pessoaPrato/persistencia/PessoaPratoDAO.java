@@ -86,6 +86,12 @@ public class PessoaPratoDAO extends AbstractDAO {
         return pessoaPrato;
     }
 
+    public PessoaPrato getTopPratos(){
+        List<PessoaPrato> pessoaPratos = new ArrayList<>();
+        db = helper.getReadableDatabase();
+        String sql = "SELECT COUNT" + DBHelper.TABELA_PESSOA_PRATO + "AS NOTA "
+    }
+
     public List<PessoaPrato> getPratoByIdPessoa(long id){
         List<PessoaPrato> pessoaPratos = new ArrayList<>();
         db = helper.getReadableDatabase();
