@@ -98,8 +98,11 @@ public class ListaPratosActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
 
+        List<Bitmap> lista;
+
         PratoTipico pratoTipico = Sessao.instance.getPratoTipico();
         if (pratoTipico != null){
+            lista = geraImagens(pratoTipico);
             if (pratoTipico.getId() == 0){
                 inserePrato(pratoTipico);
                 Sessao.instance.resetPrato();
@@ -109,6 +112,7 @@ public class ListaPratosActivity extends AppCompatActivity {
                 salvaImagem(pratoImagem);
                 Sessao.instance.resetImagem();
             }
+            System.out.println("tamanho:"+ lista.size());
         }
 
         super.onResume();
