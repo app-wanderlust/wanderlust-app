@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
@@ -23,6 +24,7 @@ import br.ufrpe.wanderlustapp.pais.negocio.PaisServices;
 import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
 import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
+import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
@@ -34,12 +36,14 @@ public class CadastraPratosAcitivity extends AppCompatActivity {
     CidadeServices cidadeServices = new CidadeServices(this);
     PaisServices paisServices = new PaisServices(this);
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
+    private ListPratosAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastra_pratos);
         setTitle(TITULO_APPBAR_INSERE);
+
         }
 
     @Override
@@ -60,12 +64,13 @@ public class CadastraPratosAcitivity extends AppCompatActivity {
             PratoTipico pratoTipico = criaPratoTipico();
             try {
                 pratoTipicoServices.cadastrar(pratoTipico);
+                adapter.adiciona(pratoTipico);
                 Toast.makeText(getApplicationContext(), "Prato cadastrado", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "Prato já cadastrado", Toast.LENGTH_SHORT).show();
             }
-            finish();
         }
+        finish();
         return super.onOptionsItemSelected(item);
     }
 
