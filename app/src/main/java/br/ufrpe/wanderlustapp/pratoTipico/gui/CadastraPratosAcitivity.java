@@ -62,19 +62,24 @@ public class CadastraPratosAcitivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.menu_formulario_prato_ic_salva){
             PratoTipico pratoTipico = criaPratoTipico();
-            try {
-                pratoTipicoServices.cadastrar(pratoTipico);
-                adapter.adiciona(pratoTipico);
-                Toast.makeText(getApplicationContext(), "Prato cadastrado", Toast.LENGTH_SHORT).show();
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Prato já cadastrado", Toast.LENGTH_SHORT).show();
+            if(verficaCampos()) {
+                inserePrato(pratoTipico);
             }
+            finish();
         }
-        finish();
         return super.onOptionsItemSelected(item);
     }
 
-        private PratoTipico criaPratoTipico() {
+    private void inserePrato(PratoTipico pratoTipico) {
+        try {
+            pratoTipicoServices.cadastrar(pratoTipico);
+            adapter.adiciona(pratoTipico);
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Prato já cadastrado", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private PratoTipico criaPratoTipico() {
         PratoTipico pratoTipico = new PratoTipico();
         if (verficaCampos()){
             preencheAtributosPrato(pratoTipico);
