@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="br.ufrpe.wanderlustapp.usuario.gui.HomeActivity"
-    android:id="@+id/relativelayout1">
+    tools:context=".pratoTipico.gui.ListaPratosFavoritos">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lista_pratos_sugestao_recyclerview"
+        android:id="@+id/lista_pratos_favoritos_recyclerview"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/lista_pratos_favoritos_recyclerview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,21 +27,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview1"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="false"
-        android:layout_centerHorizontal="false"
-        android:layout_marginTop="500dp"
-        tools:listitem="@layout/horizontal_item"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-

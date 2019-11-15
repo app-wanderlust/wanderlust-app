@@ -35,11 +35,13 @@ public class ListaPratosFavoritos extends AppCompatActivity {
         setAdapterFavoritos(listaPratosFavoritos);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PratoFavoritoItemTouchHelperCallback(adapter, pessoaPratoServices));
         itemTouchHelper.attachToRecyclerView(listaPratosFavoritos);
+
     }
 
     private void setAdapterFavoritos(RecyclerView recyclerView) {
         adapter = new ListaPratosFavoritosAdapter(this,geraListaFavoritos());
         recyclerView.setAdapter(adapter);
+
     }
 
     private List<PessoaPrato> geraListaFavoritos(){

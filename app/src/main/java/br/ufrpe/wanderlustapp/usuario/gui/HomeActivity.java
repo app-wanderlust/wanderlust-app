@@ -43,8 +43,8 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        configuraRecyclerviewSugestao();
         setContentView(R.layout.activity_home);
+        configuraRecyclerviewSugestao();
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview1);
         RecyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(RecyclerViewLayoutManager);
@@ -85,11 +85,13 @@ public class HomeActivity extends AppCompatActivity {
     private void configuraRecyclerviewSugestao() {
         RecyclerView listaPratosSugestao = findViewById(R.id.lista_pratos_sugestao_recyclerview);
         setAdapterSugestao(listaPratosSugestao);
+        adapter.notifyDataSetChanged();
     }
 
     private void setAdapterSugestao(RecyclerView recyclerView) {
         adapter = new ListaPratosSugestaoAdapter(this,geraListaSugestao());
         recyclerView.setAdapter(adapter);
+
     }
 
     private List<PessoaPrato> geraListaSugestao(){
