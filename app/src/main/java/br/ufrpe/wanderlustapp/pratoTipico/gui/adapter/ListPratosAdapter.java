@@ -31,7 +31,7 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
     private final List<PratoTipico> pratos;
     private final List<PratoTipico> pratosCopia;
     private OnItemClickListener onItemClickListener;
-    private ListaPratosActivity listaPratos;
+    private ListaPratosActivity listaPratos = new ListaPratosActivity();
     private List<Bitmap> listaDeImagens = new ArrayList<>();
 
 
