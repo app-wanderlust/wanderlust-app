@@ -1,34 +1,23 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.ByteArrayOutputStream;
-import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
 import br.ufrpe.wanderlustapp.cidade.negocio.CidadeServices;
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
 import br.ufrpe.wanderlustapp.pais.negocio.PaisServices;
-import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
-import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
-
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_RESULTADO_PRATO_CRIADO;
 
 
 public class CadastraPratosAcitivity extends AppCompatActivity {

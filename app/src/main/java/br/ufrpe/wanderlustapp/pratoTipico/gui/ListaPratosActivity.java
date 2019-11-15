@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,8 +24,6 @@ import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_RESULTADO_PRATO_CRIADO;
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_REUISICAO_INSERE_PRATO;
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.POSICAO_INVALIDA;
 
 public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
@@ -52,30 +49,11 @@ public class ListaPratosActivity extends AppCompatActivity {
         });
     }
 
-    private void vaiPraFormularioPratoAcitivity() {
-        Intent iniciarFormularioPrato =
-                new Intent(ListaPratosActivity.this, CadastraPratosAcitivity.class);
-        startActivityForResult(iniciarFormularioPrato, CODIGO_REUISICAO_INSERE_PRATO);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        /*if(requestCode == CODIGO_REUISICAO_INSERE_PRATO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)){
-            PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
-            inserePrato(pratoRecebido);
-        }
-        if(verificaAtualiza(requestCode, resultCode, data)) {
-            atualizaPrato(data);
-        }*/
         super.onActivityResult(requestCode, resultCode, data);
         }
 
-    private void atualizaPrato(Intent data) {
-        PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
-        int posicaoRecebida = data.getIntExtra("posicao", POSICAO_INVALIDA);
-        pratoTipicoServices.update(pratoRecebido);
-        adapter.altera(posicaoRecebida,pratoRecebido);
-    }
 
     private List<PratoTipico> geraLista(){
         return pratoTipicoServices.getLista();
@@ -109,15 +87,6 @@ public class ListaPratosActivity extends AppCompatActivity {
         setAdapter(listaPratos);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PratoItemTouchHelperCallback(adapter, pratoTipicoServices));
         itemTouchHelper.attachToRecyclerView(listaPratos);
-    }
-
-    private void inserePrato(PratoTipico pratoTipico) {
-        try {
-            pratoTipicoServices.cadastrar(pratoTipico);
-            adapter.adiciona(pratoTipico);
-        } catch (Exception e) {
-            Toast.makeText(ListaPratosActivity.this, "Prato já cadastrado", Toast.LENGTH_LONG).show();
-        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
