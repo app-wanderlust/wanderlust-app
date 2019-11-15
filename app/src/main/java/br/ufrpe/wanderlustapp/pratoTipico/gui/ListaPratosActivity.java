@@ -1,6 +1,8 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
@@ -164,6 +168,20 @@ public class ListaPratosActivity extends AppCompatActivity {
         });
         return true;
     }
+
+    public List<Bitmap> geraImagens(PratoTipico pratoTipico){
+        List<Bitmap> listaImagens = new ArrayList<>();
+        List<PratoImagem> listaPratoImagem = pratoImagemServices.getList(pratoTipico.getId());
+        for(PratoImagem pratoImagem: listaPratoImagem){
+            byte[] outImage = pratoImagem.getImagem();
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(outImage);
+            Bitmap imagemBitmap = BitmapFactory.decodeStream(imageStream);
+            listaImagens.add(imagemBitmap);
+        }
+        return listaImagens;
+
+    }
+
 }
 
 

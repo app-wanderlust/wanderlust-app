@@ -1,21 +1,28 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
+import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
+import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
+import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosActivity;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
 
 public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.PratoViewHolder> implements Filterable {
@@ -24,6 +31,9 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
     private final List<PratoTipico> pratos;
     private final List<PratoTipico> pratosCopia;
     private OnItemClickListener onItemClickListener;
+    private ListaPratosActivity listaPratos;
+    private List<Bitmap> listaDeImagens = new ArrayList<>();
+
 
     public ListPratosAdapter(Context context,List<PratoTipico> pratos) {
         this.context = context;
@@ -117,6 +127,7 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
 
         private final TextView titulo;
         private final TextView descricao;
+        private final ImageView imagem;
         private PratoTipico prato;
 
 
@@ -124,6 +135,7 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
             super(itemView);
             titulo = itemView.findViewById(R.id.item_prato_nome);
             descricao = itemView.findViewById(R.id.item_prato_descricao);
+            imagem = itemView.findViewById(R.id.imagem_prato);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -136,6 +148,14 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
             this.prato = prato;
             titulo.setText(this.prato.getNome());
             descricao.setText(this.prato.getDescricao());
+            listaDeImagens = listaPratos.geraImagens(prato);
+            Bitmap imagens = listaDeImagens.get(0);
+            if (imagens != null){
+                imagem.setImageBitmap(imagens);
+            }
+
         }
     }
+
+
 }
