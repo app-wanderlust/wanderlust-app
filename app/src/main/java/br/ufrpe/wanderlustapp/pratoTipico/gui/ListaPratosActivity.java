@@ -80,6 +80,7 @@ public class ListaPratosActivity extends AppCompatActivity {
             pratoImagemServices.cadastrar(pratoImagem);
             System.out.println("vlau deu certo");
         } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             System.out.println("vlau deu errado");
             e.printStackTrace();
         }

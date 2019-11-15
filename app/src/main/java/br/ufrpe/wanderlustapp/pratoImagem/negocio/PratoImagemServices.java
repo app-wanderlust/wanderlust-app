@@ -15,12 +15,12 @@ public class PratoImagemServices {
     }
 
     public void cadastrar(PratoImagem pratoImagem) throws Exception{
-//        if(pratoImagemDAO.getImagemByIdPrato(pratoImagem.getPratoTipico().getId()) != null){
-//            throw new Exception();
-//        }else{
+       if(pratoImagemDAO.getImagemByIdPrato(pratoImagem.getPratoTipico().getId()) != null){
+            throw new Exception();
+       }else{
             long idPratoImagem = pratoImagemDAO.cadastrar(pratoImagem);
             pratoImagem.setId(idPratoImagem);
-//        }
+       }
     }
 
     public List<PratoImagem> getList(long id){
