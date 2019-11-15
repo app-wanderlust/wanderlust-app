@@ -2,7 +2,6 @@ package br.ufrpe.wanderlustapp.pratoTipico.gui.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
-import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
 import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosActivity;
@@ -33,11 +30,13 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
     private OnItemClickListener onItemClickListener;
     private ListaPratosActivity listaPratos = new ListaPratosActivity();
     private List<Bitmap> listaDeImagens = new ArrayList<>();
+    private PratoImagemServices pratoImagemServices;
 
 
     public ListPratosAdapter(Context context,List<PratoTipico> pratos) {
         this.context = context;
         this.pratos = pratos;
+        pratoImagemServices = new PratoImagemServices(this.context);
         pratosCopia = new ArrayList<>(pratos);
     }
 
@@ -148,13 +147,11 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
             this.prato = prato;
             titulo.setText(this.prato.getNome());
             descricao.setText(this.prato.getDescricao());
-            /*listaDeImagens = listaPratos.geraImagens(prato);
+            listaDeImagens = pratoImagemServices.geraImagens(prato);
             Bitmap imagens = listaDeImagens.get(0);
             if (imagens != null){
                 imagem.setImageBitmap(imagens);
-            }*/
+            }
         }
     }
-
-
 }
