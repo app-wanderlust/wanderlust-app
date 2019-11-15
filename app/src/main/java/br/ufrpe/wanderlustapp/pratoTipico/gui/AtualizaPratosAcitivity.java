@@ -27,12 +27,12 @@ import java.io.ByteArrayOutputStream;
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
 import br.ufrpe.wanderlustapp.cidade.negocio.CidadeServices;
+import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
 import br.ufrpe.wanderlustapp.pais.negocio.PaisServices;
 import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
 import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
@@ -54,7 +54,6 @@ public class AtualizaPratosAcitivity extends AppCompatActivity {
     PratoImagemServices pratoImagemServices = new PratoImagemServices(this);
     private Bitmap thumbnail;
     private Bitmap imageBitmap;
-    private ListPratosAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,18 +154,11 @@ public class AtualizaPratosAcitivity extends AppCompatActivity {
         if(item.getItemId() == R.id.menu_formulario_prato_ic_salva){
             if (verficaCampos()){
                 preencheAtributosPrato(pratoTipico);
-                atualizaPrato(pratoTipico);
+                Sessao.instance.setPratoTipico(pratoTipico);
             }
             finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    private void atualizaPrato(PratoTipico pratoTipico) {
-        pratoTipicoServices.update(pratoTipico);
-        adapter.altera(posicaoRecebida, pratoTipico);
-        adapter.notifyDataSetChanged();
     }
 
     private PratoImagem createPratoImagem(PratoTipico pratoTipico, Bitmap imagem){

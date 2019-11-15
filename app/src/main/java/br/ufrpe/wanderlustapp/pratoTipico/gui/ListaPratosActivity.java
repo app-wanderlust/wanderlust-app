@@ -31,6 +31,7 @@ public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     public static final String TITULO_APPBAR_LISTA = "Lista de pratos";
     private ListPratosAdapter adapter;
+    private int posicaoEnviada;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,21 +56,41 @@ public class ListaPratosActivity extends AppCompatActivity {
         try {
             pratoTipicoServices.cadastrar(pratoTipico);
             adapter.adiciona(pratoTipico);
+            Toast.makeText(getApplicationContext(), "Prato cadastrado", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Prato já cadastrado", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void atualizaPrato(PratoTipico pratoTipico){
+        try {
+            pratoTipicoServices.update(pratoTipico);
+            adapter.altera(posicaoEnviada, pratoTipico);
+            Toast.makeText(getApplicationContext(), "Prato atualizado", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), "Prato já atualizado", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
-        PratoTipico pratoTipico = Sessao.instance.getPratoTipico();
-        inserePrato(pratoTipico);
-        Toast.makeText(getApplicationContext(), "kkkkkkkkkk", Toast.LENGTH_SHORT).show();
-
         super.onActivityResult(requestCode, resultCode, data);
         }
 
+    @Override
+    protected void onResume() {
+
+        PratoTipico pratoTipico = Sessao.instance.getPratoTipico();
+        if (pratoTipico != null){
+            if (pratoTipico.getId() == 0){
+                inserePrato(pratoTipico);
+            }else{
+                atualizaPrato(pratoTipico);
+            }
+        }
+
+        super.onResume();
+    }
 
     private List<PratoTipico> geraLista(){
         return pratoTipicoServices.getLista();
@@ -81,6 +102,7 @@ public class ListaPratosActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(PratoTipico prato, int posicao) {
+                posicaoEnviada = posicao;
                 Intent abreFormularioComPrato = getIntent(prato, posicao);
                 startActivityForResult(abreFormularioComPrato,CODIGO_RESULTADO_PRATO_CRIADO);
             }

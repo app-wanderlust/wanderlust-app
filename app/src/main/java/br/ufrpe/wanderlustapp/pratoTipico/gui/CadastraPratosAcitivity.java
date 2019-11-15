@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,23 +16,18 @@ import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
 import br.ufrpe.wanderlustapp.pais.negocio.PaisServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
-import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 
 
 public class CadastraPratosAcitivity extends AppCompatActivity {
     public static final String TITULO_APPBAR_INSERE = "Inserir prato";
     CidadeServices cidadeServices = new CidadeServices(this);
     PaisServices paisServices = new PaisServices(this);
-    PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
-    private ListPratosAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastra_pratos);
         setTitle(TITULO_APPBAR_INSERE);
-
         }
 
     @Override
@@ -53,24 +47,11 @@ public class CadastraPratosAcitivity extends AppCompatActivity {
         if(item.getItemId() == R.id.menu_formulario_prato_ic_salva){
             PratoTipico pratoTipico = criaPratoTipico();
             if(verficaCampos()) {
-                enviaPratoSessao(pratoTipico);
+                Sessao.instance.setPratoTipico(pratoTipico);
             }
             finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void enviaPratoSessao(PratoTipico pratoTipico) {
-        Sessao.instance.setPratoTipico(pratoTipico);
-    }
-
-    private void inserePrato(PratoTipico pratoTipico) {
-        try {
-            pratoTipicoServices.cadastrar(pratoTipico);
-            adapter.adiciona(pratoTipico);
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Prato já cadastrado", Toast.LENGTH_SHORT).show();
-        }
     }
 
     private PratoTipico criaPratoTipico() {
