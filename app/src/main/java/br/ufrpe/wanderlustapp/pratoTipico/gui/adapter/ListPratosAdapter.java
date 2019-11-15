@@ -68,6 +68,11 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
         notifyDataSetChanged();
     }
 
+    public void adiciona(PratoTipico prato){
+        pratos.add(prato);
+        notifyDataSetChanged();
+    }
+
     public Filter getFilter() {
         return pratosFilter;
     }
@@ -132,9 +137,5 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
             titulo.setText(this.prato.getNome());
             descricao.setText(this.prato.getDescricao());
         }
-    }
-    public void adiciona(PratoTipico prato){
-        pratos.add(prato);
-        notifyDataSetChanged();
     }
 }

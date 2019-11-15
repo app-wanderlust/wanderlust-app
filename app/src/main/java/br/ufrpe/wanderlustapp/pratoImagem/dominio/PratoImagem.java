@@ -1,11 +1,13 @@
 package br.ufrpe.wanderlustapp.pratoImagem.dominio;
 
+import java.io.Serializable;
+
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 
-public class PratoImagem {
+public class PratoImagem implements Serializable {
     private long id;
     private PratoTipico pratoTipico;
-    private String imagem;
+    private byte[] imagem;
 
     public long getId() {
         return id;
@@ -23,11 +25,11 @@ public class PratoImagem {
         this.pratoTipico = pratoTipico;
     }
 
-    public String getImagem() {
+    public byte[] getImagem() {
         return imagem;
     }
 
-    public void setImagem(String imagem) {
+    public void setImagem(byte[] imagem) {
         this.imagem = imagem;
     }
 }

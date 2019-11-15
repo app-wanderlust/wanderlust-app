@@ -19,19 +19,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
+import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_RESULTADO_PRATO_CRIADO;
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_REUISICAO_INSERE_PRATO;
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.POSICAO_INVALIDA;
 
 public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     public static final String TITULO_APPBAR_LISTA = "Lista de pratos";
     private ListPratosAdapter adapter;
+    private int posicaoEnviada;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,38 +47,49 @@ public class ListaPratosActivity extends AppCompatActivity {
         btnInserePrato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vaiPraFormularioPratoAcitivity();
+               startActivity(new Intent(ListaPratosActivity.this, CadastraPratosAcitivity.class));
             }
         });
     }
 
-    private void vaiPraFormularioPratoAcitivity() {
-        Intent iniciarFormularioPrato =
-                new Intent(ListaPratosActivity.this,FormularioPratosAcitivity.class);
-        startActivityForResult(iniciarFormularioPrato, CODIGO_REUISICAO_INSERE_PRATO);
+    private void inserePrato(PratoTipico pratoTipico) {
+        try {
+            pratoTipicoServices.cadastrar(pratoTipico);
+            adapter.adiciona(pratoTipico);
+            Toast.makeText(getApplicationContext(), "Prato cadastrado", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Prato já cadastrado", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void atualizaPrato(PratoTipico pratoTipico){
+        try {
+            pratoTipicoServices.update(pratoTipico);
+            adapter.altera(posicaoEnviada, pratoTipico);
+            Toast.makeText(getApplicationContext(), "Prato atualizado", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), "Prato já atualizado", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == CODIGO_REUISICAO_INSERE_PRATO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)){
-            PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
-            inserePrato(pratoRecebido);
-        }
-        if(verificaAtualiza(requestCode, resultCode, data)) {
-            atualizaPrato(data);
-        }
         super.onActivityResult(requestCode, resultCode, data);
         }
 
-    private boolean verificaAtualiza(int requestCode, int resultCode, Intent data) {
-        return requestCode == CODIGO_RESULTADO_PRATO_CRIADO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO) && data.hasExtra("posicao");
-    }
+    @Override
+    protected void onResume() {
 
-    private void atualizaPrato(Intent data) {
-        PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
-        int posicaoRecebida = data.getIntExtra("posicao", POSICAO_INVALIDA);
-        pratoTipicoServices.update(pratoRecebido);
-        adapter.altera(posicaoRecebida,pratoRecebido);
+        PratoTipico pratoTipico = Sessao.instance.getPratoTipico();
+        if (pratoTipico != null){
+            if (pratoTipico.getId() == 0){
+                inserePrato(pratoTipico);
+            }else{
+                atualizaPrato(pratoTipico);
+            }
+        }
+
+        super.onResume();
     }
 
     private List<PratoTipico> geraLista(){
@@ -91,6 +102,7 @@ public class ListaPratosActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(PratoTipico prato, int posicao) {
+                posicaoEnviada = posicao;
                 Intent abreFormularioComPrato = getIntent(prato, posicao);
                 startActivityForResult(abreFormularioComPrato,CODIGO_RESULTADO_PRATO_CRIADO);
             }
@@ -102,8 +114,7 @@ public class ListaPratosActivity extends AppCompatActivity {
     }
 
     private Intent getIntent(PratoTipico prato, int posicao) {
-        Intent abreFormularioComPrato = new Intent(ListaPratosActivity.this,
-                FormularioPratosAcitivity.class);
+        Intent abreFormularioComPrato = new Intent(ListaPratosActivity.this, AtualizaPratosAcitivity.class);
         abreFormularioComPrato.putExtra(CHAVE_PRATO,prato);
         abreFormularioComPrato.putExtra("posicao",posicao);
         return abreFormularioComPrato;
@@ -114,15 +125,6 @@ public class ListaPratosActivity extends AppCompatActivity {
         setAdapter(listaPratos);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PratoItemTouchHelperCallback(adapter, pratoTipicoServices));
         itemTouchHelper.attachToRecyclerView(listaPratos);
-    }
-
-    private void inserePrato(PratoTipico pratoTipico) {
-        try {
-            pratoTipicoServices.cadastrar(pratoTipico);
-            adapter.adiciona(pratoTipico);
-        } catch (Exception e) {
-            Toast.makeText(ListaPratosActivity.this, "Prato já cadastrado", Toast.LENGTH_LONG).show();
-        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu){

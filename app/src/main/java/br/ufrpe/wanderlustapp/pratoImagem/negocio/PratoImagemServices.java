@@ -10,17 +10,17 @@ import br.ufrpe.wanderlustapp.pratoImagem.persistencia.PratoImagemDAO;
 public class PratoImagemServices {
     private PratoImagemDAO pratoImagemDAO;
 
-    private PratoImagemServices(Context context){
+    public PratoImagemServices(Context context){
         pratoImagemDAO = new PratoImagemDAO(context);
     }
 
     public void cadastrar(PratoImagem pratoImagem) throws Exception{
-        if(pratoImagemDAO.getImagemByIdPrato(pratoImagem.getId()) != null){
-            throw new Exception();
-        }else{
+//        if(pratoImagemDAO.getImagemByIdPrato(pratoImagem.getPratoTipico().getId()) != null){
+//            throw new Exception();
+//        }else{
             long idPratoImagem = pratoImagemDAO.cadastrar(pratoImagem);
             pratoImagem.setId(idPratoImagem);
-        }
+//        }
     }
 
     public List<PratoImagem> getList(long id){

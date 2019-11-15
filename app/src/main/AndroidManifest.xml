@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.ufrpe.wanderlustapp">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_logo"
@@ -13,7 +15,8 @@
         <activity
             android:name=".pratoTipico.gui.ListaPratosAvaliacao"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".pratoTipico.gui.FormularioPratosAcitivity" />
+        <activity android:name=".pratoTipico.gui.CadastraPratosAcitivity" />
+        <activity android:name=".pratoTipico.gui.AtualizaPratosAcitivity" />
         <activity android:name=".pratoTipico.gui.ListaPratosActivity" />
         <activity
             android:name=".usuario.gui.LoginActivity"
