@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
+import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
@@ -49,8 +51,22 @@ public class ListaPratosActivity extends AppCompatActivity {
         });
     }
 
+    private void inserePrato(PratoTipico pratoTipico) {
+        try {
+            pratoTipicoServices.cadastrar(pratoTipico);
+            adapter.adiciona(pratoTipico);
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Prato já cadastrado", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        PratoTipico pratoTipico = Sessao.instance.getPratoTipico();
+        inserePrato(pratoTipico);
+        Toast.makeText(getApplicationContext(), "kkkkkkkkkk", Toast.LENGTH_SHORT).show();
+
         super.onActivityResult(requestCode, resultCode, data);
         }
 

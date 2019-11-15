@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
 import br.ufrpe.wanderlustapp.cidade.negocio.CidadeServices;
+import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
 import br.ufrpe.wanderlustapp.pais.negocio.PaisServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
@@ -52,11 +53,15 @@ public class CadastraPratosAcitivity extends AppCompatActivity {
         if(item.getItemId() == R.id.menu_formulario_prato_ic_salva){
             PratoTipico pratoTipico = criaPratoTipico();
             if(verficaCampos()) {
-                inserePrato(pratoTipico);
+                enviaPratoSessao(pratoTipico);
             }
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void enviaPratoSessao(PratoTipico pratoTipico) {
+        Sessao.instance.setPratoTipico(pratoTipico);
     }
 
     private void inserePrato(PratoTipico pratoTipico) {
