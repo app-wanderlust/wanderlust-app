@@ -82,7 +82,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 " FOREIGN KEY(%6$s) REFERENCES %7$s(%8$s) " +
                 ");";
         sql = String.format(sql,
-                TABELA_USUARIO, CAMPO_ID_USUARIO, CAMPO_FK_PESSOA, CAMPO_EMAIL,CAMPO_SENHA, CAMPO_FK_PESSOA, CAMPO_ID_PESSOA);
+                TABELA_USUARIO, CAMPO_ID_USUARIO, CAMPO_FK_PESSOA, CAMPO_EMAIL,CAMPO_SENHA,
+                CAMPO_FK_PESSOA, TABELA_PESSOA, CAMPO_ID_PESSOA);
         db.execSQL(sql);
     }
 
