@@ -25,7 +25,7 @@ public class Sessao {
 
     public void setPratoImagem(PratoImagem pratoImagem){setValue("sessao.PratoImagem", pratoImagem);}
 
-    public PratoImagem getPratoImagem(){return (PratoImagem)values.get("sessao.PratoImgaem");}
+    public PratoImagem getPratoImagem(){return (PratoImagem)values.get("sessao.PratoImagem");}
 
     public void resetPrato(){setPratoTipico(null);}
 
