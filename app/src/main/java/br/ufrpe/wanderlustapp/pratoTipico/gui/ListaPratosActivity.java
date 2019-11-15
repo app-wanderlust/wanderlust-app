@@ -20,6 +20,8 @@ import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
+import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
@@ -29,6 +31,7 @@ import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CO
 
 public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
+    PratoImagemServices pratoImagemServices = new PratoImagemServices(this);
     public static final String TITULO_APPBAR_LISTA = "Lista de pratos";
     private ListPratosAdapter adapter;
     private int posicaoEnviada;
@@ -72,6 +75,16 @@ public class ListaPratosActivity extends AppCompatActivity {
         }
     }
 
+    private void salvaImagem(PratoImagem pratoImagem) {
+        try {
+            pratoImagemServices.cadastrar(pratoImagem);
+            System.out.println("vlau deu certo");
+        } catch (Exception e) {
+            System.out.println("vlau deu errado");
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -84,8 +97,12 @@ public class ListaPratosActivity extends AppCompatActivity {
         if (pratoTipico != null){
             if (pratoTipico.getId() == 0){
                 inserePrato(pratoTipico);
+                Sessao.instance.resetPrato();
             }else{
                 atualizaPrato(pratoTipico);
+                PratoImagem pratoImagem = Sessao.instance.getPratoImagem();
+                salvaImagem(pratoImagem);
+                Sessao.instance.resetImagem();
             }
         }
 
