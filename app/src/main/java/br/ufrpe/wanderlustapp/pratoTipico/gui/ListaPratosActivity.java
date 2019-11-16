@@ -82,11 +82,8 @@ public class ListaPratosActivity extends AppCompatActivity {
     private void salvaImagem(PratoImagem pratoImagem) {
         try {
             pratoImagemServices.cadastrar(pratoImagem);
-            System.out.println("vlau deu certo");
         } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            System.out.println("vlau deu errado");
-            e.printStackTrace();
+            Toast.makeText(this, "erro na imagem", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -166,17 +163,5 @@ public class ListaPratosActivity extends AppCompatActivity {
             }
         });
         return true;
-    }
-
-    public List<Bitmap> geraImagens(PratoTipico pratoTipico){
-        List<Bitmap> listaImagens = new ArrayList<>();
-        List<PratoImagem> listaPratoImagem = pratoImagemServices.getList(pratoTipico.getId());
-        for(PratoImagem pratoImagem: listaPratoImagem){
-            byte[] outImage = pratoImagem.getImagem();
-            ByteArrayInputStream imageStream = new ByteArrayInputStream(outImage);
-            Bitmap imagemBitmap = BitmapFactory.decodeStream(imageStream);
-            listaImagens.add(imagemBitmap);
-        }
-        return listaImagens;
     }
 }

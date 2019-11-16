@@ -148,8 +148,8 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
             titulo.setText(this.prato.getNome());
             descricao.setText(this.prato.getDescricao());
             listaDeImagens = pratoImagemServices.geraImagens(prato);
-            Bitmap imagens = listaDeImagens.get(0);
-            if (imagens != null){
+            if (listaDeImagens.size() > 0){
+                Bitmap imagens = listaDeImagens.get(0);
                 imagem.setImageBitmap(imagens);
             }
         }
