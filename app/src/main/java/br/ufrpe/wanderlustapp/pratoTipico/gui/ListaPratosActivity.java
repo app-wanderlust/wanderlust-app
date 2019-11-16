@@ -1,6 +1,8 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,22 +18,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
+import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
+import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_RESULTADO_PRATO_CRIADO;
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_REUISICAO_INSERE_PRATO;
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.POSICAO_INVALIDA;
+
+
 
 public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
+    PratoImagemServices pratoImagemServices = new PratoImagemServices(this);
     public static final String TITULO_APPBAR_LISTA = "Lista de pratos";
     private ListPratosAdapter adapter;
+    private int posicaoEnviada;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,32 +56,58 @@ public class ListaPratosActivity extends AppCompatActivity {
         btnInserePrato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vaiPraFormularioPratoAcitivity();
+               startActivity(new Intent(ListaPratosActivity.this, CadastraPratosAcitivity.class));
             }
         });
     }
 
-    private void vaiPraFormularioPratoAcitivity() {
-        Intent iniciarFormularioPrato =
-                new Intent(ListaPratosActivity.this,FormularioPratosAcitivity.class);
-        startActivityForResult(iniciarFormularioPrato, CODIGO_REUISICAO_INSERE_PRATO);
+    private void inserePrato(PratoTipico pratoTipico) {
+        try {
+            pratoTipicoServices.cadastrar(pratoTipico);
+            adapter.adiciona(pratoTipico);
+            Toast.makeText(getApplicationContext(), "Prato cadastrado", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Prato já cadastrado", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void atualizaPrato(PratoTipico pratoTipico){
+        try {
+            pratoTipicoServices.update(pratoTipico);
+            adapter.altera(posicaoEnviada, pratoTipico);
+            Toast.makeText(getApplicationContext(), "Prato atualizado", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), "Prato já atualizado", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void salvaImagem(PratoImagem pratoImagem) {
+        pratoImagemServices.cadastrar(pratoImagem);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == CODIGO_REUISICAO_INSERE_PRATO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)){
-            PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
-            inserePrato(pratoRecebido);
-        }
-        if(requestCode == CODIGO_RESULTADO_PRATO_CRIADO && resultCode == CODIGO_RESULTADO_PRATO_CRIADO && data.hasExtra(CHAVE_PRATO)
-                && data.hasExtra("posicao")) {
-            PratoTipico pratoRecebido = (PratoTipico) data.getSerializableExtra(CHAVE_PRATO);
-            int posicaoRecebida = data.getIntExtra("posicao", POSICAO_INVALIDA);
-            pratoTipicoServices.update(pratoRecebido);
-            adapter.altera(posicaoRecebida,pratoRecebido);
-        }
         super.onActivityResult(requestCode, resultCode, data);
         }
+
+    @Override
+    protected void onResume() {
+        PratoTipico pratoTipico = Sessao.instance.getPratoTipico();
+        if (pratoTipico != null){
+            if (pratoTipico.getId() == 0){
+                inserePrato(pratoTipico);
+                Sessao.instance.resetPrato();
+            }else{
+                atualizaPrato(pratoTipico);
+                PratoImagem pratoImagem = Sessao.instance.getPratoImagem();
+                salvaImagem(pratoImagem);
+                Sessao.instance.resetPrato();
+                Sessao.instance.resetImagem();
+            }
+        }
+
+        super.onResume();
+    }
 
     private List<PratoTipico> geraLista(){
         return pratoTipicoServices.getLista();
@@ -84,13 +119,22 @@ public class ListaPratosActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(PratoTipico prato, int posicao) {
-                Intent abreFormularioComPrato = new Intent(ListaPratosActivity.this,
-                        FormularioPratosAcitivity.class);
-                abreFormularioComPrato.putExtra(CHAVE_PRATO,prato);
-                abreFormularioComPrato.putExtra("posicao",posicao);
+                posicaoEnviada = posicao;
+                Intent abreFormularioComPrato = getIntent(prato, posicao);
                 startActivityForResult(abreFormularioComPrato,CODIGO_RESULTADO_PRATO_CRIADO);
             }
+
+            @Override
+            public void onItemClick(PratoTipico pratoTipico, int posicao, boolean checked) {
+            }
         });
+    }
+
+    private Intent getIntent(PratoTipico prato, int posicao) {
+        Intent abreFormularioComPrato = new Intent(ListaPratosActivity.this, AtualizaPratosAcitivity.class);
+        abreFormularioComPrato.putExtra(CHAVE_PRATO,prato);
+        abreFormularioComPrato.putExtra("posicao",posicao);
+        return abreFormularioComPrato;
     }
 
     private void configuraRecyclerview() {
@@ -98,15 +142,6 @@ public class ListaPratosActivity extends AppCompatActivity {
         setAdapter(listaPratos);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PratoItemTouchHelperCallback(adapter, pratoTipicoServices));
         itemTouchHelper.attachToRecyclerView(listaPratos);
-    }
-
-    private void inserePrato(PratoTipico pratoTipico) {
-        try {
-            pratoTipicoServices.cadastrar(pratoTipico);
-            adapter.adicona(pratoTipico);
-        } catch (Exception e) {
-            Toast.makeText(ListaPratosActivity.this, "Prato já cadastrado", Toast.LENGTH_LONG).show();
-        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -128,6 +163,17 @@ public class ListaPratosActivity extends AppCompatActivity {
         });
         return true;
     }
+
+    public List<Bitmap> geraImagens(PratoTipico pratoTipico){
+        List<Bitmap> listaImagens = new ArrayList<>();
+        List<PratoImagem> listaPratoImagem = pratoImagemServices.getList(pratoTipico.getId());
+        for(PratoImagem pratoImagem: listaPratoImagem){
+            byte[] outImage = pratoImagem.getImagem();
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(outImage);
+            Bitmap imagemBitmap = BitmapFactory.decodeStream(imageStream);
+            listaImagens.add(imagemBitmap);
+        }
+        return listaImagens;
+    }
+
 }
-
-

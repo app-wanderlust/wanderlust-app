@@ -2,30 +2,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="250dp"
     android:layout_margin="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="250dp"
         android:background="#ECECEC">
 
         <ImageView
-            android:id="@+id/thumbnail"
+            android:id="@+id/imagem_prato_favoritos"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="170dp"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/kitchen" />
+             />
 
         <TextView
             android:id="@+id/item_prato_nome_favoritos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/thumbnail"
+            android:layout_below="@+id/imagem_prato_favoritos"
             android:maxLines="5"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="2dp"
             android:text="Nome"
@@ -45,7 +45,7 @@
             android:layout_marginBottom="2dp"
             android:text="Descrição"
             android:textColor="#471F8F"
-            android:textSize="14dp" />
+            android:textSize="16dp" />
 
         <View
             android:id="@+id/lista_notas_fundo_gradiente_inferior"
@@ -56,12 +56,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            app:srcCompat="@drawable/what" />
 
 
     </RelativeLayout>

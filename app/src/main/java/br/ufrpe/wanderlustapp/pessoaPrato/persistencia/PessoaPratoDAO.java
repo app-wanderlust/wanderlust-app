@@ -24,14 +24,52 @@ public class PessoaPratoDAO extends AbstractDAO {
         helper = new DBHelper(context);
     }
 
-    public PessoaPrato getPessoaPrato(long idPessoa, long idPrato){
-        PessoaPrato pessoaPrato = null;
-        db = helper.getReadableDatabase();
-        String sql = "SELECT * FROM " + DBHelper.TABELA_PESSOA_PRATO + " WHERE " + DBHelper.CAMPO_FK_ID_PESSOA + " LIKE ? AND " + DBHelper.CAMPO_FK_ID_PRATO + " LIKE ?;";
+    private PessoaPrato getPessoaPrato(long idPessoa, long idPrato, PessoaPrato pessoaPrato, String sql) {
         Cursor cursor = db.rawQuery(sql, new String[]{Long.toString(idPessoa), Long.toString(idPrato)});
         if (cursor.moveToFirst()){
             pessoaPrato = createPessoaPrato(cursor);
         }
+        return pessoaPrato;
+    }
+
+    private Cursor getCursor(long id, List<PessoaPrato> pessoaPratos, String sql) {
+        Cursor cursor = db.rawQuery(sql, new String[]{Long.toString(id)});
+        while (cursor.moveToNext()) {
+            pessoaPratos.add(createPessoaPrato(cursor));
+        }
+        return cursor;
+    }
+
+    private Cursor getCursor(List<PessoaPrato> pessoaPratos, String sql) {
+        Cursor cursor = db.rawQuery(sql, new String[]{});
+        while (cursor.moveToNext()){
+            pessoaPratos.add(createPessoaPrato(cursor));
+        }
+        return cursor;
+    }
+
+    private ContentValues getContentValues(PessoaPrato pessoaPrato) {
+        ContentValues values = new ContentValues();
+        values.put(DBHelper.CAMPO_FK_ID_PESSOA, pessoaPrato.getPessoa().getId());
+        values.put(DBHelper.CAMPO_FK_ID_PRATO, pessoaPrato.getPratoTipico().getId());
+        values.put(DBHelper.CAMPO_NOTA, pessoaPrato.getNota());
+        return values;
+    }
+
+    private void setsPessoaPrato(Cursor cursor, PessoaPrato pessoaPrato, PessoaDAO pessoaDAO, PratoTipicoDAO pratoTipicoDAO) {
+        int columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_ID_PESSOA_PRATO);
+        pessoaPrato.setId(Integer.parseInt(cursor.getString(columnIndex)));
+        columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_FK_ID_PESSOA);
+        pessoaPrato.setPessoa(pessoaDAO.getPessoa(cursor.getInt(columnIndex)));
+        columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_FK_ID_PRATO);
+        pessoaPrato.setPratoTipico(pratoTipicoDAO.getPratoTipicoById(cursor.getInt(columnIndex)));
+    }
+
+    public PessoaPrato getPessoaPrato(long idPessoa, long idPrato){
+        PessoaPrato pessoaPrato = null;
+        db = helper.getReadableDatabase();
+        String sql = "SELECT * FROM " + DBHelper.TABELA_PESSOA_PRATO + " WHERE " + DBHelper.CAMPO_FK_ID_PESSOA + " LIKE ? AND " + DBHelper.CAMPO_FK_ID_PRATO + " LIKE ?;";
+        pessoaPrato = getPessoaPrato(idPessoa, idPrato, pessoaPrato, sql);
         super.close(db);
         return pessoaPrato;
     }
@@ -52,10 +90,7 @@ public class PessoaPratoDAO extends AbstractDAO {
         List<PessoaPrato> pessoaPratos = new ArrayList<>();
         db = helper.getReadableDatabase();
         String sql = "SELECT * FROM " + DBHelper.TABELA_PESSOA_PRATO + " WHERE " + DBHelper.CAMPO_FK_ID_PESSOA + " LIKE ?;";
-        Cursor cursor = db.rawQuery(sql, new String[]{Long.toString(id)});
-        while (cursor.moveToNext()){
-            pessoaPratos.add(createPessoaPrato(cursor));
-        }
+        Cursor cursor = getCursor(id, pessoaPratos, sql);
         cursor.close();
         db.close();
         return pessoaPratos;
@@ -65,10 +100,7 @@ public class PessoaPratoDAO extends AbstractDAO {
         List<PessoaPrato> pessoaPratos = new ArrayList<>();
         db = helper.getReadableDatabase();
         String sql = "SELECT * FROM " + DBHelper.TABELA_PESSOA_PRATO + " WHERE " + DBHelper.CAMPO_FK_ID_PRATO + " LIKE ?;";
-        Cursor cursor = db.rawQuery(sql, new String[]{Long.toString(id)});
-        while (cursor.moveToNext()){
-            pessoaPratos.add(createPessoaPrato(cursor));
-        }
+        Cursor cursor = getCursor(id, pessoaPratos, sql);
         cursor.close();
         db.close();
         return pessoaPratos;
@@ -78,10 +110,7 @@ public class PessoaPratoDAO extends AbstractDAO {
         List<PessoaPrato> pessoaPratos = new ArrayList<>();
         db = helper.getReadableDatabase();
         String sql = "SELECT * FROM " + DBHelper.TABELA_PESSOA_PRATO;
-        Cursor cursor = db.rawQuery(sql, new String[]{});
-        while (cursor.moveToNext()){
-            pessoaPratos.add(createPessoaPrato(cursor));
-        }
+        Cursor cursor = getCursor(pessoaPratos, sql);
         cursor.close();
         db.close();
         return pessoaPratos;
@@ -91,21 +120,13 @@ public class PessoaPratoDAO extends AbstractDAO {
         PessoaPrato pessoaPrato = new PessoaPrato();
         PessoaDAO pessoaDAO = new PessoaDAO(context);
         PratoTipicoDAO pratoTipicoDAO = new PratoTipicoDAO(context);
-        int columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_ID_PESSOA_PRATO);
-        pessoaPrato.setId(Integer.parseInt(cursor.getString(columnIndex)));
-        columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_FK_ID_PESSOA);
-        pessoaPrato.setPessoa(pessoaDAO.getPessoa(cursor.getInt(columnIndex)));
-        columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_FK_ID_PRATO);
-        pessoaPrato.setPratoTipico(pratoTipicoDAO.getPratoTipicoById(cursor.getInt(columnIndex)));
+        setsPessoaPrato(cursor, pessoaPrato, pessoaDAO, pratoTipicoDAO);
         return pessoaPrato;
     }
 
     public long cadastrar(PessoaPrato pessoaPrato){
         db = helper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DBHelper.CAMPO_FK_ID_PESSOA,pessoaPrato.getPessoa().getId());
-        values.put(DBHelper.CAMPO_FK_ID_PRATO,pessoaPrato.getPratoTipico().getId());
-        values.put(DBHelper.CAMPO_NOTA,pessoaPrato.getNota());
+        ContentValues values = getContentValues(pessoaPrato);
         long id = db.insert(DBHelper.TABELA_PESSOA_PRATO,null,values);
         super.close(db);
         return id;
@@ -113,10 +134,7 @@ public class PessoaPratoDAO extends AbstractDAO {
 
     public void updatePessoaPrato(PessoaPrato pessoaPrato){
         db = helper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DBHelper.CAMPO_FK_ID_PESSOA,pessoaPrato.getPessoa().getId());
-        values.put(DBHelper.CAMPO_FK_ID_PRATO,pessoaPrato.getPratoTipico().getId());
-        values.put(DBHelper.CAMPO_NOTA,pessoaPrato.getNota());
+        ContentValues values = getContentValues(pessoaPrato);
         String[] id = new String[]{Long.toString(pessoaPrato.getId())};
         db.update(DBHelper.TABELA_PESSOA_PRATO,values,DBHelper.CAMPO_ID_PESSOA_PRATO+"=?",id);
         super.close();

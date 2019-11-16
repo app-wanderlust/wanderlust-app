@@ -1,6 +1,5 @@
 package br.ufrpe.wanderlustapp.usuario.gui;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
@@ -33,14 +34,7 @@ public class CadastroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
-        txVoltar = findViewById(R.id.textoVoltarId);
-        etNome = findViewById(R.id.campoNomeCadastroId);
-        etEmail = findViewById(R.id.campoDescricaoDoPrato);
-        etSenha = findViewById(R.id.campoSenhaCadastroId);
-        etConfirmarSenha = findViewById(R.id.campoConfirmarSenhaCadastroId);
-        etNascimento = findViewById(R.id.campoDataNascimentoCadastroId);
-        etNascimento.addTextChangedListener(new MaskWatcher("##/##/####"));
-        btnCadastrar = findViewById(R.id.botaoCadastrarId);
+        findById();
 
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +50,17 @@ public class CadastroActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void findById() {
+        txVoltar = findViewById(R.id.textoVoltarId);
+        etNome = findViewById(R.id.campoNomeCadastroId);
+        etEmail = findViewById(R.id.campoDescricaoDoPrato);
+        etSenha = findViewById(R.id.campoSenhaCadastroId);
+        etConfirmarSenha = findViewById(R.id.campoConfirmarSenhaCadastroId);
+        etNascimento = findViewById(R.id.campoDataNascimentoCadastroId);
+        etNascimento.addTextChangedListener(new MaskWatcher("##/##/####"));
+        btnCadastrar = findViewById(R.id.botaoCadastrarId);
     }
 
     private void cadastrar(Usuario usuario) throws Exception {

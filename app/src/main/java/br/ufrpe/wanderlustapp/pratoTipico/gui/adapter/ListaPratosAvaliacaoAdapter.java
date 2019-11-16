@@ -1,20 +1,27 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
+import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
+import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
+import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
+import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
 
@@ -22,10 +29,13 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
     private final Context context;
     private final List<PratoTipico> pratosAvaliacao;
     private OnItemClickListener onItemClickListener;
+    private List<Bitmap> listaDeImagens = new ArrayList<>();
+    private PratoImagemServices pratoImagemServices;
 
     public ListaPratosAvaliacaoAdapter(Context context, List<PratoTipico> pratos) {
         this.context = context;
         this.pratosAvaliacao = pratos;
+        pratoImagemServices = new PratoImagemServices(this.context);
     }
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
@@ -53,29 +63,43 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
     class PratoViewHolder extends RecyclerView.ViewHolder{
         private final TextView titulo;
         private final TextView descricao;
+        private final ImageView imagem;
         private PratoTipico prato;
+        private Pessoa pessoa = Sessao.instance.getUsuario().getPessoa();
+        private PessoaPrato pessoaPrato;
+        private ToggleButton toggleButton;
+        PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(context);
 
 
         public PratoViewHolder(@NonNull final View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.item_prato_nome_avaliacao);
             descricao = itemView.findViewById(R.id.item_prato_descricao_avaliacao);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            imagem = itemView.findViewById(R.id.imagem_prato_avaliacao);
+            toggleButton = itemView.findViewById(R.id.button_favorite);
+            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
-                public void onClick(View v) {
-                    onItemClickListener.onItemClick(prato, getAdapterPosition());
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    onItemClickListener.onItemClick(prato,getAdapterPosition(), isChecked);
                 }
             });
-
         }
 
         public void vincula(PratoTipico prato){
             this.prato = prato;
-            titulo.setText(prato.getNome());
-            descricao.setText(prato.getDescricao());
+            titulo.setText(this.prato.getNome());
+            descricao.setText(this.prato.getDescricao());
+            listaDeImagens = pratoImagemServices.geraImagens(prato);
+            if (listaDeImagens.size()>0){
+                Bitmap imagens = listaDeImagens.get(0);
+                if (imagens != null){
+                    imagem.setImageBitmap(imagens);
+                }
+            }
+            this.pessoaPrato = pessoaPratoServices.getPessoaPrato(pessoa.getId(), this.prato.getId());
+            if (this.pessoaPrato != null){
+                toggleButton.setChecked(true);
+            }
         }
     }
-
-
-
 }

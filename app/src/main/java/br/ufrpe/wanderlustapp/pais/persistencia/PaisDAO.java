@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
 import br.ufrpe.wanderlustapp.infra.persistencia.AbstractDAO;
 import br.ufrpe.wanderlustapp.infra.persistencia.DBHelper;
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
@@ -17,7 +16,7 @@ public class PaisDAO extends AbstractDAO {
 
     public PaisDAO(Context context) {
         this.context = context;
-        helper = new DBHelper(context);
+        helper = new DBHelper(this.context);
     }
 
     public Pais getPaisById(long id) {

@@ -39,7 +39,6 @@ public class PratoTipico implements Serializable {
         return cidade;
     }
 
-
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }

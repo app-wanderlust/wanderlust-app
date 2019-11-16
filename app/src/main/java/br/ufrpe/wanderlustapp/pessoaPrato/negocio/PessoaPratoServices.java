@@ -6,7 +6,6 @@ import java.util.List;
 
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pessoaPrato.persistencia.PessoaPratoDAO;
-import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 
 public class PessoaPratoServices {
     private PessoaPratoDAO pessoaPratoDAO;
@@ -22,6 +21,10 @@ public class PessoaPratoServices {
             long idPessoaPrato = pessoaPratoDAO.cadastrar(pessoaPrato);
             pessoaPrato.setId(idPessoaPrato);
         }
+    }
+
+    public PessoaPrato getPessoaPrato(long idPessoa, long idPrato){
+        return pessoaPratoDAO.getPessoaPrato(idPessoa, idPrato);
     }
 
     public List<PessoaPrato> getList(){

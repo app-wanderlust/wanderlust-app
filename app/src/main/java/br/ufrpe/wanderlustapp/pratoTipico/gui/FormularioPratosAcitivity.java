@@ -12,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
+import br.ufrpe.wanderlustapp.cidade.negocio.CidadeServices;
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
+import br.ufrpe.wanderlustapp.pais.negocio.PaisServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
@@ -24,6 +26,8 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
     public static final String TITULO_APPBAR_INSERE = "Inserir prato";
     public static final String TITULO_APPBAR_ALTERA = "Alterar prato";
     private int posicaoRecebida;
+    CidadeServices cidadeServices = new CidadeServices(this);
+    PaisServices paisServices = new PaisServices(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +38,17 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
         Intent dadosRecebidos = getIntent();
         if (dadosRecebidos.hasExtra(CHAVE_PRATO) && dadosRecebidos.hasExtra("posicao") ){
             setTitle(TITULO_APPBAR_ALTERA);
-            PratoTipico pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
-            posicaoRecebida = dadosRecebidos.getIntExtra("posicao", POSICAO_INVALIDA);
-            TextView nome = findViewById(R.id.formulario_prato_nome);
-            nome.setText(pratoRecebido.getNome());
-            TextView descricao = findViewById(R.id.formulario_prato_descricao);
-            descricao.setText(pratoRecebido.getDescricao());
+            recebePrato(dadosRecebidos);
         }
+    }
+
+    private void recebePrato(Intent dadosRecebidos) {
+        PratoTipico pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
+        posicaoRecebida = dadosRecebidos.getIntExtra("posicao", POSICAO_INVALIDA);
+        TextView nome = findViewById(R.id.formulario_prato_nome);
+        TextView descricao = findViewById(R.id.formulario_prato_descricao);
+        nome.setText(pratoRecebido.getNome());
+        descricao.setText(pratoRecebido.getDescricao());
     }
 
 
@@ -55,17 +63,21 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
         if(item.getItemId() == R.id.menu_formulario_prato_ic_salva){
             Intent dadosRecebidos = getIntent();
             PratoTipico pratoRecebido = (PratoTipico) dadosRecebidos.getSerializableExtra(CHAVE_PRATO);
-            if (verficaCampos()) {
-                if (pratoRecebido == null) {
-                    pratoRecebido = criaPratoTipico();
-                } else {
-                    pratoRecebido = atualizaPrato(pratoRecebido);
-                }
-                retornaPratoViaExtra(pratoRecebido);
-            }
+            fetchPratoTipico(pratoRecebido);
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void fetchPratoTipico(PratoTipico pratoRecebido) {
+        if (verficaCampos()) {
+            if (pratoRecebido == null) {
+                pratoRecebido = criaPratoTipico();
+            } else {
+                pratoRecebido = atualizaPrato(pratoRecebido);
+            }
+            retornaPratoViaExtra(pratoRecebido);
+        }
     }
 
     private PratoTipico criaPratoTipico() {
@@ -105,11 +117,13 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
     }
 
     private Cidade createCidadePadrao() {
-        Cidade cidade = new Cidade();
-        cidade.setNome("Recife");
         Pais pais = new Pais();
         pais.setNome("Brasil");
+        paisServices.cadastrar(pais);
+        Cidade cidade = new Cidade();
+        cidade.setNome("Recife");
         cidade.setPais(pais);
+        cidadeServices.cadastrar(cidade);
         return cidade;
     }
 }

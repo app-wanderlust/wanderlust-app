@@ -12,10 +12,6 @@ public class MaskWatcher implements TextWatcher {
         this.mask = mask;
     }
 
-    public static MaskWatcher buildData() {
-        return new MaskWatcher("##/##/####");
-    }
-
     @Override
     public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
         isDeleting = count > after;
