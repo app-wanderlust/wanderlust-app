@@ -83,6 +83,13 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
                     onItemClickListener.onItemClick(prato,getAdapterPosition(), isChecked);
                 }
             });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(prato,getAdapterPosition());
+                }
+            });
         }
 
         public void vincula(PratoTipico prato){

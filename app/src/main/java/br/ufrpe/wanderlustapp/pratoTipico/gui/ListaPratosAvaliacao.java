@@ -1,5 +1,6 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -32,11 +33,14 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
     }
 
     private void configuraRecyclerviewAvaliacao() {
-        RecyclerView listaPratosAvaliacao = findViewById(R.id.lista_pratos_avaliacao_recyclerview);
+        RecyclerView listaPratosAvaliacao = findViewById(R.id.lista_imagens_recyclerview);
         setAdapterAvaliacao(listaPratosAvaliacao);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(PratoTipico pratoTipico, int posicao) {
+                Sessao.instance.setPratoTipico(pratoTipico);
+                startActivity(new Intent(ListaPratosAvaliacao.this, DetalhesPratoActivity.class));
+
             }
 
             @Override
@@ -65,6 +69,7 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
     private void setAdapterAvaliacao(RecyclerView recyclerView) {
         adapter = new ListaPratosAvaliacaoAdapter(this,geraListaFavoritos());
         recyclerView.setAdapter(adapter);
+
     }
 
     private List<PratoTipico> geraListaFavoritos(){

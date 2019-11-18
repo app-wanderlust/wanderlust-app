@@ -154,7 +154,7 @@ public class AtualizaPratosAcitivity extends AppCompatActivity {
             if (verficaCampos()){
                 preencheAtributosPrato(pratoTipico);
                 Sessao.instance.setPratoTipico(pratoTipico);
-                PratoImagem pratoImagem = createPratoImagem(pratoTipico,imageBitmap);
+                PratoImagem pratoImagem = createPratoImagem(pratoTipico, imageBitmap);
                 Sessao.instance.setPratoImagem(pratoImagem);
             }
             finish();
