@@ -32,7 +32,7 @@ public class FormularioPratosAcitivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_formulario_pratos);
+        setContentView(R.layout.activity_cadastra_pratos);
         setTitle(TITULO_APPBAR_INSERE);
 
         Intent dadosRecebidos = getIntent();
