@@ -44,9 +44,9 @@ public class PratoImagemDAO extends AbstractDAO {
 
 
     public List<PratoImagem> getImagemByIdPrato(long id){
+        List<PratoImagem> pratoImagens = new ArrayList<>();
         db = helper.getReadableDatabase();
         String sql = "SELECT * FROM " + DBHelper.TABELA_PRATO_IMAGEM + " WHERE " + DBHelper.CAMPO_FK_ID_PRATO_TIPICO + " = ?;";
-        List<PratoImagem> pratoImagens = new ArrayList<>();
         Cursor cursor = db.rawQuery(sql, new String[]{Long.toString(id)});
         while (cursor.moveToNext()){
             pratoImagens.add(createPratoImagem(cursor));

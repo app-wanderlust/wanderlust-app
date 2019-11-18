@@ -1,6 +1,8 @@
 package br.ufrpe.wanderlustapp.pratoTipico.gui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,10 +18,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
+import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
@@ -27,8 +33,11 @@ import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_RESULTADO_PRATO_CRIADO;
 
+
+
 public class ListaPratosActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
+    PratoImagemServices pratoImagemServices = new PratoImagemServices(this);
     public static final String TITULO_APPBAR_LISTA = "Lista de pratos";
     private ListPratosAdapter adapter;
     private int posicaoEnviada;
@@ -72,6 +81,10 @@ public class ListaPratosActivity extends AppCompatActivity {
         }
     }
 
+    private void salvaImagem(PratoImagem pratoImagem) {
+        pratoImagemServices.cadastrar(pratoImagem);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -79,13 +92,17 @@ public class ListaPratosActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-
         PratoTipico pratoTipico = Sessao.instance.getPratoTipico();
         if (pratoTipico != null){
             if (pratoTipico.getId() == 0){
                 inserePrato(pratoTipico);
+                Sessao.instance.resetPrato();
             }else{
                 atualizaPrato(pratoTipico);
+                PratoImagem pratoImagem = Sessao.instance.getPratoImagem();
+                salvaImagem(pratoImagem);
+                Sessao.instance.resetPrato();
+                Sessao.instance.resetImagem();
             }
         }
 
@@ -146,6 +163,17 @@ public class ListaPratosActivity extends AppCompatActivity {
         });
         return true;
     }
+
+    public List<Bitmap> geraImagens(PratoTipico pratoTipico){
+        List<Bitmap> listaImagens = new ArrayList<>();
+        List<PratoImagem> listaPratoImagem = pratoImagemServices.getList(pratoTipico.getId());
+        for(PratoImagem pratoImagem: listaPratoImagem){
+            byte[] outImage = pratoImagem.getImagem();
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(outImage);
+            Bitmap imagemBitmap = BitmapFactory.decodeStream(imageStream);
+            listaImagens.add(imagemBitmap);
+        }
+        return listaImagens;
+    }
+
 }
-
-

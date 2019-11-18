@@ -1,47 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardView"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="250dp"
     android:layout_margin="5dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="250dp"
         android:background="#ECECEC">
+
+        <ImageView
+            android:id="@+id/imagem_prato"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop"
+             />
 
         <TextView
             android:id="@+id/item_prato_nome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:maxLines="2"
-            android:textSize="25dp"
-            android:textStyle="bold"
+            android:layout_below="@+id/imagem_prato"
+            android:maxLines="5"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="2dp"
+            android:text="Nome"
             android:textColor="#471F8F"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Título" />
+            android:textStyle="bold"
+            android:textSize="22dp" />
 
         <TextView
             android:id="@+id/item_prato_descricao"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:maxLines="6"
-            android:textSize="18sp"
+            android:layout_below="@+id/item_prato_nome"
+            android:maxLines="5"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="2dp"
+            android:text="Descrição"
             android:textColor="#471F8F"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="16dp" />
+
+        <View
+            android:id="@+id/lista_notas_fundo_gradiente_inferior"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/fundo_gradiente_insere_nota"
+            app:layout_constraintBottom_toTopOf="@+id/lista_pratos_insere_prato"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/item_prato_nome"
-            app:layout_constraintTop_toBottomOf="@id/item_prato_nome"
-            tools:text="Descrição" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>
-

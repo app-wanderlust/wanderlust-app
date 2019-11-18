@@ -1,28 +1,28 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="250dp"
+    android:layout_height="250dp"
     android:layout_margin="5dp">
 
     <RelativeLayout
         android:layout_width="250dp"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:background="#ECECEC">
 
         <ImageView
-            android:id="@+id/thumbnail"
+            android:id="@+id/imagem_prato_avaliacao"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/kitchen_food" />
+            />
 
         <TextView
             android:id="@+id/item_prato_nome_avaliacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/thumbnail"
+            android:layout_below="@+id/imagem_prato_avaliacao"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
@@ -64,9 +64,9 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="196dp"
-            android:layout_marginLeft="196dp"
-            android:layout_marginTop="144dp"
+            android:layout_marginStart="190dp"
+            android:layout_marginLeft="190dp"
+            android:layout_marginTop="174dp"
             android:background="@drawable/bottom_favorite"
             android:text=""
             android:textOff=""

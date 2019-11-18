@@ -38,7 +38,7 @@ import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.POSICAO_INVALIDA;
 
-
+//codigo para transforamação de imagem Autor: Professor Prof. Andrez Menéndez, ammenendez@gmail.com//
 public class AtualizaPratosAcitivity extends AppCompatActivity {
     public static final String TITULO_APPBAR_ALTERA = "Alterar prato";
     private ImageView imagem;
@@ -52,7 +52,6 @@ public class AtualizaPratosAcitivity extends AppCompatActivity {
     PaisServices paisServices = new PaisServices(this);
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     PratoImagemServices pratoImagemServices = new PratoImagemServices(this);
-    private Bitmap thumbnail;
     private Bitmap imageBitmap;
 
     @Override
@@ -110,8 +109,8 @@ public class AtualizaPratosAcitivity extends AppCompatActivity {
             int columnIndex = c.getColumnIndex(filePath[0]);
             String picturePath = c.getString(columnIndex);
             c.close();
-            thumbnail = (BitmapFactory.decodeFile(picturePath));
-            imagem.setImageBitmap(thumbnail);
+            imageBitmap = (BitmapFactory.decodeFile(picturePath));
+            imagem.setImageBitmap(imageBitmap);
         }
         if (requestCode == TIRAR_FOTO && resultCode == RESULT_OK){
             Bundle extras = data.getExtras();
@@ -155,6 +154,8 @@ public class AtualizaPratosAcitivity extends AppCompatActivity {
             if (verficaCampos()){
                 preencheAtributosPrato(pratoTipico);
                 Sessao.instance.setPratoTipico(pratoTipico);
+                PratoImagem pratoImagem = createPratoImagem(pratoTipico,imageBitmap);
+                Sessao.instance.setPratoImagem(pratoImagem);
             }
             finish();
         }
