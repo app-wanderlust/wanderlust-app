@@ -100,7 +100,9 @@ public class ListaPratosActivity extends AppCompatActivity {
             }else{
                 atualizaPrato(pratoTipico);
                 PratoImagem pratoImagem = Sessao.instance.getPratoImagem();
-                salvaImagem(pratoImagem);
+                if (pratoImagem != null){
+                    salvaImagem(pratoImagem);
+                }
                 Sessao.instance.resetPrato();
                 Sessao.instance.resetImagem();
             }
