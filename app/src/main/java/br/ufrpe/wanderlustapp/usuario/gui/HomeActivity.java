@@ -83,8 +83,9 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(iniciarGerenciarPrato);
         }
         else if(RecyclerViewItemPosition == 3){
-            Sessao.instance.reset();
-            startActivity(new Intent(HomeActivity.this, PerfilActivity.class));
+            Intent iniciarPerfil =
+                    new Intent(HomeActivity.this, PerfilActivity.class);
+            startActivity(iniciarPerfil);
         }else if(RecyclerViewItemPosition == 4){
             Sessao.instance.reset();
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));

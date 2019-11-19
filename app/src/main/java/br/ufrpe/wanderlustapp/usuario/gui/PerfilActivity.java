@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosFavoritos;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 
@@ -17,19 +18,19 @@ public class PerfilActivity extends AppCompatActivity {
     private TextView nomeUsuario;
     private TextView emailUsuario;
     private TextView listaFavoritosUsuarios;
-    private Usuario usuario;
+    private Usuario usuario = Sessao.instance.getUsuario();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
-        usuario = Sessao.instance.getUsuario();
         nomeUsuario = findViewById(R.id.textoNomeUsuario);
         emailUsuario = findViewById(R.id.textoEmailUsuario);
         listaFavoritosUsuarios = findViewById(R.id.textoVerFavoritos);
 
-        nomeUsuario.setText(usuario.getPessoa().getNome());
+        String nome = usuario.getPessoa().getNome();
+        nomeUsuario.setText(nome);
         emailUsuario.setText(usuario.getEmail());
 
         listaFavoritosUsuarios.setOnClickListener(new View.OnClickListener() {
