@@ -67,7 +67,7 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
         private PratoTipico prato;
         private Pessoa pessoa = Sessao.instance.getUsuario().getPessoa();
         private PessoaPrato pessoaPrato;
-        private ToggleButton toggleButton;
+        private ToggleButton likeButton;
         private ToggleButton dislikeButton;
         PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(context);
 
@@ -77,18 +77,21 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
             titulo = itemView.findViewById(R.id.item_prato_nome_avaliacao);
             descricao = itemView.findViewById(R.id.item_prato_descricao_avaliacao);
             imagem = itemView.findViewById(R.id.imagem_prato_avaliacao);
-            toggleButton = itemView.findViewById(R.id.button_favorite);
+            likeButton = itemView.findViewById(R.id.button_favorite);
             dislikeButton = itemView.findViewById(R.id.button_dislike_toggle);
-            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            likeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    onItemClickListener.onItemClick(prato,getAdapterPosition(), isChecked);
+                    dislikeButton.setChecked(false);
+                    onItemClickListener.onItemClick(prato,getAdapterPosition(), likeButton.isChecked(), dislikeButton.isChecked());
                 }
             });
             dislikeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    onItemClickListener.onItemClick(prato,getAdapterPosition(), isChecked);
+                    likeButton.setChecked(false);
+                    onItemClickListener.onItemClick(prato,getAdapterPosition(), likeButton.isChecked(), dislikeButton.isChecked());
                 }
             });
 
@@ -113,7 +116,7 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
             }
             this.pessoaPrato = pessoaPratoServices.getPessoaPrato(pessoa.getId(), this.prato.getId());
             if (this.pessoaPrato != null){
-                toggleButton.setChecked(true);
+                likeButton.setChecked(true);
             }
         }
     }

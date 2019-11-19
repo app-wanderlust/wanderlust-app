@@ -12,6 +12,7 @@ import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
@@ -50,30 +51,60 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
 
             @Override
             public void onItemClick(PratoTipico pratoTipico, int posicao, boolean isChecked) {
-                if (likeButton.isChecked()){
-                    criaPessoaPrato(pratoTipico);
-                }else if(!likeButton.isChecked()){
-                    PessoaPrato pessoaPrato = pessoaPratoServices.getPessoaPrato(usuario.getPessoa().getId(), pratoTipico.getId());
-                    pessoaPratoServices.delete(pessoaPrato);
-                    Toast.makeText(ListaPratosAvaliacao.this, "descurtiu", Toast.LENGTH_LONG).show();
-                }else if(dislikeButton.isChecked()){
-                    PessoaPrato pessoaPrato = pessoaPratoServices.getPessoaPrato(usuario.getPessoa().getId(), pratoTipico.getId());
-                    //pessoaPratoServices.delete(pessoaPrato);
-                    Toast.makeText(ListaPratosAvaliacao.this, "dislike" + pratoTipico.getNome(), Toast.LENGTH_LONG).show();
-                }
 
+            }
+
+            @Override
+            public void onItemClick(PratoTipico pratoTipico, int posicao, boolean like, boolean dislike) {
+                if (like){
+                    likePessoaPrato(pratoTipico);
+                }else if(dislike){
+                    dislikePessoaPrato(pratoTipico);
+                }
             }
         });
     }
 
-    private void criaPessoaPrato(PratoTipico prato) {
-        pessoaPrato.setPratoTipico(prato);
-        pessoaPrato.setPessoa(usuario.getPessoa());
+    private PessoaPrato getPessoaPrato(PratoTipico pratoTipico){
+        pessoaPrato = pessoaPratoServices.getPessoaPrato(usuario.getPessoa().getId(), pratoTipico.getId());
+        if (pessoaPrato == null){
+            pessoaPrato = new PessoaPrato();
+            pessoaPrato.setPratoTipico(pratoTipico);
+            pessoaPrato.setPessoa(usuario.getPessoa());
+        }
+        return pessoaPrato;
+    }
+
+    private void likePessoaPrato(PratoTipico prato) {
+        pessoaPrato = getPessoaPrato(prato);
         pessoaPrato.setNota(1);
         try {
-            pessoaPratoServices.cadastrar(pessoaPrato);
-            Toast.makeText(ListaPratosAvaliacao.this, "Você curtiu: " + prato.getNome(), Toast.LENGTH_LONG).show();
-        }catch (Exception e){}
+            if (pessoaPrato.getId() != 0) {
+                pessoaPratoServices.cadastrar(pessoaPrato);
+                Toast.makeText(ListaPratosAvaliacao.this, "Você curtiu: " + prato.getNome(), Toast.LENGTH_LONG).show();
+            }else {
+                pessoaPratoServices.update(pessoaPrato);
+                Toast.makeText(ListaPratosAvaliacao.this, "Você curtiu: " + prato.getNome(), Toast.LENGTH_LONG).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(ListaPratosAvaliacao.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void dislikePessoaPrato(PratoTipico prato) {
+        pessoaPrato = getPessoaPrato(prato);
+        pessoaPrato.setNota(-1);
+        try {
+            if (pessoaPrato.getId() != 0) {
+                pessoaPratoServices.cadastrar(pessoaPrato);
+                Toast.makeText(ListaPratosAvaliacao.this, "Você não gostou de: " + prato.getNome(), Toast.LENGTH_LONG).show();
+            }else{
+                pessoaPratoServices.update(pessoaPrato);
+                Toast.makeText(ListaPratosAvaliacao.this, "Você não gostou de: " + prato.getNome(), Toast.LENGTH_LONG).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(ListaPratosAvaliacao.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void setAdapterAvaliacao(RecyclerView recyclerView) {
