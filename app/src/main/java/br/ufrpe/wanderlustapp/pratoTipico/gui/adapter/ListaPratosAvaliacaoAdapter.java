@@ -83,15 +83,19 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
             likeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    dislikeButton.setChecked(false);
-                    onItemClickListener.onItemClick(prato,getAdapterPosition(), likeButton.isChecked(), dislikeButton.isChecked());
+                    if (isChecked) {
+                        dislikeButton.setChecked(false);
+                        onItemClickListener.onItemClick(prato, getAdapterPosition(), likeButton.isChecked(), dislikeButton.isChecked());
+                    }
                 }
             });
             dislikeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    likeButton.setChecked(false);
-                    onItemClickListener.onItemClick(prato,getAdapterPosition(), likeButton.isChecked(), dislikeButton.isChecked());
+                    if (isChecked) {
+                        likeButton.setChecked(false);
+                        onItemClickListener.onItemClick(prato, getAdapterPosition(), likeButton.isChecked(), dislikeButton.isChecked());
+                    }
                 }
             });
 
