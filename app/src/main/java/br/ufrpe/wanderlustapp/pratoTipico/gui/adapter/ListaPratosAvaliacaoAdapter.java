@@ -68,6 +68,7 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
         private Pessoa pessoa = Sessao.instance.getUsuario().getPessoa();
         private PessoaPrato pessoaPrato;
         private ToggleButton toggleButton;
+        private ToggleButton dislikeButton;
         PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(context);
 
 
@@ -77,7 +78,14 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
             descricao = itemView.findViewById(R.id.item_prato_descricao_avaliacao);
             imagem = itemView.findViewById(R.id.imagem_prato_avaliacao);
             toggleButton = itemView.findViewById(R.id.button_favorite);
+            dislikeButton = itemView.findViewById(R.id.button_dislike_toggle);
             toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    onItemClickListener.onItemClick(prato,getAdapterPosition(), isChecked);
+                }
+            });
+            dislikeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     onItemClickListener.onItemClick(prato,getAdapterPosition(), isChecked);

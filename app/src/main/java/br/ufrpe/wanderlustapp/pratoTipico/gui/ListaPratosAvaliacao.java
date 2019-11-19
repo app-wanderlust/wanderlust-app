@@ -3,6 +3,7 @@ package br.ufrpe.wanderlustapp.pratoTipico.gui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,8 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
     PessoaPrato pessoaPrato = new PessoaPrato();
     private ListaPratosAvaliacaoAdapter adapter;
     private Usuario usuario  = Sessao.instance.getUsuario();
+    private ToggleButton likeButton;
+    private ToggleButton dislikeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
     private void configuraRecyclerviewAvaliacao() {
         RecyclerView listaPratosAvaliacao = findViewById(R.id.lista_imagens_recyclerview);
         setAdapterAvaliacao(listaPratosAvaliacao);
+        likeButton = findViewById(R.id.button_favorite);
+        dislikeButton = findViewById(R.id.button_dislike_toggle);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(PratoTipico pratoTipico, int posicao) {
@@ -45,13 +50,18 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
 
             @Override
             public void onItemClick(PratoTipico pratoTipico, int posicao, boolean isChecked) {
-                if (isChecked){
+                if (likeButton.isChecked()){
                     criaPessoaPrato(pratoTipico);
-                }else {
+                }else if(!likeButton.isChecked()){
                     PessoaPrato pessoaPrato = pessoaPratoServices.getPessoaPrato(usuario.getPessoa().getId(), pratoTipico.getId());
                     pessoaPratoServices.delete(pessoaPrato);
                     Toast.makeText(ListaPratosAvaliacao.this, "descurtiu", Toast.LENGTH_LONG).show();
+                }else if(dislikeButton.isChecked()){
+                    PessoaPrato pessoaPrato = pessoaPratoServices.getPessoaPrato(usuario.getPessoa().getId(), pratoTipico.getId());
+                    //pessoaPratoServices.delete(pessoaPrato);
+                    Toast.makeText(ListaPratosAvaliacao.this, "dislike" + pratoTipico.getNome(), Toast.LENGTH_LONG).show();
                 }
+
             }
         });
     }
