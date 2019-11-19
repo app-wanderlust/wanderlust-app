@@ -84,6 +84,9 @@ public class HomeActivity extends AppCompatActivity {
         }
         else if(RecyclerViewItemPosition == 3){
             Sessao.instance.reset();
+            startActivity(new Intent(HomeActivity.this, PerfilActivity.class));
+        }else if(RecyclerViewItemPosition == 4){
+            Sessao.instance.reset();
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
         }
 
@@ -94,6 +97,7 @@ public class HomeActivity extends AppCompatActivity {
         Tela.add("Avaliar prato");
         Tela.add("Pratos favoritos");
         Tela.add("Gerenciar pratos");
+        Tela.add("Perfil");
         Tela.add("Sair");
     }
 }
