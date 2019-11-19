@@ -1,10 +1,11 @@
 package br.ufrpe.wanderlustapp.pontoTuristico.dominio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
 
-public class PontoTuristico {
+public class PontoTuristico implements Serializable {
 
     private long id;
     private String nome;
