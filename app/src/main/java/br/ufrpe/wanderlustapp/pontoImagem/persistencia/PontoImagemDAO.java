@@ -12,8 +12,7 @@ import br.ufrpe.wanderlustapp.infra.persistencia.AbstractDAO;
 import br.ufrpe.wanderlustapp.infra.persistencia.DBHelper;
 import br.ufrpe.wanderlustapp.pontoImagem.dominio.PontoImagem;
 import br.ufrpe.wanderlustapp.pontoTuristico.persistencia.PontoTuristicoDAO;
-import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
-import br.ufrpe.wanderlustapp.pratoTipico.persistencia.PratoTipicoDAO;
+
 
 public class PontoImagemDAO extends AbstractDAO {
 
@@ -51,7 +50,7 @@ public class PontoImagemDAO extends AbstractDAO {
         String sql = "SELECT * FROM " + DBHelper.TABELA_PONTO_IMAGEM + " WHERE " + DBHelper.CAMPO_FK_ID_PONTO_TURISTICO + " = ?;";
         Cursor cursor = db.rawQuery(sql, new String[]{Long.toString(id)});
         while (cursor.moveToNext()){
-            pontoImagens.add(createPontoTuristico(cursor));
+            pontoImagens.add(createPontoImagem(cursor));
         }
         cursor.close();
         db.close();

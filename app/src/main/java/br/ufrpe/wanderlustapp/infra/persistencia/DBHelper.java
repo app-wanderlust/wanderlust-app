@@ -59,8 +59,16 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CAMPO_FK_ID_PRATO_TIPICO = "fk_prato";
     public static final String CAMPO_IMAGEM = "imagem";
 
+    //Tabela PontoImagem
+    public static final String TABELA_PONTO_IMAGEM = "tb_ponto_imagem";
+    public static final String CAMPO_ID_PONTO_IMAGEM = "id";
+    public static final String CAMPO_FK_ID_PONTO_TURISTICO = "fk_prato";
+    public static final String CAMPO_IMAGEM_PONTO = "imagem";
+
+
+
     private static final String[] TABELAS = {
-            TABELA_PESSOA, TABELA_USUARIO, TABELA_PAIS, TABELA_CIDADE, TABELA_PRATO, TABELA_PONTO, TABELA_PESSOA_PRATO, TABELA_PRATO_IMAGEM
+            TABELA_PESSOA, TABELA_USUARIO, TABELA_PAIS, TABELA_CIDADE, TABELA_PRATO, TABELA_PONTO, TABELA_PESSOA_PRATO, TABELA_PRATO_IMAGEM, TABELA_PONTO_IMAGEM
     };
 
     public DBHelper(Context context) {
@@ -78,6 +86,7 @@ public class DBHelper extends SQLiteOpenHelper {
         createTablePonto(db);
         createTablePessoaPrato(db);
         createTablePratoImagem(db);
+        createTablePontoImagem(db);
     }
 
 
@@ -175,7 +184,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(sqlTbPessoaPrato);
     }
 
-
     private void createTablePratoImagem(SQLiteDatabase db) {
         String sqlTbPratoImagem =
                 "CREATE TABLE %1$s ( "  +
@@ -190,6 +198,19 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(sqlTbPratoImagem);
     }
 
+    private void createTablePontoImagem(SQLiteDatabase db) {
+        String sqlTbPontoImagem =
+                "CREATE TABLE %1$s ( "  +
+                        "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "  %3$s INTEGER NOT NULL, " +
+                        "  %4$s BLOB NOT NULL, " +
+                        " FOREIGN KEY(%5$s) REFERENCES %6$s(%7$s)" +
+                        ");";
+        sqlTbPontoImagem = String.format(sqlTbPontoImagem,
+                TABELA_PONTO_IMAGEM, CAMPO_ID_PONTO_IMAGEM, CAMPO_FK_ID_PONTO_TURISTICO, CAMPO_IMAGEM_PONTO,
+                CAMPO_FK_ID_PONTO_TURISTICO, TABELA_PONTO, CAMPO_ID_PONTO);
+        db.execSQL(sqlTbPontoImagem);
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
