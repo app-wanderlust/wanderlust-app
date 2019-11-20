@@ -11,6 +11,8 @@ import android.view.MotionEvent;
 import java.util.ArrayList;
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pontoTuristico.gui.ListaPontosActivity;
+import br.ufrpe.wanderlustapp.pontoTuristico.gui.ListaPontosAvaliacao;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosActivity;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosAvaliacao;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosFavoritos;
@@ -78,15 +80,25 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(iniciarPratosFavoritos);
         }
         else if(RecyclerViewItemPosition == 2){
+            Intent iniciarPontosTuristicos =
+                    new Intent(HomeActivity.this, ListaPontosAvaliacao.class);
+            startActivity(iniciarPontosTuristicos);
+        }
+        else if(RecyclerViewItemPosition == 3){
             Intent iniciarGerenciarPrato =
                     new Intent(HomeActivity.this, ListaPratosActivity.class);
             startActivity(iniciarGerenciarPrato);
         }
-        else if(RecyclerViewItemPosition == 3){
+        else if(RecyclerViewItemPosition == 4){
+            Intent iniciarGerenciarPonto =
+                    new Intent(HomeActivity.this, ListaPontosActivity.class);
+            startActivity(iniciarGerenciarPonto);
+        }
+        else if(RecyclerViewItemPosition == 5){
             Intent iniciarPerfil =
                     new Intent(HomeActivity.this, PerfilActivity.class);
             startActivity(iniciarPerfil);
-        }else if(RecyclerViewItemPosition == 4){
+        }else if(RecyclerViewItemPosition == 6){
             Sessao.instance.reset();
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
         }
@@ -97,7 +109,9 @@ public class HomeActivity extends AppCompatActivity {
         Tela = new ArrayList<>();
         Tela.add("Avaliar prato");
         Tela.add("Pratos favoritos");
+        Tela.add("Pontos Turísticos");
         Tela.add("Gerenciar pratos");
+        Tela.add("Gerenciar pontos");
         Tela.add("Perfil");
         Tela.add("Sair");
     }

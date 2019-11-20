@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".pontoTuristico.gui.PontoItemTouchHelperCallback"></activity>
+        <activity android:name=".pontoTuristico.gui.DetalhesPontoActivity"></activity>
+        <activity android:name=".pontoTuristico.gui.ListaPontosAvaliacao" />
+        <activity android:name=".pontoTuristico.gui.PontoItemTouchHelperCallback" />
         <activity android:name=".pontoTuristico.gui.AtualizaPontosActivity" />
         <activity android:name=".pontoTuristico.gui.CadastraPontosActivity" />
         <activity android:name=".pontoTuristico.gui.ListaPontosActivity" />
