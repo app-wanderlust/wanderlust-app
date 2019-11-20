@@ -63,6 +63,8 @@ public class PessoaPratoDAO extends AbstractDAO {
         pessoaPrato.setPessoa(pessoaDAO.getPessoa(cursor.getInt(columnIndex)));
         columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_FK_ID_PRATO);
         pessoaPrato.setPratoTipico(pratoTipicoDAO.getPratoTipicoById(cursor.getInt(columnIndex)));
+        columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_NOTA);
+        pessoaPrato.setNota(Integer.parseInt(String.valueOf(cursor.getInt(columnIndex))));
     }
 
     public PessoaPrato getPessoaPrato(long idPessoa, long idPrato){

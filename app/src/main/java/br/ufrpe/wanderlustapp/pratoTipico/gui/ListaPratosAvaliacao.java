@@ -46,12 +46,10 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
             public void onItemClick(PratoTipico pratoTipico, int posicao) {
                 Sessao.instance.setPratoTipico(pratoTipico);
                 startActivity(new Intent(ListaPratosAvaliacao.this, DetalhesPratoActivity.class));
-
             }
 
             @Override
             public void onItemClick(PratoTipico pratoTipico, int posicao, boolean isChecked) {
-
             }
 
             @Override
@@ -79,12 +77,12 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
         pessoaPrato = getPessoaPrato(prato);
         pessoaPrato.setNota(1);
         try {
-            if (pessoaPrato.getId() != 0) {
+            if (pessoaPrato.getId() == 0) {
                 pessoaPratoServices.cadastrar(pessoaPrato);
                 Toast.makeText(ListaPratosAvaliacao.this, "Você curtiu: " + prato.getNome(), Toast.LENGTH_LONG).show();
             }else {
                 pessoaPratoServices.update(pessoaPrato);
-                Toast.makeText(ListaPratosAvaliacao.this, "Você curtiu: " + prato.getNome(), Toast.LENGTH_LONG).show();
+                Toast.makeText(ListaPratosAvaliacao.this, "Você curtiu2: " + prato.getNome(), Toast.LENGTH_LONG).show();
             }
         }catch (Exception e){
             Toast.makeText(ListaPratosAvaliacao.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -95,12 +93,12 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
         pessoaPrato = getPessoaPrato(prato);
         pessoaPrato.setNota(-1);
         try {
-            if (pessoaPrato.getId() != 0) {
+            if (pessoaPrato.getId() == 0) {
                 pessoaPratoServices.cadastrar(pessoaPrato);
                 Toast.makeText(ListaPratosAvaliacao.this, "Você não gostou de: " + prato.getNome(), Toast.LENGTH_LONG).show();
             }else{
                 pessoaPratoServices.update(pessoaPrato);
-                Toast.makeText(ListaPratosAvaliacao.this, "Você não gostou de: " + prato.getNome(), Toast.LENGTH_LONG).show();
+                Toast.makeText(ListaPratosAvaliacao.this, "Você não gostou de2: " + prato.getNome(), Toast.LENGTH_LONG).show();
             }
         }catch (Exception e){
             Toast.makeText(ListaPratosAvaliacao.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -110,7 +108,6 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
     private void setAdapterAvaliacao(RecyclerView recyclerView) {
         adapter = new ListaPratosAvaliacaoAdapter(this,geraListaFavoritos());
         recyclerView.setAdapter(adapter);
-
     }
 
     private List<PratoTipico> geraListaFavoritos(){

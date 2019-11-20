@@ -119,8 +119,10 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
                 }
             }
             this.pessoaPrato = pessoaPratoServices.getPessoaPrato(pessoa.getId(), this.prato.getId());
-            if (this.pessoaPrato != null){
+            if (this.pessoaPrato != null && this.pessoaPrato.getNota() == 1){
                 likeButton.setChecked(true);
+            }else if (this.pessoaPrato != null && this.pessoaPrato.getNota() == -1){
+                dislikeButton.setChecked(true);
             }
         }
     }
