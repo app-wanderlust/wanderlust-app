@@ -7,7 +7,7 @@ public class PessoaPrato {
     private long id;
     private Pessoa pessoa;
     private PratoTipico pratoTipico;
-    private float nota;
+    private int nota;
 
     public long getId() {
         return id;
@@ -33,11 +33,11 @@ public class PessoaPrato {
         this.pratoTipico = pratoTipico;
     }
 
-    public float getNota() {
+    public int getNota() {
         return nota;
     }
 
-    public void setNota(float nota) {
+    public void setNota(int nota) {
         this.nota = nota;
     }
 }

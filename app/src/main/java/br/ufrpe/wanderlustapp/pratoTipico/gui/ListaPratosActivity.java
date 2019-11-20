@@ -100,7 +100,9 @@ public class ListaPratosActivity extends AppCompatActivity {
             }else{
                 atualizaPrato(pratoTipico);
                 PratoImagem pratoImagem = Sessao.instance.getPratoImagem();
-                salvaImagem(pratoImagem);
+                if (pratoImagem != null){
+                    salvaImagem(pratoImagem);
+                }
                 Sessao.instance.resetPrato();
                 Sessao.instance.resetImagem();
             }
@@ -126,6 +128,11 @@ public class ListaPratosActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(PratoTipico pratoTipico, int posicao, boolean checked) {
+            }
+
+            @Override
+            public void onItemClick(PratoTipico pratoTipico, int posicao, boolean likeChecked, boolean dislikeChecked) {
+
             }
         });
     }
@@ -162,18 +169,6 @@ public class ListaPratosActivity extends AppCompatActivity {
             }
         });
         return true;
-    }
-
-    public List<Bitmap> geraImagens(PratoTipico pratoTipico){
-        List<Bitmap> listaImagens = new ArrayList<>();
-        List<PratoImagem> listaPratoImagem = pratoImagemServices.getList(pratoTipico.getId());
-        for(PratoImagem pratoImagem: listaPratoImagem){
-            byte[] outImage = pratoImagem.getImagem();
-            ByteArrayInputStream imageStream = new ByteArrayInputStream(outImage);
-            Bitmap imagemBitmap = BitmapFactory.decodeStream(imageStream);
-            listaImagens.add(imagemBitmap);
-        }
-        return listaImagens;
     }
 
 }

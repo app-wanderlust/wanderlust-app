@@ -59,15 +59,30 @@
 
         <ToggleButton
             android:id="@+id/button_favorite"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="190dp"
-            android:layout_marginLeft="190dp"
-            android:layout_marginTop="174dp"
+            android:layout_marginStart="156dp"
+            android:layout_marginLeft="156dp"
+            android:layout_marginTop="152dp"
             android:background="@drawable/bottom_favorite"
+            android:text=""
+            android:textOff=""
+            android:textOn="" />
+
+        <ToggleButton
+            android:id="@+id/button_dislike_toggle"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="202dp"
+            android:layout_marginLeft="202dp"
+            android:layout_marginTop="152dp"
+            android:background="@drawable/button_dislike"
             android:text=""
             android:textOff=""
             android:textOn="" />

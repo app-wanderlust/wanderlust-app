@@ -83,6 +83,10 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(iniciarGerenciarPrato);
         }
         else if(RecyclerViewItemPosition == 3){
+            Intent iniciarPerfil =
+                    new Intent(HomeActivity.this, PerfilActivity.class);
+            startActivity(iniciarPerfil);
+        }else if(RecyclerViewItemPosition == 4){
             Sessao.instance.reset();
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
         }
@@ -94,6 +98,7 @@ public class HomeActivity extends AppCompatActivity {
         Tela.add("Avaliar prato");
         Tela.add("Pratos favoritos");
         Tela.add("Gerenciar pratos");
+        Tela.add("Perfil");
         Tela.add("Sair");
     }
 }

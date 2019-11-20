@@ -143,7 +143,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         "  %2$s INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "  %3$s INTEGER NOT NULL, " +
                         "  %4$s INTEGER NOT NULL, " +
-                        "  %5$s TEXT NOT NULL, " +
+                        "  %5$s INTEGER NOT NULL, " +
                         " FOREIGN KEY(%6$s) REFERENCES %7$s(%8$s)," +
                         " FOREIGN KEY(%9$s) REFERENCES %10$s(%11$s)" +
                         ");";
