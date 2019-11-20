@@ -20,28 +20,20 @@ import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pontoImagem.dominio.PontoImagem;
+import br.ufrpe.wanderlustapp.pontoImagem.negocio.PontoImagemServices;
 import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
 import br.ufrpe.wanderlustapp.pontoTuristico.negocio.PontoTuristicoServices;
-import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
-import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
-import br.ufrpe.wanderlustapp.pratoTipico.dominio.PontoTuristico;
-import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.AtualizaPratosAcitivity;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.CadastraPratosAcitivity;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosActivity;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.PratoItemTouchHelperCallback;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListPratosAdapter;
-import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PONTO;
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_RESULTADO_PRATO_CRIADO;
 
 public class ListaPontosActivity extends AppCompatActivity {
 
     PontoTuristicoServices pontoTuristicoServices = new PontoTuristicoServices(this);
-    //PontoImagemServices pontoImagemServices = new PontoImagemServices(this);
+    PontoImagemServices pontoImagemServices = new PontoImagemServices(this);
     public static final String TITULO_APPBAR_LISTA = "Lista de pontos";
     private ListPontosAdapter adapter;
     private int posicaoEnviada;

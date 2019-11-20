@@ -63,14 +63,14 @@ public class CadastraPontosActivity extends AppCompatActivity {
     }
 
     private boolean verficaCampos(){
-        EditText nome = findViewById(R.id.formulario_prato_nome); //ver isso
-        EditText descricao = findViewById(R.id.formulario_prato_descricao); //ver isso
+        EditText nome = findViewById(R.id.formulario_ponto_nome);
+        EditText descricao = findViewById(R.id.formulario_ponto_descricao);
         return nome.length() > 0 && descricao.length() > 0;
     }
 
     private void preencheAtributosPonto(PontoTuristico pontoTuristico) {
-        EditText nome = findViewById(R.id.formulario_prato_nome); //ver isso
-        EditText descricao = findViewById(R.id.formulario_prato_descricao); //ver isso
+        EditText nome = findViewById(R.id.formulario_ponto_nome);
+        EditText descricao = findViewById(R.id.formulario_ponto_descricao);
         pontoTuristico.setNome(nome.getText().toString());
         pontoTuristico.setDescricao(descricao.getText().toString());
         pontoTuristico.setCidade(createCidadePadrao());

@@ -154,8 +154,6 @@ public class ListPratosAdapter extends RecyclerView.Adapter<ListPratosAdapter.Pr
                         imagem.setImageBitmap(imagens);
                 }
             }
-
-
         }
     }
 }

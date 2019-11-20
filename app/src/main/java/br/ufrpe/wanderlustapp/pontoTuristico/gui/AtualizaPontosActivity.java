@@ -30,6 +30,8 @@ import br.ufrpe.wanderlustapp.cidade.negocio.CidadeServices;
 import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
 import br.ufrpe.wanderlustapp.pais.negocio.PaisServices;
+import br.ufrpe.wanderlustapp.pontoImagem.dominio.PontoImagem;
+import br.ufrpe.wanderlustapp.pontoImagem.negocio.PontoImagemServices;
 import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
 import br.ufrpe.wanderlustapp.pontoTuristico.negocio.PontoTuristicoServices;
 import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
@@ -54,7 +56,7 @@ public class AtualizaPontosActivity extends AppCompatActivity {
     CidadeServices cidadeServices = new CidadeServices(this);
     PaisServices paisServices = new PaisServices(this);
     PontoTuristicoServices pontoTuristicoServices = new PontoTuristicoServices(this);
-    //PontoImagemServices pontoImagemServices = new PontoImagemServices(this);
+    PontoImagemServices pontoImagemServices = new PontoImagemServices(this);
     private Bitmap imageBitmap;
 
 
@@ -140,8 +142,8 @@ public class AtualizaPontosActivity extends AppCompatActivity {
     private void recebePonto(Intent dadosRecebidos) {
         pontoTuristico = (PontoTuristico) dadosRecebidos.getSerializableExtra(CHAVE_PONTO);
         posicaoRecebida = dadosRecebidos.getIntExtra("posicao", POSICAO_INVALIDA);
-        TextView nome = findViewById(R.id.formulario_prato_nome); //ver isso
-        TextView descricao = findViewById(R.id.formulario_prato_descricao); //ver isso
+        TextView nome = findViewById(R.id.formulario_ponto_nome);
+        TextView descricao = findViewById(R.id.formulario_ponto_descricao);
         nome.setText(pontoTuristico.getNome());
         descricao.setText(pontoTuristico.getDescricao());
     }
@@ -179,14 +181,14 @@ public class AtualizaPontosActivity extends AppCompatActivity {
     }
 
     private boolean verficaCampos(){
-        EditText nome = findViewById(R.id.formulario_prato_nome); //ver isso
-        EditText descricao = findViewById(R.id.formulario_prato_descricao); //ver isso
+        EditText nome = findViewById(R.id.formulario_ponto_nome);
+        EditText descricao = findViewById(R.id.formulario_ponto_descricao);
         return nome.length() > 0 && descricao.length() > 0;
     }
 
     private void preencheAtributosPonto(PontoTuristico pontoTuristico) {
-        EditText nome = findViewById(R.id.formulario_prato_nome); //ver isso
-        EditText descricao = findViewById(R.id.formulario_prato_descricao); //ver isso
+        EditText nome = findViewById(R.id.formulario_ponto_nome);
+        EditText descricao = findViewById(R.id.formulario_ponto_descricao);
         pontoTuristico.setNome(nome.getText().toString());
         pontoTuristico.setDescricao(descricao.getText().toString());
         pontoTuristico.setCidade(createCidadePadrao());
