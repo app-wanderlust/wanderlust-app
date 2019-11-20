@@ -12,7 +12,6 @@ import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
-import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
@@ -34,6 +33,13 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pratos_avaliacao);
         configuraRecyclerviewAvaliacao();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Sessao.instance.resetPrato();
+        Sessao.instance.resetImagem();
     }
 
     private void configuraRecyclerviewAvaliacao() {
