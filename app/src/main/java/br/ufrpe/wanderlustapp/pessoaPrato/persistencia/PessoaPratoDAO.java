@@ -91,7 +91,7 @@ public class PessoaPratoDAO extends AbstractDAO {
     public List<PessoaPrato> getPratoByIdPessoa(long id){
         List<PessoaPrato> pessoaPratos = new ArrayList<>();
         db = helper.getReadableDatabase();
-        String sql = "SELECT * FROM " + DBHelper.TABELA_PESSOA_PRATO + " WHERE " + DBHelper.CAMPO_FK_ID_PESSOA + " LIKE ?;";
+        String sql = "SELECT * FROM " + DBHelper.TABELA_PESSOA_PRATO + " WHERE " + DBHelper.CAMPO_FK_ID_PESSOA + " LIKE ? AND " + DBHelper.CAMPO_NOTA + "= 1";
         Cursor cursor = getCursor(id, pessoaPratos, sql);
         cursor.close();
         db.close();
