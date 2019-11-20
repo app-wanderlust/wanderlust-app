@@ -58,6 +58,8 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
                     likePessoaPrato(pratoTipico);
                 }else if(dislike){
                     dislikePessoaPrato(pratoTipico);
+                }else if(!like && !dislike){
+                    zeraNota(pratoTipico);
                 }
             }
         });
@@ -102,6 +104,19 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
             }
         }catch (Exception e){
             Toast.makeText(ListaPratosAvaliacao.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+    private  void zeraNota(PratoTipico pratoTipico){
+        pessoaPrato = getPessoaPrato(pratoTipico);
+        pessoaPrato.setNota(0);
+        try {
+            if (pessoaPrato.getId() == 0) {
+                pessoaPratoServices.cadastrar(pessoaPrato);
+            } else {
+                pessoaPratoServices.update(pessoaPrato);
+            }
+        }catch(Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -80,22 +80,27 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
             likeButton = itemView.findViewById(R.id.button_favorite);
             dislikeButton = itemView.findViewById(R.id.button_dislike_toggle);
 
-            likeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            likeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
+                public void onClick(View v) {
+                    if (likeButton.isChecked()) {
                         dislikeButton.setChecked(false);
+                        onItemClickListener.onItemClick(prato, getAdapterPosition(), likeButton.isChecked(), dislikeButton.isChecked());
+                    }else if(!likeButton.isChecked()){
                         onItemClickListener.onItemClick(prato, getAdapterPosition(), likeButton.isChecked(), dislikeButton.isChecked());
                     }
                 }
             });
-            dislikeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            dislikeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
+                public void onClick(View v) {
+                    if (dislikeButton.isChecked()) {
                         likeButton.setChecked(false);
                         onItemClickListener.onItemClick(prato, getAdapterPosition(), likeButton.isChecked(), dislikeButton.isChecked());
+                    }else if (!dislikeButton.isChecked()){
+                        onItemClickListener.onItemClick(prato, getAdapterPosition(), likeButton.isChecked(), dislikeButton.isChecked());
                     }
+
                 }
             });
 
@@ -123,6 +128,9 @@ public class ListaPratosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPrato
                 likeButton.setChecked(true);
             }else if (this.pessoaPrato != null && this.pessoaPrato.getNota() == -1){
                 dislikeButton.setChecked(true);
+            }else{
+                dislikeButton.setChecked(false);
+                likeButton.setChecked(false);
             }
         }
     }
