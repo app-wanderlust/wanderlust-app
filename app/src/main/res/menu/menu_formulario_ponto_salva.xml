@@ -2,10 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_formulario_prato_ic_salva"
-        android:title="Salvar Prato"
+        android:id="@+id/menu_formulario_ponto_ic_salva"
+        android:title="Salvar Ponto"
         android:icon="@drawable/ic_action_salvar"
         android:iconTint="@color/colorWhite"
         app:showAsAction="always" />
-
 </menu>

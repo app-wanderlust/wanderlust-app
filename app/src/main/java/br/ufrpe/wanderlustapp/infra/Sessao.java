@@ -5,6 +5,7 @@ import java.util.Map;
 
 import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
 import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
+import br.ufrpe.wanderlustapp.pontoImagem.dominio.PontoImagem;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 

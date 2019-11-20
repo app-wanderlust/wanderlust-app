@@ -1,20 +1,15 @@
 package br.ufrpe.wanderlustapp.pontoTuristico.gui;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -23,12 +18,12 @@ import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pontoImagem.dominio.PontoImagem;
 import br.ufrpe.wanderlustapp.pontoImagem.negocio.PontoImagemServices;
 import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
+import br.ufrpe.wanderlustapp.pontoTuristico.gui.adapter.ListPontosAdapter;
 import br.ufrpe.wanderlustapp.pontoTuristico.negocio.PontoTuristicoServices;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.CadastraPratosAcitivity;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
 
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PONTO;
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CODIGO_RESULTADO_PRATO_CRIADO;
+import static br.ufrpe.wanderlustapp.pontoTuristico.gui.pontosActivityConstantes.CHAVE_PONTO;
+import static br.ufrpe.wanderlustapp.pontoTuristico.gui.pontosActivityConstantes.CODIGO_RESULTADO_PONTO_CRIADO;
 
 public class ListaPontosActivity extends AppCompatActivity {
 
@@ -48,7 +43,7 @@ public class ListaPontosActivity extends AppCompatActivity {
     }
 
     private void configuraBtnInserePonto() {
-        TextView btnInserePonto = findViewById(R.id.lista_pratos_insere_prato); //ver aqui
+        TextView btnInserePonto = findViewById(R.id.lista_pontos_insere_ponto);
         btnInserePonto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,9 +72,9 @@ public class ListaPontosActivity extends AppCompatActivity {
         }
     }
 
-    /*private void salvaImagem(PontoImagem pontoImagem) {
+    private void salvaImagem(PontoImagem pontoImagem) {
         pontoImagemServices.cadastrar(pontoImagem);
-    }*/
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -111,21 +106,19 @@ public class ListaPontosActivity extends AppCompatActivity {
         return pontoTuristicoServices.getLista();
     }
 
-    private void setAdapter(RecyclerView recyclerView){
-        adapter = new ListPontosAdapter(this, geraLista());
+    private void setAdapter (RecyclerView recyclerView){
+        adapter = new ListPontosAdapter(this,geraLista());
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(PontoTuristico ponto, int posicao) {
+            public void onItemClick(PontoTuristico pontoTuristico, int posicao) {
                 posicaoEnviada = posicao;
-                Intent abreFormularioComPonto = getIntent(ponto, posicao);
-                startActivityForResult(abreFormularioComPonto,CODIGO_RESULTADO_PRATO_CRIADO); //ver aqui
+                Intent abreFormularioComPonto = getIntent(pontoTuristico, posicao);
+                startActivityForResult(abreFormularioComPonto,CODIGO_RESULTADO_PONTO_CRIADO);
             }
-
             @Override
-            public void onItemClick(PontoTuristico pontoTuristico, int posicao, boolean checked) {
+            public void onItemClick(PontoTuristico pontoTuristico, int posicao, boolean isChecked) {
             }
-
             @Override
             public void onItemClick(PontoTuristico pontoTuristico, int posicao, boolean likeChecked, boolean dislikeChecked) {
 
@@ -133,15 +126,16 @@ public class ListaPontosActivity extends AppCompatActivity {
         });
     }
 
+
     private Intent getIntent(PontoTuristico ponto, int posicao) {
-        Intent abreFormularioComPonto = new Intent(ListaPontosActivity.this, AtualizaPontosAcitivity.class);
+        Intent abreFormularioComPonto = new Intent(ListaPontosActivity.this, AtualizaPontosActivity.class);
         abreFormularioComPonto.putExtra(CHAVE_PONTO,ponto);
         abreFormularioComPonto.putExtra("posicao",posicao);
         return abreFormularioComPonto;
     }
 
     private void configuraRecyclerview() {
-        RecyclerView listaPontos = findViewById(R.id.lista_pratos_recyclerview); //ver aqui
+        RecyclerView listaPontos = findViewById(R.id.lista_pontos_recyclerview);
         setAdapter(listaPontos);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PontoItemTouchHelperCallback(adapter, pontoTuristicoServices));
         itemTouchHelper.attachToRecyclerView(listaPontos);

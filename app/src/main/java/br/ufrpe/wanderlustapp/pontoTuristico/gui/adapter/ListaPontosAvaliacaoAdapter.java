@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,11 +28,11 @@ public class ListaPontosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPonto
     private final List<PontoTuristico> pontosAvaliacao;
     private OnItemClickListener onItemClickListener;
     private List<Bitmap> listaDeImagens = new ArrayList<>();
-    private PontoTuristicoServices pontoImagemServices;
+    private PontoImagemServices pontoImagemServices;
 
-    public ListaPontosAvaliacaoAdapter(Context context, List<PontoTuristico> pratos) {
+    public ListaPontosAvaliacaoAdapter(Context context, List<PontoTuristico> pontos) {
         this.context = context;
-        this.pontosAvaliacao = pratos;
+        this.pontosAvaliacao = pontos;
         pontoImagemServices = new PontoImagemServices(this.context);
     }
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -95,7 +94,5 @@ public class ListaPontosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPonto
 
 
     }
-
-
 
 }

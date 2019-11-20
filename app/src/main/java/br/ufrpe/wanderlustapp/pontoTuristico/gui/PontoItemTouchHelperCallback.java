@@ -10,6 +10,7 @@ import android.os.Bundle;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
+import br.ufrpe.wanderlustapp.pontoTuristico.gui.adapter.ListPontosAdapter;
 import br.ufrpe.wanderlustapp.pontoTuristico.negocio.PontoTuristicoServices;
 
 public class PontoItemTouchHelperCallback extends ItemTouchHelper.Callback {

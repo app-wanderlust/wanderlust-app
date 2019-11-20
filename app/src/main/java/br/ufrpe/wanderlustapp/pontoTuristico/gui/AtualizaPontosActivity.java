@@ -36,8 +36,8 @@ import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
 import br.ufrpe.wanderlustapp.pontoTuristico.negocio.PontoTuristicoServices;
 
 
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PONTO;
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.POSICAO_INVALIDA;
+import static br.ufrpe.wanderlustapp.pontoTuristico.gui.pontosActivityConstantes.CHAVE_PONTO;
+import static br.ufrpe.wanderlustapp.pontoTuristico.gui.pontosActivityConstantes.POSICAO_INVALIDA_PONTO;
 
 public class AtualizaPontosActivity extends AppCompatActivity {
 
@@ -65,7 +65,6 @@ public class AtualizaPontosActivity extends AppCompatActivity {
         Intent dadosRecebidos = getIntent();
         recebePonto(dadosRecebidos);
 
-        //NÃO MUDEI NADA DESSE IF PARA BAIXO DENTRO DESSE MÉTODO. É PRA MUDAR?
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -100,7 +99,6 @@ public class AtualizaPontosActivity extends AppCompatActivity {
         });
     }
 
-    //TBM NÃO MUDEI NADA NESSE MÉTODO. É PRA MUDAR?
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -122,7 +120,6 @@ public class AtualizaPontosActivity extends AppCompatActivity {
         }
     }
 
-    //TBM NÃO MUDEI NESSE. PRECISA?
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[],
@@ -137,7 +134,7 @@ public class AtualizaPontosActivity extends AppCompatActivity {
 
     private void recebePonto(Intent dadosRecebidos) {
         pontoTuristico = (PontoTuristico) dadosRecebidos.getSerializableExtra(CHAVE_PONTO);
-        posicaoRecebida = dadosRecebidos.getIntExtra("posicao", POSICAO_INVALIDA);
+        posicaoRecebida = dadosRecebidos.getIntExtra("posicao", POSICAO_INVALIDA_PONTO);
         TextView nome = findViewById(R.id.formulario_ponto_nome);
         TextView descricao = findViewById(R.id.formulario_ponto_descricao);
         nome.setText(pontoTuristico.getNome());
@@ -146,18 +143,18 @@ public class AtualizaPontosActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_formulario_prato_salva, menu); //ver isso
+        getMenuInflater().inflate(R.menu.menu_formulario_ponto_salva, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.menu_formulario_prato_ic_salva){ //ver isso
+        if(item.getItemId() == R.id.menu_formulario_ponto_ic_salva){
             if (verficaCampos()){
                 preencheAtributosPonto(pontoTuristico);
-                Sessao.instance.setPratoTipico(pontoTuristico);
+                Sessao.instance.setPontoTuristico(pontoTuristico);
                 if (imageBitmap != null){
-                    PontoTuristico pontoImagem = createPontoImagem(pontoTuristico, imageBitmap);
+                    PontoImagem pontoImagem = createPontoImagem(pontoTuristico, imageBitmap);
                     Sessao.instance.setPontoImagem(pontoImagem);
                 }
             }
@@ -200,12 +197,4 @@ public class AtualizaPontosActivity extends AppCompatActivity {
         cidadeServices.cadastrar(cidade);
         return cidade;
     }
-
-
-
-
-
-
-
-
 }
