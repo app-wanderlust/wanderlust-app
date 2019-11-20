@@ -34,13 +34,9 @@ import br.ufrpe.wanderlustapp.pontoImagem.dominio.PontoImagem;
 import br.ufrpe.wanderlustapp.pontoImagem.negocio.PontoImagemServices;
 import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
 import br.ufrpe.wanderlustapp.pontoTuristico.negocio.PontoTuristicoServices;
-import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
-import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
-import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
-import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
+
 
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PONTO;
-import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.CHAVE_PRATO;
 import static br.ufrpe.wanderlustapp.pratoTipico.gui.pratosActivityConstantes.POSICAO_INVALIDA;
 
 public class AtualizaPontosActivity extends AppCompatActivity {
