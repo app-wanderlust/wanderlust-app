@@ -38,13 +38,13 @@ public class CadastraPontosActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_formulario_prato_salva, menu); // ver isso
+        getMenuInflater().inflate(R.menu.menu_formulario_ponto_salva, menu); // ver isso
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.menu_formulario_prato_ic_salva){ //ver isso
+        if(item.getItemId() == R.id.menu_formulario_ponto_ic_salva){ //ver isso
             PontoTuristico pontoTuristico = criaPontoTuristico();
             if(verficaCampos()) {
                 Sessao.instance.setPontoTuristico(pontoTuristico);
