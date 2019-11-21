@@ -1,5 +1,6 @@
 package br.ufrpe.wanderlustapp.usuario.gui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,7 @@ import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 import br.ufrpe.wanderlustapp.usuario.gui.adapter.ListaPratosRecomendadosAdapter;
 
 public class HomeActivity extends AppCompatActivity {
+
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(this);
     PessoaPrato pessoaPrato = new PessoaPrato();

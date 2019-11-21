@@ -25,6 +25,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:orientation="horizontal"
+        android:layout_centerVertical="false"
+        android:layout_centerHorizontal="false"
         tools:listitem="@layout/item_prato_slopeone" />
 
     <androidx.recyclerview.widget.RecyclerView

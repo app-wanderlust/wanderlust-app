@@ -24,7 +24,7 @@ import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
 
-public class ListaPratosRecomendadosAdapter extends RecyclerView.Adapter<ListaPratosRecomendadosAdapter.PratoViewHolder> {
+public class ListaPratosRecomendadosAdapter extends RecyclerView.Adapter<ListaPratosRecomendadosAdapter.RecomendadoViewHolder> {
     private final Context context;
     private final List<PratoTipico> pratosAvaliacao;
     private OnItemClickListener onItemClickListener;
@@ -42,14 +42,14 @@ public class ListaPratosRecomendadosAdapter extends RecyclerView.Adapter<ListaPr
 
     @NonNull
     @Override
-    public ListaPratosRecomendadosAdapter.PratoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListaPratosRecomendadosAdapter.RecomendadoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View viewCriada = LayoutInflater.from(context)
                 .inflate(R.layout.item_prato_slopeone,parent,false);
-        return new PratoViewHolder(viewCriada);
+        return new RecomendadoViewHolder(viewCriada);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PratoViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecomendadoViewHolder holder, int position) {
         PratoTipico prato = pratosAvaliacao.get(position);
         holder.vincula(prato);
     }
@@ -59,7 +59,7 @@ public class ListaPratosRecomendadosAdapter extends RecyclerView.Adapter<ListaPr
         return pratosAvaliacao.size();
     }
 
-    class PratoViewHolder extends RecyclerView.ViewHolder{
+    class RecomendadoViewHolder extends RecyclerView.ViewHolder{
         private final TextView titulo;
         private final TextView descricao;
         private final ImageView imagem;
@@ -71,7 +71,7 @@ public class ListaPratosRecomendadosAdapter extends RecyclerView.Adapter<ListaPr
         PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(context);
 
 
-        public PratoViewHolder(@NonNull final View itemView) {
+        public RecomendadoViewHolder(@NonNull final View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.item_prato_nome_slopeone);
             descricao = itemView.findViewById(R.id.item_prato_descricao_slopeone);
