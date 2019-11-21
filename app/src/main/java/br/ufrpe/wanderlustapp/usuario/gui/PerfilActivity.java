@@ -18,16 +18,20 @@ public class PerfilActivity extends AppCompatActivity {
     private TextView nomeUsuario;
     private TextView emailUsuario;
     private TextView listaFavoritosUsuarios;
+    private TextView btnEditar;
     private Usuario usuario = Sessao.instance.getUsuario();
+    public static final String TITULO_APPBAR_LISTA = "Meu perfil";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
+        setTitle(TITULO_APPBAR_LISTA);
 
         nomeUsuario = findViewById(R.id.textoNomeUsuario);
         emailUsuario = findViewById(R.id.textoEmailUsuario);
         listaFavoritosUsuarios = findViewById(R.id.textoVerFavoritos);
+        btnEditar = findViewById(R.id.textoEditar);
 
         String nome = usuario.getPessoa().getNome();
         nomeUsuario.setText(nome);
@@ -40,6 +44,12 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
 
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PerfilActivity.this, AlteraPerfilActivity.class));
+            }
+        });
 
 
 
