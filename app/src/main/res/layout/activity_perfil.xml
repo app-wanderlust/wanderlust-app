@@ -61,19 +61,19 @@
         app:layout_constraintTop_toBottomOf="@+id/ImagemUsuario"
         app:layout_constraintVertical_bias="0.3" />
 
-    <TextView
-        android:id="@+id/textoEditar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Editar perfil"
-        android:textColor="#A56191"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textoVerFavoritos"
-        app:layout_constraintVertical_bias="0.100000024" />
+<!--    <TextView-->
+<!--        android:id="@+id/textoEditar"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Editar perfil"-->
+<!--        android:textColor="#A56191"-->
+<!--        android:textSize="18dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textoVerFavoritos"-->
+<!--        app:layout_constraintVertical_bias="0.100000024" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
