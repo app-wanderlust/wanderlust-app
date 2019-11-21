@@ -66,9 +66,9 @@ public class ListaPontosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPonto
 
         public PontoViewHolder(@NonNull final View itemView) {
             super(itemView);
-            titulo = itemView.findViewById(R.id.item_prato_nome_avaliacao);
-            descricao = itemView.findViewById(R.id.item_prato_descricao_avaliacao);
-            imagem = itemView.findViewById(R.id.imagem_prato_avaliacao);
+            titulo = itemView.findViewById(R.id.item_ponto_nome_avaliacao);
+            descricao = itemView.findViewById(R.id.item_ponto_descricao_avaliacao);
+            imagem = itemView.findViewById(R.id.imagem_ponto_avaliacao);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

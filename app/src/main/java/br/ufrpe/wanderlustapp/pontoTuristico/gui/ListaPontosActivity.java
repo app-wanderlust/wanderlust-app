@@ -20,7 +20,6 @@ import br.ufrpe.wanderlustapp.pontoImagem.negocio.PontoImagemServices;
 import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
 import br.ufrpe.wanderlustapp.pontoTuristico.gui.adapter.ListPontosAdapter;
 import br.ufrpe.wanderlustapp.pontoTuristico.negocio.PontoTuristicoServices;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.CadastraPratosAcitivity;
 
 import static br.ufrpe.wanderlustapp.pontoTuristico.gui.pontosActivityConstantes.CHAVE_PONTO;
 import static br.ufrpe.wanderlustapp.pontoTuristico.gui.pontosActivityConstantes.CODIGO_RESULTADO_PONTO_CRIADO;
@@ -47,7 +46,7 @@ public class ListaPontosActivity extends AppCompatActivity {
         btnInserePonto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ListaPontosActivity.this, CadastraPratosAcitivity.class));
+                startActivity(new Intent(ListaPontosActivity.this, CadastraPontosActivity.class));
             }
         });
     }

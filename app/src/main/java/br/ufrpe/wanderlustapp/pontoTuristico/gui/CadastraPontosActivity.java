@@ -16,7 +16,7 @@ import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pais.dominio.Pais;
 import br.ufrpe.wanderlustapp.pais.negocio.PaisServices;
 import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
-import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
+
 
 public class CadastraPontosActivity extends AppCompatActivity {
 

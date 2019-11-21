@@ -13,11 +13,11 @@ import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pontoImagem.negocio.PontoImagemServices;
 import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListaImagensAdapter;
+import br.ufrpe.wanderlustapp.pontoTuristico.gui.adapter.ListaImagensPontoAdapter;
 
 public class DetalhesPontoActivity extends AppCompatActivity {
 
-    private ListaImagensAdapter adapterImagem;
+    private ListaImagensPontoAdapter adapterImagem;
     PontoImagemServices pontoImagemServices = new PontoImagemServices(this);
     private TextView nomePonto;
     private PontoTuristico pontoTuristico;
@@ -38,7 +38,7 @@ public class DetalhesPontoActivity extends AppCompatActivity {
     }
 
     private void setAdapterImagens(RecyclerView listaDeImagens) {
-        adapterImagem = new ListaImagensAdapter(this, geraListaImagens());
+        adapterImagem = new ListaImagensPontoAdapter(this, geraListaImagens());
         listaDeImagens.setAdapter(adapterImagem);
     }
 

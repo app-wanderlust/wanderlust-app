@@ -52,7 +52,7 @@ public class ListaImagensPontoAdapter extends RecyclerView.Adapter<ListaImagensP
 
         public ImagemViewHolder(@NonNull View itemView) {
             super(itemView);
-            imagemPonto = itemView.findViewById(R.id.imagem_prato);
+            imagemPonto = itemView.findViewById(R.id.imagem_ponto);
 
         }
 
