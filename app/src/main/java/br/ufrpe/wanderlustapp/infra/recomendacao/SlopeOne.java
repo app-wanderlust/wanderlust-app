@@ -8,45 +8,38 @@ import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 
 public class SlopeOne {
-    private static Map<PratoTipico, Map<PratoTipico, Integer>> diff = new HashMap<>();
+    private static Map<PratoTipico, Map<PratoTipico, Float>> diff = new HashMap<>();
     private static Map<PratoTipico, Map<PratoTipico, Integer>> freq = new HashMap<>();
-    private static Map<Usuario, HashMap<PratoTipico, Integer>> inputData;
-    private static Map<Usuario, HashMap<PratoTipico, Integer>> outputData = new HashMap<>();
-    private static List<PratoTipico> listaRestaurantes;
+    private static Map<Usuario, HashMap<PratoTipico, Float>> inputData;
+    private static Map<Usuario, HashMap<PratoTipico, Float>> outputData = new HashMap<>();
+    private static List<PratoTipico> listaPratoTipico;
     private static Recomendacao recomendacao;
 
-    public static Map<Usuario, HashMap<PratoTipico, Integer>> slopeOne(Map<Usuario, HashMap<PratoTipico, Integer>> matrizCliente, List<PratoTipico> restaurantes) {
-        inputData = matrizCliente;
-        listaRestaurantes = restaurantes;
+    public static Map<Usuario, HashMap<PratoTipico, Float>> slopeOne(Map<Usuario, HashMap<PratoTipico, Float>> matrizUsuario, List<PratoTipico> pratoTipicos) {
+        inputData = matrizUsuario;
+        listaPratoTipico = pratoTipicos;
         buildDifferencesMatrix(inputData);
         predict(inputData);
         return outputData;
     }
 
-    /**
-     * Based on the available data, calculate the relationships between the
-     * items and number of occurences
-     *
-     * @param data
-     *            existing user data and their items' ratings
-     */
-    private static void buildDifferencesMatrix(Map<Usuario, HashMap<PratoTipico, Integer>> data) {
-        for (HashMap<PratoTipico, Integer> cliente : data.values()) {
-            for (Map.Entry<PratoTipico, Integer> e : cliente.entrySet()) {
+    private static void buildDifferencesMatrix(Map<Usuario, HashMap<PratoTipico, Float>> data) {
+        for (HashMap<PratoTipico, Float> usuario : data.values()) {
+            for (Map.Entry<PratoTipico, Float> e : usuario.entrySet()) {
                 if (!diff.containsKey(e.getKey())) {
-                    diff.put(e.getKey(), new HashMap<PratoTipico, Integer>());
+                    diff.put(e.getKey(), new HashMap<PratoTipico, Float>());
                     freq.put(e.getKey(), new HashMap<PratoTipico, Integer>());
                 }
-                for (Map.Entry<PratoTipico, Integer> e2 : cliente.entrySet()) {
+                for (Map.Entry<PratoTipico, Float> e2 : usuario.entrySet()) {
                     int oldCount = 0;
                     if (freq.get(e.getKey()).containsKey(e2.getKey())) {
                         oldCount = freq.get(e.getKey()).get(e2.getKey()).intValue();
                     }
-                    int oldDiff = 0;
+                    float oldDiff = 0.0f;
                     if (diff.get(e.getKey()).containsKey(e2.getKey())) {
                         oldDiff = diff.get(e.getKey()).get(e2.getKey()).floatValue();
                     }
-                    int observedDiff = e.getValue() - e2.getValue();
+                    float observedDiff = e.getValue() - e2.getValue();
                     freq.get(e.getKey()).put(e2.getKey(), oldCount + 1);
                     diff.get(e.getKey()).put(e2.getKey(), oldDiff + observedDiff);
                 }
@@ -61,13 +54,6 @@ public class SlopeOne {
         }
     }
 
-    /**
-     * Based on existing data predict all missing ratings. If prediction is not
-     * possible, the value will be equal to -1
-     *
-     * @param data
-     *            existing user data and their items' ratings
-     */
     private static Map<Usuario, HashMap<PratoTipico, Float>> predict(Map<Usuario, HashMap<PratoTipico, Float>> data) {
         HashMap<PratoTipico, Float> uPred = new HashMap<PratoTipico, Float>();
         HashMap<PratoTipico, Integer> uFreq = new HashMap<PratoTipico, Integer>();
@@ -93,11 +79,12 @@ public class SlopeOne {
                     clean.put(j, uPred.get(j).floatValue() / uFreq.get(j).intValue());
                 }
             }
-            for (PratoTipico j : listaRestaurantes) {
+            for (PratoTipico j : listaPratoTipico) {
                 if (e.getValue().containsKey(j)) {
                     clean.put(j, e.getValue().get(j));
                 }
             }
+
             outputData.put(e.getKey(), clean);
         }
         return outputData;
