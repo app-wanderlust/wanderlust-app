@@ -16,6 +16,7 @@ import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.infra.recomendacao.Recomendacao;
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
@@ -31,11 +32,12 @@ import br.ufrpe.wanderlustapp.usuario.gui.adapter.ListaPratosRecomendadosAdapter
 
 public class HomeActivity extends AppCompatActivity {
 
-    PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
-    PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(this);
+    PratoTipicoServices pratoTipicoServices;
+    PessoaPratoServices pessoaPratoServices;
     PessoaPrato pessoaPrato = new PessoaPrato();
     private ListaPratosRecomendadosAdapter adapter;
     private Usuario usuario  = Sessao.instance.getUsuario();
+    private Recomendacao recomendacao;
     RecyclerView recyclerView;
     ArrayList<String> Tela;
     RecyclerView.LayoutManager RecyclerViewLayoutManager;
@@ -49,6 +51,11 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        pratoTipicoServices = new PratoTipicoServices(this);
+        pessoaPratoServices = new PessoaPratoServices(this);
+        recomendacao = new Recomendacao(this);
+
         configuraRecyclerviewSlopeOne();
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview1);
         RecyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -119,7 +126,13 @@ public class HomeActivity extends AppCompatActivity {
 
     private void configuraRecyclerviewSlopeOne() {
         RecyclerView listaPratosRecomendados = findViewById(R.id.lista_slopeone_recyclerview);
+        RecyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
+        listaPratosRecomendados.setLayoutManager(RecyclerViewLayoutManager);
+        HorizontalLayout = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        listaPratosRecomendados.setLayoutManager(HorizontalLayout);
+
         setAdapterRecomendados(listaPratosRecomendados);
+
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(PratoTipico pratoTipico, int posicao) {
@@ -200,13 +213,13 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setAdapterRecomendados(RecyclerView recyclerView) {
-        adapter = new ListaPratosRecomendadosAdapter(this,geraListaFavoritos());
+        adapter = new ListaPratosRecomendadosAdapter(this,geraListaRecomendados());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
-    private List<PratoTipico> geraListaFavoritos(){
-        return pratoTipicoServices.getLista();
+    private List<PratoTipico> geraListaRecomendados(){
+        return recomendacao.getListaPratosRecomendados();
     }
 
 

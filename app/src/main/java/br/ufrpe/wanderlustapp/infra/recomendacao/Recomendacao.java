@@ -17,15 +17,19 @@ import br.ufrpe.wanderlustapp.usuario.persistencia.UsuarioDAO;
 
 public class Recomendacao {
     private Context context;
-    private UsuarioDAO usuarioDAO = new UsuarioDAO(context);
-    private PratoTipicoDAO pratoTipicoDAO = new PratoTipicoDAO(context);
-    private PessoaPratoDAO pessoaPratoDAO = new PessoaPratoDAO(context);
+    private UsuarioDAO usuarioDAO;
+    private PratoTipicoDAO pratoTipicoDAO;
+    private PessoaPratoDAO pessoaPratoDAO;
     private Map<Usuario,HashMap<PratoTipico,Float>> usersMatrix;
     private List<PratoTipico> listaPratos;
     private List<PratoTipico> listaPratosRecomendados;
     private Map<Usuario, HashMap<PratoTipico, Float>> predicao;
 
-    public Recomendacao(){
+    public Recomendacao(Context context){
+        this.context = context;
+        pratoTipicoDAO = new PratoTipicoDAO(context);
+        pessoaPratoDAO = new PessoaPratoDAO(context);
+        usuarioDAO = new UsuarioDAO(context);
         listaPratos = pratoTipicoDAO.getListPrato();
         usersMatrix = criaMatrizUsuario();
         predicao = SlopeOne.slopeOne(usersMatrix, listaPratos);
@@ -44,10 +48,13 @@ public class Recomendacao {
     private HashMap<PratoTipico, Float> criaMatrizPratoTipico(long idPessoa){
         HashMap<PratoTipico, Float> matrizPratos = new HashMap<>();
         for(PratoTipico pratoTipico: listaPratos){
-            float matrizPessoaPrato = pessoaPratoDAO.getPessoaPrato(idPessoa, pratoTipico.getId()).getNota();
-            if(matrizPessoaPrato != -1){
-                matrizPratos.put(pratoTipico, matrizPessoaPrato);
+            if(pessoaPratoDAO.getPessoaPrato(idPessoa, pratoTipico.getId()) != null){
+                float matrizPessoaPrato = pessoaPratoDAO.getPessoaPrato(idPessoa, pratoTipico.getId()).getNota();
+                if(matrizPessoaPrato != -1){
+                    matrizPratos.put(pratoTipico, matrizPessoaPrato);
+                }
             }
+
         }
         return matrizPratos;
     }
@@ -58,11 +65,14 @@ public class Recomendacao {
         HashMap<PratoTipico, Float> avaliacoes = predicao.get(usuario);
         for(Map.Entry r: avaliacoes.entrySet()){
             PratoTipico pratoTipico = (PratoTipico) r.getKey();
-            int avaliacao = pessoaPratoDAO.getPessoaPrato(usuario.getId(), pratoTipico.getId()).getNota();
-            int nota = (int)r.getValue();
-            if (avaliacao == -1.0f){
-                notasUsuario.add(new Avaliacao(pratoTipico, nota));
+            if (pessoaPratoDAO.getPessoaPrato(usuario.getId(), pratoTipico.getId())!= null){
+                int avaliacao = pessoaPratoDAO.getPessoaPrato(usuario.getId(), pratoTipico.getId()).getNota();
+                float nota = (float)r.getValue();
+                if (avaliacao == 0.0){
+                    notasUsuario.add(new Avaliacao(pratoTipico, nota));
+                }
             }
+
         }
         return notasUsuario;
     }
@@ -80,13 +90,13 @@ public class Recomendacao {
 
     private List<PratoTipico> getOrderList(List<Avaliacao> avaliacao){
         Collections.sort(avaliacao);
-        List<PratoTipico> restaurantes = new ArrayList<>();
+        List<PratoTipico> pratos = new ArrayList<>();
         for(Avaliacao a: avaliacao){
-            if(a.nota >= 2.0f){
-                restaurantes.add(a.getPratoTipico());
+            if(a.nota == 1){
+                pratos.add(a.getPratoTipico());
             }
         }
-        return restaurantes;
+        return pratos;
     }
 
     public List<PratoTipico> getListaPratosRecomendados() {
@@ -95,9 +105,9 @@ public class Recomendacao {
 
     private class Avaliacao implements Comparable<Avaliacao>{
         private PratoTipico pratoTipico;
-        private int nota;
+        private float nota;
 
-        public Avaliacao(PratoTipico pratoTipico, int nota) {
+        public Avaliacao(PratoTipico pratoTipico, float nota) {
             this.pratoTipico = pratoTipico;
             this.nota = nota;
         }

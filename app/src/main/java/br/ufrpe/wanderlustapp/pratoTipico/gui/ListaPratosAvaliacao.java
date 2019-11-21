@@ -12,8 +12,10 @@ import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
+import br.ufrpe.wanderlustapp.pessoaPrato.persistencia.PessoaPratoDAO;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListaPratosAvaliacaoAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
@@ -22,9 +24,10 @@ import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 public class ListaPratosAvaliacao extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(this);
-    PessoaPrato pessoaPrato = new PessoaPrato();
     private ListaPratosAvaliacaoAdapter adapter;
     private Usuario usuario  = Sessao.instance.getUsuario();
+    private PessoaPratoDAO pessoaPratoDAO;
+    private PessoaPrato pessoaPrato;
     private ToggleButton likeButton;
     private ToggleButton dislikeButton;
 
@@ -33,6 +36,7 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pratos_avaliacao);
         configuraRecyclerviewAvaliacao();
+        pessoaPratoDAO = new PessoaPratoDAO(this);
     }
 
     @Override
@@ -71,7 +75,7 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
         });
     }
 
-    private PessoaPrato getPessoaPrato(PratoTipico pratoTipico){
+    /*private PessoaPrato getPessoaPrato(PratoTipico pratoTipico){
         pessoaPrato = pessoaPratoServices.getPessoaPrato(usuario.getPessoa().getId(), pratoTipico.getId());
         if (pessoaPrato == null){
             pessoaPrato = new PessoaPrato();
@@ -79,51 +83,55 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
             pessoaPrato.setPessoa(usuario.getPessoa());
         }
         return pessoaPrato;
-    }
+    }*/
 
     private void likePessoaPrato(PratoTipico prato) {
-        pessoaPrato = getPessoaPrato(prato);
-        pessoaPrato.setNota(1);
-        try {
-            if (pessoaPrato.getId() == 0) {
+        if(pessoaPratoServices.getPessoaPrato(Sessao.instance.getUsuario().getPessoa().getId(),prato.getId()) == null){
+            pessoaPrato = new PessoaPrato();
+            pessoaPrato.setPratoTipico(prato);
+            pessoaPrato.setPessoa(usuario.getPessoa());
+            pessoaPrato.setNota(1);
+            Toast.makeText(this, "Você curtiu " + prato.getNome(), Toast.LENGTH_SHORT).show();
+            try {
                 pessoaPratoServices.cadastrar(pessoaPrato);
-                Toast.makeText(ListaPratosAvaliacao.this, "Você curtiu: " + prato.getNome(), Toast.LENGTH_LONG).show();
-            }else {
-                pessoaPratoServices.update(pessoaPrato);
-                Toast.makeText(ListaPratosAvaliacao.this, "Você curtiu2: " + prato.getNome(), Toast.LENGTH_LONG).show();
+            } catch(Exception e){
+
             }
-        }catch (Exception e){
-            Toast.makeText(ListaPratosAvaliacao.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }else {
+            PessoaPrato pessoaPratoAtual = pessoaPratoServices.getPessoaPrato(Sessao.instance.getUsuario().getPessoa().getId(),prato.getId());
+            pessoaPratoAtual.setNota(1);
+            pessoaPratoServices.update(pessoaPratoAtual);
+            Toast.makeText(this, "Você curtiu " + prato.getNome(), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void dislikePessoaPrato(PratoTipico prato) {
-        pessoaPrato = getPessoaPrato(prato);
-        pessoaPrato.setNota(-1);
-        try {
-            if (pessoaPrato.getId() == 0) {
+        if(pessoaPratoServices.getPessoaPrato(Sessao.instance.getUsuario().getPessoa().getId(),prato.getId()) == null){
+            pessoaPrato = new PessoaPrato();
+            pessoaPrato.setPratoTipico(prato);
+            pessoaPrato.setPessoa(usuario.getPessoa());
+            pessoaPrato.setNota(-1);
+            try {
                 pessoaPratoServices.cadastrar(pessoaPrato);
-                Toast.makeText(ListaPratosAvaliacao.this, "Você não gostou de: " + prato.getNome(), Toast.LENGTH_LONG).show();
-            }else{
-                pessoaPratoServices.update(pessoaPrato);
-                Toast.makeText(ListaPratosAvaliacao.this, "Você não gostou de2: " + prato.getNome(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Você  não curtiu " + prato.getNome(), Toast.LENGTH_SHORT).show();
+            } catch(Exception e){
+
             }
-        }catch (Exception e){
-            Toast.makeText(ListaPratosAvaliacao.this, e.getMessage(), Toast.LENGTH_LONG).show();
+
+        }else{
+            PessoaPrato pessoaPratoAtual = pessoaPratoDAO.getPessoaPrato(Sessao.instance.getUsuario().getPessoa().getId(),prato.getId());
+            pessoaPratoAtual.setNota(-1);
+            pessoaPratoServices.update(pessoaPratoAtual);
+            Toast.makeText(this, "Você  não curtiu " + prato.getNome(), Toast.LENGTH_SHORT).show();
         }
+
+
     }
     private  void zeraNota(PratoTipico pratoTipico){
-        pessoaPrato = getPessoaPrato(pratoTipico);
-        pessoaPrato.setNota(0);
-        try {
-            if (pessoaPrato.getId() == 0) {
-                pessoaPratoServices.cadastrar(pessoaPrato);
-            } else {
-                pessoaPratoServices.update(pessoaPrato);
-            }
-        }catch(Exception e){
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+        PessoaPrato pessoaPratoAtual = pessoaPratoDAO.getPessoaPrato(Sessao.instance.getUsuario().getPessoa().getId(),pratoTipico.getId());
+        pessoaPratoAtual.setNota(0);
+        pessoaPratoServices.update(pessoaPratoAtual);
+
     }
 
     private void setAdapterAvaliacao(RecyclerView recyclerView) {
