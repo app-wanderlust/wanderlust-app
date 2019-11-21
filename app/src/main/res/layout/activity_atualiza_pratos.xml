@@ -48,35 +48,43 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@id/formulario_prato_descricao"
         app:layout_constraintTop_toBottomOf="@id/formulario_prato_descricao"
-        app:layout_constraintVertical_bias="0.784"
-        app:srcCompat="@drawable/app_logo" />
+        app:layout_constraintVertical_bias="0.22000003"
+        app:srcCompat="@drawable/cam_ico" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:background="@layout/rounded_border_button"
         android:text="ABRIR GALERIA"
+        android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/formulario_prato_descricao"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="@id/formulario_prato_descricao"
         app:layout_constraintTop_toBottomOf="@id/formulario_prato_descricao"
-        app:layout_constraintVertical_bias="0.103"
+        app:layout_constraintVertical_bias="0.8"
         app:srcCompat="@drawable/app_logo" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@layout/rounded_border_button"
         android:text="Abrir Câmera"
-        tools:layout_editor_absoluteX="273dp"
-        tools:layout_editor_absoluteY="274dp"
+        android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/formulario_prato_descricao"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="@id/formulario_prato_descricao"
         app:layout_constraintTop_toBottomOf="@id/formulario_prato_descricao"
-        app:layout_constraintVertical_bias="0.103"
-        app:srcCompat="@drawable/app_logo"/>
+        app:layout_constraintVertical_bias="0.8"
+        app:srcCompat="@drawable/app_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

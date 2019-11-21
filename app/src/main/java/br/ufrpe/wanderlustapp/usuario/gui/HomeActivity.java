@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,7 +37,8 @@ public class HomeActivity extends AppCompatActivity {
     PessoaPratoServices pessoaPratoServices;
     PessoaPrato pessoaPrato = new PessoaPrato();
     private ListaPratosRecomendadosAdapter adapter;
-    private Usuario usuario  = Sessao.instance.getUsuario();
+    private TextView textoExibicao;
+    private Usuario usuario;
     private Recomendacao recomendacao;
     RecyclerView recyclerView;
     ArrayList<String> Tela;
@@ -51,7 +53,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        usuario  = Sessao.instance.getUsuario();
+        String nomeUsuario = usuario.getPessoa().getNome();
+        textoExibicao = findViewById(R.id.textView);
+        textoExibicao.setText("Olá, "+nomeUsuario+"!");
         pratoTipicoServices = new PratoTipicoServices(this);
         pessoaPratoServices = new PessoaPratoServices(this);
         recomendacao = new Recomendacao(this);
