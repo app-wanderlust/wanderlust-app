@@ -28,7 +28,7 @@ public class Recomendacao {
     public Recomendacao(){
         listaPratos = pratoTipicoDAO.getListPrato();
         usersMatrix = criaMatrizUsuario();
-        //predicao = SlopeOne.slopeOne(usersMatrix, listaPratos);
+        predicao = SlopeOne.slopeOne(usersMatrix, listaPratos);
         listaPratosRecomendados = getOrderList(getRecomendacao());
     }
 
