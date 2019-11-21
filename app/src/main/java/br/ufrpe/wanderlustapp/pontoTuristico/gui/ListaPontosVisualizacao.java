@@ -11,14 +11,14 @@ import java.util.List;
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
-import br.ufrpe.wanderlustapp.pontoTuristico.gui.adapter.ListaPontosAvaliacaoAdapter;
+import br.ufrpe.wanderlustapp.pontoTuristico.gui.adapter.ListaPontosVisualizacaoAdapter;
 import br.ufrpe.wanderlustapp.pontoTuristico.negocio.PontoTuristicoServices;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 
-public class ListaPontosAvaliacao extends AppCompatActivity {
+public class ListaPontosVisualizacao extends AppCompatActivity {
 
     PontoTuristicoServices pontoTuristicoServices = new PontoTuristicoServices(this);
-    private ListaPontosAvaliacaoAdapter adapter;
+    private ListaPontosVisualizacaoAdapter adapter;
     private Usuario usuario  = Sessao.instance.getUsuario();
 
     @Override
@@ -35,7 +35,7 @@ public class ListaPontosAvaliacao extends AppCompatActivity {
             @Override
             public void onItemClick(PontoTuristico pontoTuristico, int posicao) {
                 Sessao.instance.setPontoTuristico(pontoTuristico);
-                startActivity(new Intent(ListaPontosAvaliacao.this, DetalhesPontoActivity.class));
+                startActivity(new Intent(ListaPontosVisualizacao.this, DetalhesPontoActivity.class));
             }
 
             @Override
@@ -51,7 +51,7 @@ public class ListaPontosAvaliacao extends AppCompatActivity {
     }
 
     private void setAdapterAvaliacao(RecyclerView recyclerView) {
-        adapter = new ListaPontosAvaliacaoAdapter(this,geraListaFavoritos());
+        adapter = new ListaPontosVisualizacaoAdapter(this,geraListaFavoritos());
         recyclerView.setAdapter(adapter);
 
     }

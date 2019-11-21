@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
 import br.ufrpe.wanderlustapp.pontoTuristico.gui.ListaPontosActivity;
-import br.ufrpe.wanderlustapp.pontoTuristico.gui.ListaPontosAvaliacao;
+import br.ufrpe.wanderlustapp.pontoTuristico.gui.ListaPontosVisualizacao;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosActivity;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosAvaliacao;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosFavoritos;
@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         else if(RecyclerViewItemPosition == 2){
             Intent iniciarPontosTuristicos =
-                    new Intent(HomeActivity.this, ListaPontosAvaliacao.class);
+                    new Intent(HomeActivity.this, ListaPontosVisualizacao.class);
             startActivity(iniciarPontosTuristicos);
         }
         else if(RecyclerViewItemPosition == 3){

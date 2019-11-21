@@ -21,7 +21,7 @@ import br.ufrpe.wanderlustapp.pontoImagem.negocio.PontoImagemServices;
 import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
 import br.ufrpe.wanderlustapp.pontoTuristico.gui.OnItemClickListener;
 
-public class ListaPontosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPontosAvaliacaoAdapter.PontoViewHolder> {
+public class ListaPontosVisualizacaoAdapter extends RecyclerView.Adapter<ListaPontosVisualizacaoAdapter.PontoViewHolder> {
 
     private final Context context;
     private final List<PontoTuristico> pontosAvaliacao;
@@ -29,7 +29,7 @@ public class ListaPontosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPonto
     private List<Bitmap> listaDeImagens = new ArrayList<>();
     private PontoImagemServices pontoImagemServices;
 
-    public ListaPontosAvaliacaoAdapter(Context context, List<PontoTuristico> pontos) {
+    public ListaPontosVisualizacaoAdapter(Context context, List<PontoTuristico> pontos) {
         this.context = context;
         this.pontosAvaliacao = pontos;
         pontoImagemServices = new PontoImagemServices(this.context);
@@ -40,7 +40,7 @@ public class ListaPontosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPonto
 
     @NonNull
     @Override
-    public ListaPontosAvaliacaoAdapter.PontoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListaPontosVisualizacaoAdapter.PontoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View viewCriada = LayoutInflater.from(context)
                 .inflate(R.layout.item_ponto_avaliacao,parent,false);
         return new PontoViewHolder(viewCriada);
