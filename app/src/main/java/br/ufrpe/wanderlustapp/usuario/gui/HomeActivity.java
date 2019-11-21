@@ -8,16 +8,31 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.widget.Toast;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
+import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
+import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
+import br.ufrpe.wanderlustapp.pratoTipico.gui.DetalhesPratoActivity;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosActivity;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosAvaliacao;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosFavoritos;
+import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
+import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListaPratosAvaliacaoAdapter;
+import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 
 public class HomeActivity extends AppCompatActivity {
-    private Usuario usuario = Sessao.instance.getUsuario();
+    PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
+    PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(this);
+    PessoaPrato pessoaPrato = new PessoaPrato();
+    private ListaPratosAvaliacaoAdapter adapter;
+    private Usuario usuario  = Sessao.instance.getUsuario();
     RecyclerView recyclerView;
     ArrayList<String> Tela;
     RecyclerView.LayoutManager RecyclerViewLayoutManager;
@@ -31,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        configuraRecyclerviewSlopeOne();
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview1);
         RecyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(RecyclerViewLayoutManager);
@@ -65,6 +81,11 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+    protected void onResume() {
+        super.onResume();
+        Sessao.instance.resetPrato();
+        Sessao.instance.resetImagem();
+    }
 
     private void defineIntent() {
         if(RecyclerViewItemPosition == 0){
@@ -92,6 +113,98 @@ public class HomeActivity extends AppCompatActivity {
         }
 
     }
+
+    private void configuraRecyclerviewSlopeOne() {
+        RecyclerView listaPratosAvaliacao = findViewById(R.id.lista_imagens_recyclerview);
+        setAdapterAvaliacao(listaPratosAvaliacao);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(PratoTipico pratoTipico, int posicao) {
+                Sessao.instance.setPratoTipico(pratoTipico);
+                startActivity(new Intent(HomeActivity.this, DetalhesPratoActivity.class));
+            }
+
+            @Override
+            public void onItemClick(PratoTipico pratoTipico, int posicao, boolean isChecked) {
+            }
+
+            @Override
+            public void onItemClick(PratoTipico pratoTipico, int posicao, boolean like, boolean dislike) {
+                if (like){
+                    likePessoaPrato(pratoTipico);
+                }else if(dislike){
+                    dislikePessoaPrato(pratoTipico);
+                }else if(!like && !dislike){
+                    zeraNota(pratoTipico);
+                }
+            }
+        });
+    }
+
+    private PessoaPrato getPessoaPrato(PratoTipico pratoTipico){
+        pessoaPrato = pessoaPratoServices.getPessoaPrato(usuario.getPessoa().getId(), pratoTipico.getId());
+        if (pessoaPrato == null){
+            pessoaPrato = new PessoaPrato();
+            pessoaPrato.setPratoTipico(pratoTipico);
+            pessoaPrato.setPessoa(usuario.getPessoa());
+        }
+        return pessoaPrato;
+    }
+
+    private void likePessoaPrato(PratoTipico prato) {
+        pessoaPrato = getPessoaPrato(prato);
+        pessoaPrato.setNota(1);
+        try {
+            if (pessoaPrato.getId() == 0) {
+                pessoaPratoServices.cadastrar(pessoaPrato);
+                Toast.makeText(HomeActivity.this, "Você curtiu: " + prato.getNome(), Toast.LENGTH_LONG).show();
+            }else {
+                pessoaPratoServices.update(pessoaPrato);
+                Toast.makeText(HomeActivity.this, "Você curtiu2: " + prato.getNome(), Toast.LENGTH_LONG).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void dislikePessoaPrato(PratoTipico prato) {
+        pessoaPrato = getPessoaPrato(prato);
+        pessoaPrato.setNota(-1);
+        try {
+            if (pessoaPrato.getId() == 0) {
+                pessoaPratoServices.cadastrar(pessoaPrato);
+                Toast.makeText(HomeActivity.this, "Você não gostou de: " + prato.getNome(), Toast.LENGTH_LONG).show();
+            }else{
+                pessoaPratoServices.update(pessoaPrato);
+                Toast.makeText(HomeActivity.this, "Você não gostou de2: " + prato.getNome(), Toast.LENGTH_LONG).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+    private  void zeraNota(PratoTipico pratoTipico){
+        pessoaPrato = getPessoaPrato(pratoTipico);
+        pessoaPrato.setNota(0);
+        try {
+            if (pessoaPrato.getId() == 0) {
+                pessoaPratoServices.cadastrar(pessoaPrato);
+            } else {
+                pessoaPratoServices.update(pessoaPrato);
+            }
+        }catch(Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setAdapterAvaliacao(RecyclerView recyclerView) {
+        adapter = new ListaPratosAvaliacaoAdapter(this,geraListaFavoritos());
+        recyclerView.setAdapter(adapter);
+    }
+
+    private List<PratoTipico> geraListaFavoritos(){
+        return pratoTipicoServices.getLista();
+    }
+
 
     public void AddItemsToRecyclerViewArrayList(){
         Tela = new ArrayList<>();
