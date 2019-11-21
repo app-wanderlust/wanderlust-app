@@ -18,6 +18,7 @@
             android:name=".pratoTipico.gui.ListaPratosAvaliacao"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".pratoTipico.gui.CadastraPratosAcitivity" />
+        <activity android:name=".usuario.gui.AlteraPerfilActivity" />
         <activity android:name=".pratoTipico.gui.AtualizaPratosAcitivity" />
         <activity android:name=".pratoTipico.gui.ListaPratosActivity" />
         <activity
