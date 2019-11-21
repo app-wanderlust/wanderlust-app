@@ -20,7 +20,7 @@ public class Recomendacao {
     private UsuarioDAO usuarioDAO = new UsuarioDAO(context);
     private PratoTipicoDAO pratoTipicoDAO = new PratoTipicoDAO(context);
     private PessoaPratoDAO pessoaPratoDAO = new PessoaPratoDAO(context);
-    private Map<Usuario,HashMap<PratoTipico,Float>> usersMatrix;
+    private Map<Usuario,HashMap<PratoTipico,Integer>> usersMatrix;
     private List<PratoTipico> listaPratos;
     private List<PratoTipico> listaPratosRecomendados;
     private Map<Usuario, HashMap<PratoTipico, Float>> predicao;
@@ -28,12 +28,12 @@ public class Recomendacao {
     public Recomendacao(){
         listaPratos = pratoTipicoDAO.getListPrato();
         usersMatrix = criaMatrizUsuario();
-        predicao = SlopeOne.slopeOne(usersMatrix, listaPratos);
+        //predicao = SlopeOne.slopeOne(usersMatrix, listaPratos);
         listaPratosRecomendados = getOrderList(getRecomendacao());
     }
 
-    public Map<Usuario,HashMap<PratoTipico,Float>> criaMatrizUsuario(){
-        Map<Usuario,HashMap<PratoTipico,Float>> matrizUsuario = new HashMap<>();
+    public Map<Usuario,HashMap<PratoTipico,Integer>> criaMatrizUsuario(){
+        Map<Usuario,HashMap<PratoTipico,Integer>> matrizUsuario = new HashMap<>();
         List<Usuario> listaClientes = usuarioDAO.getList();
         for(Usuario usuario: listaClientes){
             matrizUsuario.put(usuario, criaMatrizPratoTipico(usuario.getId()));
@@ -41,15 +41,15 @@ public class Recomendacao {
         return matrizUsuario;
     }
 
-    private HashMap<PratoTipico,Float> criaMatrizPratoTipico(long idPessoa){
-        HashMap<PratoTipico,Float> matrizRestaurante = new HashMap<>();
+    private HashMap<PratoTipico, Integer> criaMatrizPratoTipico(long idPessoa){
+        HashMap<PratoTipico, Integer> matrizPratos = new HashMap<>();
         for(PratoTipico pratoTipico: listaPratos){
-            int matrizPratoTipico = pessoaPratoDAO.getPessoaPrato(idPessoa, pratoTipico.getId()).getNota();
-            if(matrizPratoTipico != -1){
-                matrizRestaurante.put(pratoTipico, matrizPratoTipico);
+            int matrizPessoaPrato = pessoaPratoDAO.getPessoaPrato(idPessoa, pratoTipico.getId()).getNota();
+            if(matrizPessoaPrato != -1){
+                matrizPratos.put(pratoTipico, matrizPessoaPrato);
             }
         }
-        return matrizRestaurante;
+        return matrizPratos;
     }
 
     private List<Avaliacao> getRecomendacao(){
@@ -59,7 +59,7 @@ public class Recomendacao {
         for(Map.Entry r: avaliacoes.entrySet()){
             PratoTipico pratoTipico = (PratoTipico) r.getKey();
             int avaliacao = pessoaPratoDAO.getPessoaPrato(usuario.getId(), pratoTipico.getId()).getNota();
-            Float nota = (Float)r.getValue();
+            int nota = (int)r.getValue();
             if (avaliacao == -1.0f){
                 notasUsuario.add(new Avaliacao(pratoTipico, nota));
             }
@@ -95,9 +95,9 @@ public class Recomendacao {
 
     private class Avaliacao implements Comparable<Avaliacao>{
         private PratoTipico pratoTipico;
-        private Float nota;
+        private int nota;
 
-        public Avaliacao(PratoTipico pratoTipico, Float nota) {
+        public Avaliacao(PratoTipico pratoTipico, int nota) {
             this.pratoTipico = pratoTipico;
             this.nota = nota;
         }
