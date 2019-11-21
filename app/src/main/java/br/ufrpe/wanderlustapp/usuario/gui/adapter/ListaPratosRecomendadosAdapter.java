@@ -44,7 +44,7 @@ public class ListaPratosRecomendadosAdapter extends RecyclerView.Adapter<ListaPr
     @Override
     public ListaPratosRecomendadosAdapter.PratoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View viewCriada = LayoutInflater.from(context)
-                .inflate(R.layout.item_prato_avaliacao,parent,false);
+                .inflate(R.layout.item_prato_slopeone,parent,false);
         return new PratoViewHolder(viewCriada);
     }
 

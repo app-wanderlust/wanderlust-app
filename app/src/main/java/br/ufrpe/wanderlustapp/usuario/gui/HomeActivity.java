@@ -200,6 +200,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setAdapterRecomendados(RecyclerView recyclerView) {
         adapter = new ListaPratosRecomendadosAdapter(this,geraListaFavoritos());
         recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     private List<PratoTipico> geraListaFavoritos(){
