@@ -11,13 +11,14 @@ import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pontoTuristico.gui.adapter.ListaImagensPontoAdapter;
 import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListaImagensAdapter;
 
 
 public class DetalhesPratoActivity extends AppCompatActivity {
-    private ListaImagensAdapter adapterImagem;
+    private ListaImagensPontoAdapter adapterImagem;
     PratoImagemServices pratoImagemServices = new PratoImagemServices(this);
     private TextView nomePrato;
     private PratoTipico pratoTipico;
@@ -42,7 +43,7 @@ public class DetalhesPratoActivity extends AppCompatActivity {
     }
 
     private void setAdapterImagens(RecyclerView listaDeImagens) {
-        adapterImagem = new ListaImagensAdapter(this, geraListaImagens());
+        adapterImagem = new ListaImagensPontoAdapter(this, geraListaImagens());
         listaDeImagens.setAdapter(adapterImagem);
     }
 

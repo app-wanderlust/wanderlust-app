@@ -45,9 +45,9 @@ public class PontoTuristicoDAO  extends AbstractDAO {
         pontoTuristico.setId(Integer.parseInt(cursor.getString(columnIndex)));
         columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_NOME_PONTO);
         pontoTuristico.setNome(cursor.getString(columnIndex));
-        columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_DESCRICAO);
+        columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_DESCRICAO_PONTO);
         pontoTuristico.setDescricao(cursor.getString(columnIndex));
-        columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_FK_CIDADE);
+        columnIndex = cursor.getColumnIndex(DBHelper.CAMPO_FK_CIDADE_PONTO);
         pontoTuristico.setCidade(cidadeDAO.getCidade(cursor.getInt(columnIndex)));
     }
 

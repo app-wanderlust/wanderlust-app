@@ -20,9 +20,8 @@ import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
 import br.ufrpe.wanderlustapp.pontoImagem.negocio.PontoImagemServices;
 import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
 import br.ufrpe.wanderlustapp.pontoTuristico.gui.OnItemClickListener;
-import br.ufrpe.wanderlustapp.pontoTuristico.negocio.PontoTuristicoServices;
 
-public class ListaPontosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPontosAvaliacaoAdapter.PratoViewHolder> {
+public class ListaPontosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPontosAvaliacaoAdapter.PontoViewHolder> {
 
     private final Context context;
     private final List<PontoTuristico> pontosAvaliacao;
@@ -41,14 +40,14 @@ public class ListaPontosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPonto
 
     @NonNull
     @Override
-    public ListaPontosAvaliacaoAdapter.PratoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListaPontosAvaliacaoAdapter.PontoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View viewCriada = LayoutInflater.from(context)
                 .inflate(R.layout.item_ponto_avaliacao,parent,false);
-        return new PratoViewHolder(viewCriada);
+        return new PontoViewHolder(viewCriada);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PratoViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PontoViewHolder holder, int position) {
         PontoTuristico ponto = pontosAvaliacao.get(position);
         holder.vincula(ponto);
     }
@@ -58,14 +57,14 @@ public class ListaPontosAvaliacaoAdapter extends RecyclerView.Adapter<ListaPonto
         return pontosAvaliacao.size();
     }
 
-    class PratoViewHolder extends RecyclerView.ViewHolder {
+    class PontoViewHolder extends RecyclerView.ViewHolder {
         private final TextView titulo;
         private final TextView descricao;
         private final ImageView imagem;
         private PontoTuristico ponto;
         private Pessoa pessoa = Sessao.instance.getUsuario().getPessoa();
 
-        public PratoViewHolder(@NonNull final View itemView) {
+        public PontoViewHolder(@NonNull final View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.item_prato_nome_avaliacao);
             descricao = itemView.findViewById(R.id.item_prato_descricao_avaliacao);

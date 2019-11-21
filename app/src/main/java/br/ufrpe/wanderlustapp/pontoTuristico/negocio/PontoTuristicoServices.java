@@ -10,9 +10,7 @@ import br.ufrpe.wanderlustapp.pontoTuristico.persistencia.PontoTuristicoDAO;
 public class PontoTuristicoServices {
     private PontoTuristicoDAO pontoTuristicoDAO;
 
-    public PontoTuristicoServices(Context context) {
-        pontoTuristicoDAO = new PontoTuristicoDAO(context);
-    }
+    public PontoTuristicoServices(Context context) { pontoTuristicoDAO = new PontoTuristicoDAO(context); }
 
     public void cadastrar(PontoTuristico pontoTuristico) throws Exception {
         if (pontoTuristicoDAO.getPontoTuristicoByNome(pontoTuristico.getNome()) != null){
@@ -26,11 +24,7 @@ public class PontoTuristicoServices {
         return pontoTuristicoDAO.getListPontoTuristico();
     }
 
-    public void update(PontoTuristico pontoTuristico){
-        pontoTuristicoDAO.updatePontoTuristico(pontoTuristico);
-    }
+    public void update(PontoTuristico pontoTuristico){ pontoTuristicoDAO.updatePontoTuristico(pontoTuristico); }
 
-    public void delete(PontoTuristico pontoTuristico) {
-        pontoTuristicoDAO.deletePontoTuristico(pontoTuristico);
-    }
+    public void delete(PontoTuristico pontoTuristico) { pontoTuristicoDAO.deletePontoTuristico(pontoTuristico); }
 }

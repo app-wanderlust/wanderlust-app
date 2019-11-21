@@ -1,7 +1,6 @@
 package br.ufrpe.wanderlustapp.pontoTuristico.dominio;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import br.ufrpe.wanderlustapp.cidade.dominio.Cidade;
 

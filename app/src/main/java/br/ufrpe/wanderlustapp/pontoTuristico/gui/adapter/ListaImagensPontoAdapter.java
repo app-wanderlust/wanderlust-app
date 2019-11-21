@@ -62,6 +62,4 @@ public class ListaImagensPontoAdapter extends RecyclerView.Adapter<ListaImagensP
         }
     }
 
-
-
 }
