@@ -28,6 +28,12 @@ public class ListaPontosVisualizacao extends AppCompatActivity {
         configuraRecyclerviewAvaliacao();
     }
 
+    protected void onResume() {
+        super.onResume();
+        Sessao.instance.resetPonto();
+        Sessao.instance.resetImagem();
+    }
+
     private void configuraRecyclerviewAvaliacao() {
         RecyclerView listaPontosAvaliacao = findViewById(R.id.lista_imagens_recyclerview_ponto);
         setAdapterAvaliacao(listaPontosAvaliacao);
