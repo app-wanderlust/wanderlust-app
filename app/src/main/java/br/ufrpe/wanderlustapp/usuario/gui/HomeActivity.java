@@ -26,12 +26,13 @@ import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListaPratosAvaliacaoAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
+import br.ufrpe.wanderlustapp.usuario.gui.adapter.ListaPratosRecomendadosAdapter;
 
 public class HomeActivity extends AppCompatActivity {
     PratoTipicoServices pratoTipicoServices = new PratoTipicoServices(this);
     PessoaPratoServices pessoaPratoServices = new PessoaPratoServices(this);
     PessoaPrato pessoaPrato = new PessoaPrato();
-    private ListaPratosAvaliacaoAdapter adapter;
+    private ListaPratosRecomendadosAdapter adapter;
     private Usuario usuario  = Sessao.instance.getUsuario();
     RecyclerView recyclerView;
     ArrayList<String> Tela;
@@ -115,8 +116,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void configuraRecyclerviewSlopeOne() {
-        RecyclerView listaPratosAvaliacao = findViewById(R.id.lista_imagens_recyclerview);
-        setAdapterAvaliacao(listaPratosAvaliacao);
+        RecyclerView listaPratosRecomendados = findViewById(R.id.lista_slopeone_recyclerview);
+        setAdapterRecomendados(listaPratosRecomendados);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(PratoTipico pratoTipico, int posicao) {
@@ -196,8 +197,8 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void setAdapterAvaliacao(RecyclerView recyclerView) {
-        adapter = new ListaPratosAvaliacaoAdapter(this,geraListaFavoritos());
+    private void setAdapterRecomendados(RecyclerView recyclerView) {
+        adapter = new ListaPratosRecomendadosAdapter(this,geraListaFavoritos());
         recyclerView.setAdapter(adapter);
     }
 

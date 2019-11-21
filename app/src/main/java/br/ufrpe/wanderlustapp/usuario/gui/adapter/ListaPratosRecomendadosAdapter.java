@@ -24,7 +24,7 @@ import br.ufrpe.wanderlustapp.pratoImagem.negocio.PratoImagemServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
 
-public class ListaPratosRecomendadosAdapter {
+public class ListaPratosRecomendadosAdapter extends RecyclerView.Adapter<ListaPratosRecomendadosAdapter.PratoViewHolder> {
     private final Context context;
     private final List<PratoTipico> pratosAvaliacao;
     private OnItemClickListener onItemClickListener;
@@ -45,11 +45,11 @@ public class ListaPratosRecomendadosAdapter {
     public ListaPratosRecomendadosAdapter.PratoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View viewCriada = LayoutInflater.from(context)
                 .inflate(R.layout.item_prato_avaliacao,parent,false);
-        return new ListaPratosRecomendadosAdapter.PratoViewHolder(viewCriada);
+        return new PratoViewHolder(viewCriada);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListaPratosRecomendadosAdapter.PratoViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PratoViewHolder holder, int position) {
         PratoTipico prato = pratosAvaliacao.get(position);
         holder.vincula(prato);
     }
@@ -73,8 +73,8 @@ public class ListaPratosRecomendadosAdapter {
 
         public PratoViewHolder(@NonNull final View itemView) {
             super(itemView);
-            titulo = itemView.findViewById(R.id.item_prato_nome_avaliacao);
-            descricao = itemView.findViewById(R.id.item_prato_descricao_avaliacao);
+            titulo = itemView.findViewById(R.id.item_prato_nome_slopeone);
+            descricao = itemView.findViewById(R.id.item_prato_descricao_slopeone);
             imagem = itemView.findViewById(R.id.imagem_prato_avaliacao);
             likeButton = itemView.findViewById(R.id.button_favorite);
             dislikeButton = itemView.findViewById(R.id.button_dislike_toggle);

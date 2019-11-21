@@ -16,7 +16,7 @@
         android:textSize="22dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lista_imagens_recyclerview"
+        android:id="@+id/lista_slopeone_recyclerview"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
