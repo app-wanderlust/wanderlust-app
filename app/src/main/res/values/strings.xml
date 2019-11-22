@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Wanderlust</string>
     <string name="app_busca">Buscar prato</string>
+    <string name="lblAcc">Selecione o país:</string>
+    <string name="lblSubAcc">Selecione a cidade:</string>
+    <string-array name="acc_type">
+        <item>Brasil</item>
+    </string-array>
 </resources>

@@ -1,6 +1,5 @@
 package br.ufrpe.wanderlustapp.usuario.gui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,12 +9,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.Toast;
+import android.app.Activity;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
+import br.ufrpe.wanderlustapp.pontoTuristico.gui.ListaPontosActivity;
+import br.ufrpe.wanderlustapp.pontoTuristico.gui.ListaPontosVisualizacao;
 import br.ufrpe.wanderlustapp.infra.recomendacao.Recomendacao;
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
@@ -30,13 +36,14 @@ import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 import br.ufrpe.wanderlustapp.usuario.gui.adapter.ListaPratosRecomendadosAdapter;
 
-public class HomeActivity extends AppCompatActivity {
-
+public class HomeActivity extends Activity implements
+        OnItemSelectedListener{
+    Spinner s1,s2;
     PratoTipicoServices pratoTipicoServices;
     PessoaPratoServices pessoaPratoServices;
     PessoaPrato pessoaPrato = new PessoaPrato();
     private ListaPratosRecomendadosAdapter adapter;
-    private Usuario usuario  = Sessao.instance.getUsuario();
+    private Usuario usuario;
     private Recomendacao recomendacao;
     RecyclerView recyclerView;
     ArrayList<String> Tela;
@@ -51,7 +58,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        s1 = (Spinner)findViewById(R.id.spinner1);
+        s2 = (Spinner)findViewById(R.id.spinner2);
+        s1.setOnItemSelectedListener(this);
+        usuario  = Sessao.instance.getUsuario();
         pratoTipicoServices = new PratoTipicoServices(this);
         pessoaPratoServices = new PessoaPratoServices(this);
         recomendacao = new Recomendacao(this);
@@ -242,5 +252,21 @@ public class HomeActivity extends AppCompatActivity {
         Tela.add("Gerenciar pontos");
         Tela.add("Perfil");
         Tela.add("Sair");
+    }
+
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+                               long arg3) {
+        String sp1= String.valueOf(s1.getSelectedItem());
+        if(sp1.contentEquals("Brasil")) {
+            List<String> list = new ArrayList<String>();
+            list.add("Recife");
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, list);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dataAdapter.notifyDataSetChanged();
+            s2.setAdapter(dataAdapter);
+        }
+    }
+    public void onNothingSelected(AdapterView<?> arg0) {
     }
 }
