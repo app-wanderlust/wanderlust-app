@@ -53,6 +53,9 @@ public class Recomendacao {
                 if(matrizPessoaPrato != -1.0f){
                     matrizPratos.put(pratoTipico, matrizPessoaPrato);
                 }
+            }else{
+                float matrizPessoaPrato = 0;
+                matrizPratos.put(pratoTipico, matrizPessoaPrato);
             }
 
         }
@@ -63,12 +66,12 @@ public class Recomendacao {
         List<Avaliacao> notasUsuario = new ArrayList<>();
         Usuario usuario = findUsuario();
         HashMap<PratoTipico, Float> avaliacoes = predicao.get(usuario);
-        for(Map.Entry r: avaliacoes.entrySet()){
-            PratoTipico pratoTipico = (PratoTipico) r.getKey();
-            if (pessoaPratoDAO.getPessoaPrato(usuario.getId(), pratoTipico.getId())!= null){
+        for(Map.Entry prato: avaliacoes.entrySet()){
+            PratoTipico pratoTipico = (PratoTipico) prato.getKey();
+            if (pessoaPratoDAO.getPessoaPrato(usuario.getPessoa().getId(), pratoTipico.getId()) != null){
                 float avaliacao = pessoaPratoDAO.getPessoaPrato(usuario.getId(), pratoTipico.getId()).getNota();
-                float nota = (float)r.getValue();
-                if (avaliacao == -1.0f){
+                float nota = (float)prato.getValue();
+                if (avaliacao != -1.0f){
                     notasUsuario.add(new Avaliacao(pratoTipico, nota));
                 }
             }
@@ -80,8 +83,8 @@ public class Recomendacao {
     private Usuario findUsuario(){
         Usuario instanceUsuario = Sessao.instance.getUsuario();
         for(Map.Entry e: predicao.entrySet()){
-            Usuario cliente = (Usuario) e.getKey();
-            if(instanceUsuario.getId() == cliente.getId()){
+            Usuario usuario = (Usuario) e.getKey();
+            if(instanceUsuario.getId() == usuario.getId()){
                 return (Usuario) e.getKey();
             }
         }
