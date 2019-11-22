@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class Recomendacao {
         Map<Usuario, Map<String, Float>> dados = getAvaliacoesUsuario(context);
         HashMap<String, Float> avaliacoesUsuario = avaliacaoPorUsuario(usarioLogado, context);
         SlopeOne slopeOne = new SlopeOne(dados);
-        Map<String, Double> predicoes = slopeOne.predict(avaliacoesUsuario);
+        Map<String, Float> predicoes = slopeOne.predict(avaliacoesUsuario);
         return getProfissionaisRecomendadas(predicoes, context);
     }
 
@@ -42,30 +43,32 @@ public class Recomendacao {
             String key = entry.getKey();
             Float value = entry.getValue();
             PratoTipico pratoTipicoAtual = profissionalByID(key, context);
-            pratoTipicoAtual.setAvaliacaoUsuario(value);
-            Double nota = avaliacaoProfissionalUsuario(profissionalAtual, context);
-            if (nota == null && (profissionalAtual.getAvaliacaoUsuario() >= 1.0)) {
-                recomendados.add(profissionalAtual);
+            pratoTipicoAtual.setAvaliacao(value);
+            Float nota = avaliacaoProfissionalUsuario(pratoTipicoAtual, context);
+            if (nota == null && (pratoTipicoAtual.getAvaliacao() >= 1.0)) {
+                recomendados.add(pratoTipicoAtual);
             }
         }
-        Collections.sort(recomendados, new Comparator<Profissional>() {
+        Collections.sort(recomendados, new Comparator<PratoTipico>() {
             @Override
-            public int compare(Profissional v1, Profissional v2) {
-                return v2.getAvaliacaoUsuario().intValue() - v1.getAvaliacaoUsuario().intValue();
+            public int compare(PratoTipico p1, PratoTipico p2) {
+                return p2.getAvaliacao().intValue() - p1.getAvaliacao().intValue();
             }
+
         });
         return recomendados;
     }
 
-    public Double avaliacaoProfissionalUsuario(Profissional profissional, Context context) {
-        Usuario usuario = SessaoUsuario.getUsuario();
-        ProfissionalDAO profissionalDAO = new ProfissionalDAO(context);
-        return profissionalDAO.getNotaProfissional(usuario.getId(), profissional.getId());
+    public Float avaliacaoProfissionalUsuario(PratoTipico pratoTipico, Context context) {
+        Usuario usuario = Sessao.instance.getUsuario();
+        PessoaPratoDAO pessoaPratoDAO = new PessoaPratoDAO(context);
+        float notaPRato = (float)pessoaPratoDAO.getPessoaPrato(usuario.getPessoa().getId(), usuario.getId()).getNota();
+        return notaPRato;
     }
 
     private Map<Usuario, Map<String, Float>> getAvaliacoesUsuario(Context context) {
         UsuarioDAO usuarioDAO = new UsuarioDAO(context);
-        Usuario usuarioLogado = SessaoUsuario.getUsuario();
+        Usuario usuarioLogado = Sessao.instance.getUsuario();
         Map<Usuario, Map<String, Float>> dados = new HashMap<>();
         ArrayList<Usuario> usuarios = usuarioDAO.
         for (Usuario usuario : usuarios) {

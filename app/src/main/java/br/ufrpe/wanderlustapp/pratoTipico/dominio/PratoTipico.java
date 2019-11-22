@@ -10,6 +10,7 @@ public class PratoTipico implements Serializable {
     private String nome;
     private String descricao;
     private Cidade cidade;
+    private Float avaliacao;
 
     public long getId() {
         return id;
@@ -43,4 +44,11 @@ public class PratoTipico implements Serializable {
         this.cidade = cidade;
     }
 
+    public Float getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(Float avaliacao) {
+        this.avaliacao = avaliacao;
+    }
 }
