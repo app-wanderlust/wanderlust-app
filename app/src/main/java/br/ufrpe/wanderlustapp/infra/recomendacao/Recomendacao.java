@@ -50,14 +50,10 @@ public class Recomendacao {
         for(PratoTipico pratoTipico: listaPratos){
             if(pessoaPratoDAO.getPessoaPrato(idPessoa, pratoTipico.getId()) != null){
                 float matrizPessoaPrato = pessoaPratoDAO.getPessoaPrato(idPessoa, pratoTipico.getId()).getNota();
-                if(matrizPessoaPrato != -1.0f){
+                if(matrizPessoaPrato != 0.0f){
                     matrizPratos.put(pratoTipico, matrizPessoaPrato);
                 }
-            }else{
-                float matrizPessoaPrato = 0;
-                matrizPratos.put(pratoTipico, matrizPessoaPrato);
             }
-
         }
         return matrizPratos;
     }
@@ -68,12 +64,9 @@ public class Recomendacao {
         HashMap<PratoTipico, Float> avaliacoes = predicao.get(usuario);
         for(Map.Entry prato: avaliacoes.entrySet()){
             PratoTipico pratoTipico = (PratoTipico) prato.getKey();
-            if (pessoaPratoDAO.getPessoaPrato(usuario.getPessoa().getId(), pratoTipico.getId()) != null){
-                float avaliacao = pessoaPratoDAO.getPessoaPrato(usuario.getId(), pratoTipico.getId()).getNota();
-                float nota = (float)prato.getValue();
-                if (avaliacao != -1.0f){
-                    notasUsuario.add(new Avaliacao(pratoTipico, nota));
-                }
+            float nota = (float)prato.getValue();
+            if (pessoaPratoDAO.getPessoaPrato(usuario.getPessoa().getId(), pratoTipico.getId()) == null){
+                notasUsuario.add(new Avaliacao(pratoTipico, nota));
             }
 
         }
@@ -95,7 +88,7 @@ public class Recomendacao {
         Collections.sort(avaliacao);
         List<PratoTipico> pratos = new ArrayList<>();
         for(Avaliacao a: avaliacao){
-            if(a.nota >= 1.0f){
+            if(a.nota == 1.0f){
                 pratos.add(a.getPratoTipico());
             }
         }
