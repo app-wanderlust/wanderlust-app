@@ -11,18 +11,17 @@
         android:background="#ECECEC">
 
         <ImageView
-            android:id="@+id/imagem_prato_avaliacao"
+            android:id="@+id/imagem_ponto_avaliacao"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_alignParentTop="true"
-            android:scaleType="centerCrop"
-            />
+            android:scaleType="centerCrop"/>
 
         <TextView
-            android:id="@+id/item_prato_nome_avaliacao"
+            android:id="@+id/item_ponto_nome_avaliacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imagem_prato_avaliacao"
+            android:layout_below="@+id/imagem_ponto_avaliacao"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
@@ -31,13 +30,13 @@
             android:text="Nome"
             android:textColor="#471F8F"
             android:textSize="22dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/item_prato_descricao_avaliacao"
+            android:id="@+id/item_ponto_descricao_avaliacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/item_prato_nome_avaliacao"
+            android:layout_below="@+id/item_ponto_nome_avaliacao"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="2dp"
             android:layout_marginRight="8dp"
@@ -52,40 +51,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/fundo_gradiente_insere_nota"
-            app:layout_constraintBottom_toTopOf="@+id/lista_pratos_insere_prato"
+            app:layout_constraintBottom_toTopOf="@+id/lista_pontos_insere_ponto"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-        <ToggleButton
-            android:id="@+id/button_favorite"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="156dp"
-            android:layout_marginLeft="156dp"
-            android:layout_marginTop="152dp"
-            android:background="@drawable/bottom_favorite"
-            android:text=""
-            android:textOff=""
-            android:textOn="" />
-
-        <ToggleButton
-            android:id="@+id/button_dislike_toggle"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="202dp"
-            android:layout_marginLeft="202dp"
-            android:layout_marginTop="152dp"
-            android:background="@drawable/button_dislike"
-            android:text=""
-            android:textOff=""
-            android:textOn="" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2Ponto" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

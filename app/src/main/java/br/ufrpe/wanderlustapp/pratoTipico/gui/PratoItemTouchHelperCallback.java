@@ -32,7 +32,6 @@ class PratoItemTouchHelperCallback extends ItemTouchHelper.Callback {
         return false;
     }
 
-
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         List<PratoTipico> pratos = adapter.getList();

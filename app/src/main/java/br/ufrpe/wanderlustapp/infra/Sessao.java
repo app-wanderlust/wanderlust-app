@@ -3,7 +3,9 @@ package br.ufrpe.wanderlustapp.infra;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.ufrpe.wanderlustapp.pontoTuristico.dominio.PontoTuristico;
 import br.ufrpe.wanderlustapp.pratoImagem.dominio.PratoImagem;
+import br.ufrpe.wanderlustapp.pontoImagem.dominio.PontoImagem;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 
@@ -23,11 +25,21 @@ public class Sessao {
 
     public PratoTipico getPratoTipico(){return (PratoTipico)values.get("sessao.PratoTipico");}
 
+    public void setPontoTuristico(PontoTuristico ponto){setValue("sessao.PontoTuristico", ponto);}
+
+    public PontoTuristico getPontoTuristico(){return (PontoTuristico) values.get("sessao.PontoTuristico");}
+
     public void setPratoImagem(PratoImagem pratoImagem){setValue("sessao.PratoImagem", pratoImagem);}
 
     public PratoImagem getPratoImagem(){return (PratoImagem)values.get("sessao.PratoImagem");}
 
+    public void setPontoImagem(PontoImagem pontoImagem){setValue("sessao.PontoImagem", pontoImagem);}
+
+    public PontoImagem getPontoImagem(){return (PontoImagem)values.get("sessao.PontoImagem");}
+
     public void resetPrato(){setPratoTipico(null);}
+
+    public void resetPonto(){setPontoTuristico(null);}
 
     public void resetImagem(){setPratoImagem(null);}
 

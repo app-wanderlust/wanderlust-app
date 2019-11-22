@@ -11,8 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".pratoTipico.gui.DetalhesPratoActivity"></activity>
-        <activity android:name=".usuario.gui.PerfilActivity"></activity>
+        <activity android:name=".pontoTuristico.gui.DetalhesPontoActivity"></activity>
+        <activity android:name=".pontoTuristico.gui.ListaPontosVisualizacao" />
+        <activity android:name=".pontoTuristico.gui.PontoItemTouchHelperCallback" />
+        <activity android:name=".pontoTuristico.gui.AtualizaPontosActivity" />
+        <activity android:name=".pontoTuristico.gui.CadastraPontosActivity" />
+        <activity android:name=".pontoTuristico.gui.ListaPontosActivity" />
+        <activity android:name=".pratoTipico.gui.DetalhesPratoActivity" />
+        <activity android:name=".usuario.gui.PerfilActivity" />
         <activity android:name=".pratoTipico.gui.ListaPratosFavoritos" />
         <activity
             android:name=".pratoTipico.gui.ListaPratosAvaliacao"
