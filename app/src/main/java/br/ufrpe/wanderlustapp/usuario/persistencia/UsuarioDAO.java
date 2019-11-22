@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.ufrpe.wanderlustapp.infra.persistencia.AbstractDAO;
 import br.ufrpe.wanderlustapp.infra.persistencia.DBHelper;
 import br.ufrpe.wanderlustapp.pessoa.persistencia.PessoaDAO;
@@ -20,6 +23,14 @@ public class  UsuarioDAO extends AbstractDAO {
         helper = new DBHelper(context);
     }
 
+    private Cursor getCursor(List<Usuario> usuarios, String sql) {
+        Cursor cursor = db.rawQuery(sql, new String[]{});
+        while (cursor.moveToNext()){
+            usuarios.add(createUsuario(cursor));
+        }
+        return cursor;
+    }
+
     public Usuario getUsuarioById(long id){
         Usuario result = null;
         db = helper.getReadableDatabase();
@@ -32,6 +43,8 @@ public class  UsuarioDAO extends AbstractDAO {
 
         return result;
     }
+
+
 
     public Usuario getUsuario(String login) {
         Usuario result = null;
@@ -51,6 +64,16 @@ public class  UsuarioDAO extends AbstractDAO {
             result = null;
         }
         return result;
+    }
+
+    public List<Usuario> getList(){
+        List<Usuario> pratos = new ArrayList<Usuario>();
+        db = helper.getReadableDatabase();
+        String sql = "SELECT * FROM " + DBHelper.TABELA_USUARIO;
+        Cursor cursor = getCursor(pratos, sql);
+        cursor.close();
+        db.close();
+        return pratos;
     }
 
     public void updateUsuario(Usuario usuario){
