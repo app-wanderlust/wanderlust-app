@@ -1,2 +1,2 @@
 # wanderlust-app
-https://github.com/maangelos/wanderlust-app/entrega-cadastro
+Entrega individual de cadastro: https://github.com/maangelos/wanderlust-app/entrega-cadastro
