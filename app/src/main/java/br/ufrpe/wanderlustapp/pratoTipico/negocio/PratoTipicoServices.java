@@ -28,7 +28,7 @@ public class PratoTipicoServices {
         }
         long idPrato = pratoTipicoDAO.cadastrar(pratoTipico);
         pratoTipico.setId(idPrato);
-        pessoaPrato.setNota(0);
+        //pessoaPrato.setNota(0);
         pessoaPrato.setPratoTipico(pratoTipico);
         pessoaPrato.setPessoa(Sessao.instance.getUsuario().getPessoa());
         pessoaPratoDAO.cadastrar(pessoaPrato);

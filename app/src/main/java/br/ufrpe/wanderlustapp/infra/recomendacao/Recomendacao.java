@@ -38,9 +38,9 @@ public class Recomendacao {
 
     public Map<Usuario,HashMap<PratoTipico,Float>> criaMatrizUsuario(){
         Map<Usuario,HashMap<PratoTipico,Float>> matrizUsuario = new HashMap<>();
-        List<Usuario> listaClientes = usuarioDAO.getList();
-        for(Usuario usuario: listaClientes){
-            matrizUsuario.put(usuario, criaMatrizPratoTipico(usuario.getId()));
+        List<Usuario> listaUsuario = usuarioDAO.getList();
+        for(Usuario usuario: listaUsuario){
+            matrizUsuario.put(usuario, criaMatrizPratoTipico(usuario.getPessoa().getId()));
         }
         return matrizUsuario;
     }
@@ -50,7 +50,7 @@ public class Recomendacao {
         for(PratoTipico pratoTipico: listaPratos){
             if(pessoaPratoDAO.getPessoaPrato(idPessoa, pratoTipico.getId()) != null){
                 float matrizPessoaPrato = pessoaPratoDAO.getPessoaPrato(idPessoa, pratoTipico.getId()).getNota();
-                if(matrizPessoaPrato != -1){
+                if(matrizPessoaPrato != -1.0f){
                     matrizPratos.put(pratoTipico, matrizPessoaPrato);
                 }
             }
@@ -66,9 +66,9 @@ public class Recomendacao {
         for(Map.Entry r: avaliacoes.entrySet()){
             PratoTipico pratoTipico = (PratoTipico) r.getKey();
             if (pessoaPratoDAO.getPessoaPrato(usuario.getId(), pratoTipico.getId())!= null){
-                int avaliacao = pessoaPratoDAO.getPessoaPrato(usuario.getId(), pratoTipico.getId()).getNota();
+                float avaliacao = pessoaPratoDAO.getPessoaPrato(usuario.getId(), pratoTipico.getId()).getNota();
                 float nota = (float)r.getValue();
-                if (avaliacao == 0.0){
+                if (avaliacao == -1.0f){
                     notasUsuario.add(new Avaliacao(pratoTipico, nota));
                 }
             }
@@ -92,7 +92,7 @@ public class Recomendacao {
         Collections.sort(avaliacao);
         List<PratoTipico> pratos = new ArrayList<>();
         for(Avaliacao a: avaliacao){
-            if(a.nota == 1){
+            if(a.nota >= 1.0f){
                 pratos.add(a.getPratoTipico());
             }
         }
