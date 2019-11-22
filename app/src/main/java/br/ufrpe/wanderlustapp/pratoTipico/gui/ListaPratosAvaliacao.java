@@ -12,7 +12,6 @@ import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
-import br.ufrpe.wanderlustapp.pessoa.dominio.Pessoa;
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
 import br.ufrpe.wanderlustapp.pessoaPrato.persistencia.PessoaPratoDAO;
@@ -75,16 +74,6 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
         });
     }
 
-    /*private PessoaPrato getPessoaPrato(PratoTipico pratoTipico){
-        pessoaPrato = pessoaPratoServices.getPessoaPrato(usuario.getPessoa().getId(), pratoTipico.getId());
-        if (pessoaPrato == null){
-            pessoaPrato = new PessoaPrato();
-            pessoaPrato.setPratoTipico(pratoTipico);
-            pessoaPrato.setPessoa(usuario.getPessoa());
-        }
-        return pessoaPrato;
-    }*/
-
     private void likePessoaPrato(PratoTipico prato) {
         if(pessoaPratoServices.getPessoaPrato(Sessao.instance.getUsuario().getPessoa().getId(),prato.getId()) == null){
             pessoaPrato = new PessoaPrato();
@@ -114,10 +103,7 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
             try {
                 pessoaPratoServices.cadastrar(pessoaPrato);
                 Toast.makeText(this, "Você  não curtiu " + prato.getNome(), Toast.LENGTH_SHORT).show();
-            } catch(Exception e){
-
-            }
-
+            } catch(Exception e){}
         }else{
             PessoaPrato pessoaPratoAtual = pessoaPratoDAO.getPessoaPrato(Sessao.instance.getUsuario().getPessoa().getId(),prato.getId());
             pessoaPratoAtual.setNota(-1);
@@ -131,7 +117,6 @@ public class ListaPratosAvaliacao extends AppCompatActivity {
         PessoaPrato pessoaPratoAtual = pessoaPratoDAO.getPessoaPrato(Sessao.instance.getUsuario().getPessoa().getId(),pratoTipico.getId());
         pessoaPratoAtual.setNota(0);
         pessoaPratoServices.update(pessoaPratoAtual);
-
     }
 
     private void setAdapterAvaliacao(RecyclerView recyclerView) {

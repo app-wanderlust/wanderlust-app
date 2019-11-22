@@ -1,37 +1,36 @@
 package br.ufrpe.wanderlustapp.usuario.gui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.widget.Toast;
-import android.app.Activity;
+import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
-import br.ufrpe.wanderlustapp.pontoTuristico.gui.ListaPontosActivity;
-import br.ufrpe.wanderlustapp.pontoTuristico.gui.ListaPontosVisualizacao;
 import br.ufrpe.wanderlustapp.infra.recomendacao.Recomendacao;
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
+import br.ufrpe.wanderlustapp.pontoTuristico.gui.ListaPontosActivity;
+import br.ufrpe.wanderlustapp.pontoTuristico.gui.ListaPontosVisualizacao;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.DetalhesPratoActivity;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosActivity;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosAvaliacao;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosFavoritos;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.OnItemClickListener;
-import br.ufrpe.wanderlustapp.pratoTipico.gui.adapter.ListaPratosAvaliacaoAdapter;
 import br.ufrpe.wanderlustapp.pratoTipico.negocio.PratoTipicoServices;
 import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 import br.ufrpe.wanderlustapp.usuario.gui.adapter.ListaPratosRecomendadosAdapter;
@@ -245,7 +244,7 @@ public class HomeActivity extends Activity implements
 
     public void AddItemsToRecyclerViewArrayList(){
         Tela = new ArrayList<>();
-        Tela.add("Avaliar prato");
+        Tela.add("Mais pratos");
         Tela.add("Pratos favoritos");
         Tela.add("Pontos Turísticos");
         Tela.add("Gerenciar pratos");
