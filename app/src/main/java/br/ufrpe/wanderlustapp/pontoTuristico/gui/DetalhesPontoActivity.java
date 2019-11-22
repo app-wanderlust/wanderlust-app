@@ -19,12 +19,14 @@ public class DetalhesPontoActivity extends AppCompatActivity {
 
     private ListaImagensPontoAdapter adapterImagem;
     PontoImagemServices pontoImagemServices = new PontoImagemServices(this);
+    public static final String TITULO_APPBAR_LISTA = "Detalhes do ponto";
     private TextView nomePonto;
     private PontoTuristico pontoTuristico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(TITULO_APPBAR_LISTA);
         setContentView(R.layout.activity_detalhes_ponto);
         configuraREcyclerviewImagens();
         pontoTuristico = Sessao.instance.getPontoTuristico();

@@ -18,12 +18,14 @@ import br.ufrpe.wanderlustapp.usuario.dominio.Usuario;
 public class ListaPontosVisualizacao extends AppCompatActivity {
 
     PontoTuristicoServices pontoTuristicoServices = new PontoTuristicoServices(this);
+    public static final String TITULO_APPBAR_LISTA = "Lista de pontos";
     private ListaPontosVisualizacaoAdapter adapter;
     private Usuario usuario  = Sessao.instance.getUsuario();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(TITULO_APPBAR_LISTA);
         setContentView(R.layout.activity_lista_pontos_avaliacao);
         configuraRecyclerviewAvaliacao();
     }

@@ -20,16 +20,13 @@ import java.util.List;
 
 import br.ufrpe.wanderlustapp.R;
 import br.ufrpe.wanderlustapp.infra.Sessao;
-<<<<<<< HEAD
 import br.ufrpe.wanderlustapp.pontoTuristico.gui.ListaPontosActivity;
 import br.ufrpe.wanderlustapp.pontoTuristico.gui.ListaPontosVisualizacao;
-=======
 import br.ufrpe.wanderlustapp.infra.recomendacao.Recomendacao;
 import br.ufrpe.wanderlustapp.pessoaPrato.dominio.PessoaPrato;
 import br.ufrpe.wanderlustapp.pessoaPrato.negocio.PessoaPratoServices;
 import br.ufrpe.wanderlustapp.pratoTipico.dominio.PratoTipico;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.DetalhesPratoActivity;
->>>>>>> organiza-layouts
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosActivity;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosAvaliacao;
 import br.ufrpe.wanderlustapp.pratoTipico.gui.ListaPratosFavoritos;
