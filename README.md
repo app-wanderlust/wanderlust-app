@@ -1,2 +1,4 @@
 # wanderlust-app
-Entrega individual de cadastro: https://github.com/maangelos/wanderlust-app/entrega-cadastro
+Código da entrega individual de cadastro na branch: entrega-cadastro
+
+
